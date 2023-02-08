@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useForm} from "react-hook-form"
 import {useNavigate} from "react-router-dom";
+import { API_URL, doApiMethod, TOKEN_KEY } from '../services/apiServices';
+import { AuthContext } from './adminAuth';
 
 
 const AdminLogin = () => {
 
     const{register , handleSubmit ,  formState: { errors } } = useForm();
     const nav = useNavigate();
+
+    const {admin, setAdmin} = useContext(AuthContext)
   
     const onSub = (bodyData) => {
       console.log(bodyData)
@@ -15,7 +19,13 @@ const AdminLogin = () => {
   
     const doApi = async(bodyData) => {
       try{
-        
+        let url = API_URL+"/users/login";
+        let data = await doApiMethod(url,"POST",bodyData);
+        console.log(data);
+        // save local of token
+        localStorage.setItem(TOKEN_KEY, data.token);
+        setAdmin(true);
+        // navigate to categoriesList.js
         nav("/admin/home")
       }
       catch(err){

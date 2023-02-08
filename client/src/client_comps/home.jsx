@@ -1,8 +1,11 @@
 import React from 'react'
+import ActiveForm from './forms/activeForm'
 
 const Home = () => {
   return (
-    <div>Bne Akiwa</div>
+    <div>
+      <ActiveForm/>
+    </div>
   )
 }
 

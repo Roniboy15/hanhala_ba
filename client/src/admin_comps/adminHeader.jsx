@@ -1,25 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 import useWidth from '../general_comps/useWidth';
+import { TOKEN_KEY } from '../services/apiServices';
+import AdminAuth, { AuthContext } from './adminAuth';
+import logo from '../images/ba_logo.png';
 
 const AdminHeader = () => {
 
     const [collapse, setCollapse] = useState(false);
     const [counter, setCounter] = useState(0);
     const width = useWidth();
+    const nav = useNavigate();
+
+    const {admin, setAdmin} = useContext(AuthContext);
+
+
+    const onLogOut = () => {
+        localStorage.removeItem(TOKEN_KEY);
+        setAdmin(false);
+        nav("/")
+      }
+
+      const home = () => {
+        nav("/")
+      }
 
     useEffect(() => {
-            if (width > 990) setCollapse(true);
-            else if(width < 990 && !collapse){setCollapse(false)}
-            console.log(collapse)
+        if (width > 990) setCollapse(true);
+        else if (width < 990 && !collapse) { setCollapse(false) }
+        console.log(collapse)
+
+        
     }, [width])
 
+
     return (
-        <header className='container-fluid bg-info p-2'>
+        <header className='container-fluid bg-light'>
             <div className="container">
                 <div className="row align-items-center">
-                    <nav className="navbar navbar-expand-lg p-3">
-                        <a className="navbar-brand" href="/admin/home"><h2 className=''>Hanhala</h2></a>
+                    <nav className="navbar navbar-expand-lg">
+                        <img src={logo} alt="ba_logo" className='mx-1' style={{height:"60px"}}/>
+                        <br/>
+                        <a className="navbar-brand"><h2 className=''>Hanhala</h2></a>
                         <button onClick={() => {
                             if (counter == 0) {
                                 setCollapse(true);
@@ -35,7 +58,7 @@ const AdminHeader = () => {
                         </button>
                         <div
                             className={collapse ? 'navbar-collapse' : 'collapse'} id='navbarNav'>
-                            <ul className="navbar-nav">
+                            <ul className="navbar-nav p-3">
                                 <li className="nav-item active">
                                     <Link className='nav-link sr-only' to="/admin/sommermachane">Suma</Link>
                                 </li>
@@ -49,9 +72,14 @@ const AdminHeader = () => {
                                     <Link className='nav-link' to="/admin/sayarim">Sayarim</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link disabled" href="#">Disabled</a>
+                                <button className='btn btn-outline-warning align' onClick={home}>Home</button>
                                 </li>
-                            </ul>
+                                </ul>
+                            {admin? 
+                                    <button onClick={onLogOut} className='btn btn-outline-dark float-end' >Log out</button>
+                                 : <div></div>}
+                                
+
                         </div>
                     </nav>
 
