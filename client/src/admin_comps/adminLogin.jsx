@@ -26,7 +26,7 @@ const AdminLogin = () => {
         localStorage.setItem(TOKEN_KEY, data.token);
         setAdmin(true);
         // navigate to categoriesList.js
-        nav("/admin/home")
+       // nav("/admin/home")
       }
       catch(err){
         console.log(err);

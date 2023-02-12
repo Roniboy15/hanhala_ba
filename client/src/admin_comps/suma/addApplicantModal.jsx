@@ -5,8 +5,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
     name: '',
     age: '',
     phone: '',
-    email: '',
-    priority: 1,
+    email: ''
   });
 
   const handleChange = (event) => {
@@ -23,10 +22,10 @@ const AddApplicantModal = ({ onSave, onClose }) => {
   };
 
   return (
-    <div>
-      <h2>Add Applicant</h2>
+    <div className='mt-3'>
+      <h3>Add Applicant</h3>
       <div>
-        <label htmlFor="name">Name:</label>
+        <label className='w-100' htmlFor="name">Name</label>
         <input
           type="text"
           name="name"
@@ -36,7 +35,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
         />
       </div>
       <div>
-        <label htmlFor="age">Age:</label>
+        <label className='w-100' htmlFor="age">Age</label>
         <input
           type="number"
           name="age"
@@ -46,7 +45,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
         />
       </div>
       <div>
-        <label htmlFor="phone">Phone:</label>
+        <label className='w-100' htmlFor="phone">Phone</label>
         <input
           type="text"
           name="phone"
@@ -56,7 +55,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
         />
       </div>
       <div>
-        <label htmlFor="email">Email:</label>
+        <label className='w-100' htmlFor="email">Email</label>
         <input
           type="email"
           name="email"
@@ -65,8 +64,10 @@ const AddApplicantModal = ({ onSave, onClose }) => {
           onChange={handleChange}
         />
       </div>
-      <button onClick={handleSave}>Save</button>
-      <button onClick={onClose}>Close</button>
+      <div className='p-2'>
+        <button className='btn btn-success m-2' onClick={handleSave}>Save</button>
+        <button className='btn btn-dark m-2' onClick={onClose}>Close</button>
+      </div>
     </div>
   );
 };

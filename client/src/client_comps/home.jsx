@@ -3,7 +3,7 @@ import ActiveForm from './forms/activeForm'
 
 const Home = () => {
   return (
-    <div>
+    <div className='container'>
       <ActiveForm/>
     </div>
   )

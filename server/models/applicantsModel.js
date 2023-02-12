@@ -7,10 +7,6 @@ const applicantSchema = new mongoose.Schema({
     name: String,
     phone: Number,
     email: String,
-    priority: {
-        type: Number,
-        default: 0
-    },
     date_created: {
         type: Date, default: Date.now()
     }
@@ -24,7 +20,6 @@ exports.validateApplicant = (reqBody) => {
         name: Joi.string().min(2).max(40).required(),
         phone: Joi.number().required(),
         email: Joi.string().email().allow(null,""),
-        priority: Joi.number().integer().min(1).max(5)
     })
     return joiSchema.validate(reqBody);
 }

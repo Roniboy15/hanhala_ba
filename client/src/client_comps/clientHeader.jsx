@@ -12,7 +12,7 @@ const ClientHeader = () => {
                     <div className='col row align-items-center justify-content-between'>
                         <ul className='col-auto'>
                             <li><Link to="/">Home</Link></li>
-                            <li><Link to="/admin">Admin</Link></li>
+                            <li><Link to="/admin/home">Admin</Link></li>
                         </ul>
                     </div>
                 </div>

@@ -1,0 +1,10 @@
+table {
+    border-collapse: separate;
+    border-spacing: 0px;
+  }
+
+  @media only screen and (min-width: 400px) {
+    table{
+        border-spacing: 20px
+    }
+  }
