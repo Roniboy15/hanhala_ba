@@ -22,11 +22,12 @@ const AddApplicantModal = ({ onSave, onClose }) => {
   };
 
   return (
-    <div className='mt-3'>
+    <div className='mt-3  p-3'>
       <h3>Add Applicant</h3>
       <div>
         <label className='w-100' htmlFor="name">Name</label>
         <input
+          className='rounded-2'
           type="text"
           name="name"
           id="name"
@@ -37,6 +38,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
       <div>
         <label className='w-100' htmlFor="age">Age</label>
         <input
+          className='rounded-2'
           type="number"
           name="age"
           id="age"
@@ -47,6 +49,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
       <div>
         <label className='w-100' htmlFor="phone">Phone</label>
         <input
+          className='rounded-2'
           type="text"
           name="phone"
           id="phone"
@@ -57,6 +60,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
       <div>
         <label className='w-100' htmlFor="email">Email</label>
         <input
+          className='rounded-2'
           type="email"
           name="email"
           id="email"

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import useWidth from '../general_comps/useWidth';
 import { TOKEN_KEY } from '../services/apiServices';
 import AdminAuth, { AuthContext } from './adminAuth';
-import logo from '../images/ba_logo.png';
+import logo from '../images/ba_logo.png'
 
 const AdminHeader = () => {
 
@@ -13,36 +13,36 @@ const AdminHeader = () => {
     const width = useWidth();
     const nav = useNavigate();
 
-    const {admin, setAdmin} = useContext(AuthContext);
+    const { admin, setAdmin } = useContext(AuthContext);
 
 
     const onLogOut = () => {
         localStorage.removeItem(TOKEN_KEY);
         setAdmin(false);
         nav("/")
-      }
+    }
 
-      const home = () => {
+    const home = () => {
         nav("/")
-      }
+    }
 
     useEffect(() => {
         if (width > 990) setCollapse(true);
         else if (width < 990 && !collapse) { setCollapse(false) }
-        console.log(collapse)
 
-        
+
     }, [width])
 
 
     return (
-        <header className='container-fluid bg-light'>
+        <header className='container-fluid bg-secondary bg-opacity-25 rounded'>
             <div className="container">
                 <div className="row align-items-center">
                     <nav className="navbar navbar-expand-lg">
-                        <img src={logo} alt="ba_logo" className='mx-1' style={{height:"60px"}}/>
-                        <br/>
-                        <a className="navbar-brand"><h2 className=''>Hanhala</h2></a>
+                        <a className="navbar-brand">
+                            <img src={logo} alt="ba_logo" className='mx-1' style={{ height: "60px" }} />
+                            <h2 className='m-2'>Hanhala</h2>
+                        </a>
                         <button onClick={() => {
                             if (counter == 0) {
                                 setCollapse(true);
@@ -72,13 +72,13 @@ const AdminHeader = () => {
                                     <Link className='nav-link' to="/admin/sayarim">Sayarim</Link>
                                 </li>
                                 <li className="nav-item">
-                                <button className='btn btn-outline-warning align' onClick={home}>Home</button>
+                                    <button className='btn btn-outline-warning align' onClick={home}>Home</button>
                                 </li>
-                                </ul>
-                            {admin? 
-                                    <button onClick={onLogOut} className='btn btn-outline-dark float-end' >Log out</button>
-                                 : <div></div>}
-                                
+                            </ul>
+                            {admin ?
+                                <button onClick={onLogOut} className='btn btn-outline-dark float-end' >Log out</button>
+                                : <div></div>}
+
 
                         </div>
                     </nav>

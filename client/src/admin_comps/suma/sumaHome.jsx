@@ -4,6 +4,7 @@ import { API_URL, doApiGet, doApiMethod } from '../../services/apiServices';
 import { AuthContext } from '../adminAuth';
 import AdminLogin from '../adminLogin';
 import ApplicantsSuma from './applicantsSuma'
+import HousesSuma from './housesSuma';
 import SumaSheet from './sumaSheet'
 
 const SumaHome = () => {
@@ -78,6 +79,7 @@ const SumaHome = () => {
           </div>
           <SumaSheet />
           <ApplicantsSuma />
+          <HousesSuma/>
         </div>
         : 
         <div className='container justify-content-center'>

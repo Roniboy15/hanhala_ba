@@ -9,7 +9,7 @@ import AdminAuth from './admin_comps/adminAuth';
 function App() {
   return (
 
-    <div>
+    <div className='m-1 rounded'>
       <BrowserRouter>
         <AdminAuth>
           {/* Routes of header what to show client or admin header. Works like switch case. */}

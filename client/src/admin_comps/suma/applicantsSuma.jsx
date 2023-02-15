@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { API_URL } from "../../services/apiServices";
 import { doApiGet, doApiMethod } from "../../services/apiServices"
 import AddApplicantModal from "./addApplicantModal";
@@ -82,9 +82,14 @@ const ApplicantsSuma = () => {
                 </tbody>
             </table>
             <button className="btn btn-warning m-2" onClick={() => {
-                setAddApplicantModalOpen(true)
+                setTimeout( () => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, 100);
+                setAddApplicantModalOpen(true);
+
             }}>Add Applicant</button>
             {addApplicantModalOpen && (
+
                 <AddApplicantModal onSave={handleAddApplicant} onClose={() => setAddApplicantModalOpen(false)} />
             )}
         </div>

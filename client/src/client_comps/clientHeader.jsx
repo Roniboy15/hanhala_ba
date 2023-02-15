@@ -1,23 +1,62 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import useWindowWidth from '../general_comps/useWidth';
+import logo from '../images/ba_logo.png';
+
 
 const ClientHeader = () => {
+
+    const [collapse, setCollapse] = useState(false);
+    const [counter, setCounter] = useState(0);
+    const width = useWindowWidth();
+    const nav = useNavigate();
+
+
+    useEffect(() => {
+        if (width > 990) setCollapse(true);
+        else if (width < 990 && !collapse) { setCollapse(false) }
+        console.log(collapse)
+    }, [width])
+
+
     return (
-        <header className="container-fluid bg-warning p-2 shadow">
+        <header className='container-fluid bg-secondary bg-opacity-50 rounded'>
             <div className="container">
                 <div className="row align-items-center">
-                    <div className='logo col-auto'>
-                        <h2>Bne Akiwa</h2>
-                    </div>
-                    <div className='col row align-items-center justify-content-between'>
-                        <ul className='col-auto'>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/admin/home">Admin</Link></li>
-                        </ul>
-                    </div>
+                    <nav className="navbar navbar-expand-lg">
+
+                        <a className="navbar-brand p-2">
+                            <img src={logo} alt="ba_logo" className='mx-1' style={{ height: "60px" }} />
+                            <h2 className='m-2'>Bne Akiwa Schweiz</h2>
+                        </a>
+                        <button onClick={() => {
+                            if (counter == 0) {
+                                setCollapse(true);
+                                setCounter(1);
+                            }
+                            else {
+                                setCollapse(false)
+                                setCounter(0)
+                            }
+                        }} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div
+                            className={collapse ? 'navbar-collapse' : 'collapse'} id='navbarNav'>
+                            <ul className="navbar-nav p-3">
+                                <li className="nav-item">
+                                    <Link className='nav-link' to="/admin/sommermachane">Admin</Link>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </nav>
+
                 </div>
             </div>
-        </header>)
+        </header>
+    )
 }
 
 export default ClientHeader
