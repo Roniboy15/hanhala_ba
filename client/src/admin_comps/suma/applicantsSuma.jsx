@@ -78,15 +78,15 @@ const ApplicantsSuma = () => {
                             </td>
                         </tr>
                     ))}
-                   
+
                 </tbody>
             </table>
             <button className="btn btn-warning m-2" onClick={() => {
-                        setAddApplicantModalOpen(true)
-                    }}>Add Applicant</button>
-                    {addApplicantModalOpen && (
-                        <AddApplicantModal onSave={handleAddApplicant} onClose={() => setAddApplicantModalOpen(false)} />
-                    )}
+                setAddApplicantModalOpen(true)
+            }}>Add Applicant</button>
+            {addApplicantModalOpen && (
+                <AddApplicantModal onSave={handleAddApplicant} onClose={() => setAddApplicantModalOpen(false)} />
+            )}
         </div>
     );
 };
