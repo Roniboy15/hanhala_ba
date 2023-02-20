@@ -19,7 +19,20 @@ exports.validateApplicant = (reqBody) => {
         age: Joi.number().required(),
         name: Joi.string().min(2).max(40).required(),
         phone: Joi.number().required(),
-        email: Joi.string().email().allow(null,""),
+        email: Joi.string().email().allow(null, ""),
     })
     return joiSchema.validate(reqBody);
+}
+
+exports.validateApplicantsList = (applicantsList) => {
+    const applicantSchema = Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        phone: Joi.string().required(),
+        // other validation rules for applicant properties
+    });
+
+    const applicantsListSchema = Joi.array().items(applicantSchema).required();
+
+    return applicantsListSchema.validate(applicantsList);
 }

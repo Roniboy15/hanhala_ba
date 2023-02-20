@@ -1,9 +1,9 @@
-import AdminLogin from "../admin_comps/adminLogin"
-import AdminHome from "../admin_comps/home"
-import Home from "../client_comps/home"
+import AdminLogin from "../components/admin_comps/adminLogin"
+import AdminHome from "../components/admin_comps/home"
+import Home from "../components/client_comps/home"
 import React from "react"
 import { Route } from "react-router-dom"
-import SumaHome from "../admin_comps/suma/sumaHome"
+import SumaHome from "../components/admin_comps/suma/sumaHome"
 
 export const clientRoutes = () => {
     return(

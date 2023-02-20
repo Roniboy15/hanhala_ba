@@ -2,6 +2,7 @@ const indexR = require("./index");
 const usersR = require("./users");
 const applicantsR = require("./applicants");
 const datenR = require("./daten");
+const housesR = require("./houses");
 
 
 exports.routesInit = (app) => {
@@ -9,6 +10,7 @@ exports.routesInit = (app) => {
   app.use("/users",usersR);
   app.use("/applicants",applicantsR);
   app.use("/daten", datenR);
+  app.use("/houses", housesR);
 
 
 // כל ראוט אחר שנגיע שלא קיים בתקיית פאליק או כראוט

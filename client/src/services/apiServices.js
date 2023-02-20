@@ -28,6 +28,7 @@ export const doApiGet = async(_url) => {
 
 // For Delete , put , post , patch
 export const doApiMethod = async(_url,_method,_body = {}) => {
+  console.log(_body)
   try{
     let resp = await axios({
       url:_url,

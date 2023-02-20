@@ -8,3 +8,7 @@ table {
         border-spacing: 20px
     }
   }
+
+  .HouseList {
+    overflow-x: scroll;
+  }

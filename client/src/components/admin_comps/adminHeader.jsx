@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import useWidth from '../general_comps/useWidth';
-import { TOKEN_KEY } from '../services/apiServices';
+import useWindowWidth from '../../general_comps/useWidth';
+import { TOKEN_KEY } from '../../services/apiServices';
 import AdminAuth, { AuthContext } from './adminAuth';
-import logo from '../images/ba_logo.png'
+import logo from '../../images/ba_logo.png'
 
 const AdminHeader = () => {
 
     const [collapse, setCollapse] = useState(false);
     const [counter, setCounter] = useState(0);
-    const width = useWidth();
+    const width = useWindowWidth();
     const nav = useNavigate();
 
     const { admin, setAdmin } = useContext(AuthContext);

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { API_URL } from "../../services/apiServices";
-import { doApiGet, doApiMethod } from "../../services/apiServices"
+import { API_URL } from "../../../services/apiServices";
+import { doApiGet, doApiMethod } from "../../../services/apiServices";
 import AddApplicantModal from "./addApplicantModal";
 import './sumaCSS/sumaHome.css'
+
+
 
 const ApplicantsSuma = () => {
     const [applicants, setApplicants] = useState([]);
@@ -39,6 +41,16 @@ const ApplicantsSuma = () => {
         }
 
         setApplicants(updatedApplicants);
+
+        try {
+            const newOrder = updatedApplicants;
+            const data = await doApiMethod(API_URL +'/applicants/update', "PUT", newOrder);
+            console.log(data);
+        }
+
+        catch (err) {
+            console.error(err);
+        }
     };
 
     const handleAddApplicant = async (newApplicant) => {
@@ -82,7 +94,7 @@ const ApplicantsSuma = () => {
                 </tbody>
             </table>
             <button className="btn btn-warning m-2" onClick={() => {
-                setTimeout( () => {
+                setTimeout(() => {
                     window.scrollTo(0, document.body.scrollHeight);
                 }, 100);
                 setAddApplicantModalOpen(true);
