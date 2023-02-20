@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const API_URL = "https://hanhala-ch.onrender.com";
+export const API_URL = "https://hanhala-ch-server.onrender.com";
 // export const API_URL = "http://blalba.cyclic.com";
 
 export const TOKEN_KEY = "ba_tok";
