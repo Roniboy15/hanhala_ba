@@ -10,6 +10,7 @@ const ApplicantsSuma = () => {
     const [applicants, setApplicants] = useState([]);
     const [addApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
 
+
     const fetchApplicants = async () => {
         const data = await doApiGet(API_URL + '/applicants/allApplicants');
         console.log(data)
@@ -30,6 +31,7 @@ const ApplicantsSuma = () => {
         const updatedApplicants = [...applicants];
         const currentIndex = updatedApplicants.findIndex((applicant) => applicant._id === applicantId);
 
+
         if (direction === "up" && currentIndex > 0) {
             const tempApplicant = updatedApplicants[currentIndex];
             updatedApplicants[currentIndex] = updatedApplicants[currentIndex - 1];
@@ -41,16 +43,15 @@ const ApplicantsSuma = () => {
         }
 
         setApplicants(updatedApplicants);
-
-        try {
-            const newOrder = updatedApplicants;
-            const data = await doApiMethod(API_URL +'/applicants/update', "PUT", newOrder);
-            console.log(data);
-        }
-
-        catch (err) {
-            console.error(err);
-        }
+        // const newPriority = direction === "up" ? priority - 1 : priority + 1;
+        // const data = { ...applicant, priority: newPriority };
+        // try {
+        //     let newOrder = updatedApplicants.map((applicant, index) => ({ ...applicant, priority: index }));
+        //     await doApiMethod(API_URL +'/applicants/update', "PUT", newOrder);
+        // }
+        // catch (err) {
+        //     console.error(err);
+        // }
     };
 
     const handleAddApplicant = async (newApplicant) => {
