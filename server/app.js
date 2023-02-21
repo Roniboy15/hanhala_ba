@@ -16,8 +16,13 @@ app.use(fileUpload({
 // מגדיר לשרת שהוא יכול לקבל מידע מסוג ג'ייסון בבאדי בבקשות שהם לא גט
 app.use(express.json());
 
-// דואג שתקיית פאבליק כל הקבצים בה יהיו חשופים לצד לקוח
-app.use(express.static(path.join(__dirname,"public")));
+// Serve static files from the build folder
+app.use(express.static(path.join(__dirname,"public/build")));
+
+// Catch-all route to serve the index.html file
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'build', 'index.html'));
+});
 
 // פונקציה שמגדירה את כל הראוטים הזמנים באפליקציית
 // צד שרת שלנו
