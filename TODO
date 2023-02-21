@@ -1,0 +1,10 @@
+General
+-Look that routing is working, that app is not crashing when reloading the page
+
+Client
+-Look that data is not loaded before login of admin!
+-Add House, edit house
+-Edit Applicant
+-User Interface
+
+Server
