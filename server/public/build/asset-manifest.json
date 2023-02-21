@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.39b075cb.css",
-    "main.js": "/static/js/main.c9633154.js",
+    "main.js": "/static/js/main.8b74b904.js",
     "static/js/787.b376147e.chunk.js": "/static/js/787.b376147e.chunk.js",
     "static/media/ba_logo.png": "/static/media/ba_logo.f3923015bab6301d4fa8.png",
     "index.html": "/index.html",
     "main.39b075cb.css.map": "/static/css/main.39b075cb.css.map",
-    "main.c9633154.js.map": "/static/js/main.c9633154.js.map",
+    "main.8b74b904.js.map": "/static/js/main.8b74b904.js.map",
     "787.b376147e.chunk.js.map": "/static/js/787.b376147e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.39b075cb.css",
-    "static/js/main.c9633154.js"
+    "static/js/main.8b74b904.js"
   ]
 }
