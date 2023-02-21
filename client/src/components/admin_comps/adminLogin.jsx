@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import {useForm} from "react-hook-form"
 import {useNavigate} from "react-router-dom";
+import { AuthContext } from '../../context/Context';
 import { API_URL, doApiMethod, TOKEN_KEY } from '../../services/apiServices'
-import { AuthContext } from './adminAuth';
 
 
 const AdminLogin = () => {

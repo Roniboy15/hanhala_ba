@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Context';
 import { API_URL, doApiGet } from '../../services/apiServices';
 
-export const AuthContext = React.createContext(false);
 
 const AdminAuth = ({children}) => {
 

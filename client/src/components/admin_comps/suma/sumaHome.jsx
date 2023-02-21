@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/Context';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices';
-import { AuthContext } from '../adminAuth';
 import AdminLogin from '../adminLogin';
 import ApplicantsSuma from './applicantsSuma'
 import HousesSuma from './housesSuma';
