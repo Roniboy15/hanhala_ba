@@ -12,14 +12,18 @@ const ApplicantsSuma = () => {
 
 
     const fetchApplicants = async () => {
-        const data = await doApiGet(API_URL + '/applicants/allApplicants');
-        console.log(data)
-        setApplicants(data);
+        try {
+            const data = await doApiGet(API_URL + '/applicants/allApplicants');
+            console.log(data)
+            setApplicants(data);
+        }
+        catch (err) {
+            console.log("applicants", err);
+        }
+
     };
 
-    useEffect(() => {
-        fetchApplicants();
-    }, []);
+
 
     const deleteApplicant = async (applicantId) => {
         await doApiMethod(API_URL + "/applicants/" + applicantId, "DELETE");
@@ -60,6 +64,10 @@ const ApplicantsSuma = () => {
         setApplicants([...applicants, data]);
         setAddApplicantModalOpen(false);
     };
+
+    useEffect(() => {
+        fetchApplicants();
+    }, []);
 
     return (
         <div className='col-11 col-md-10 p-2 mt-2 bg-dark-subtle bg-opacity-25 rounded'>

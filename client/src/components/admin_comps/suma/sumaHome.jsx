@@ -24,19 +24,25 @@ const SumaHome = () => {
   }, [admin]);
 
   const getDates = async () => {
-    let date = await doApiGet(API_URL + "/daten/" + "suma")
-    console.log(date)
-    if (date.length > 0) {
-      setDateButton("Change")
-      setDateMessage("Daten Suma: ")
+    try {
+      let date = await doApiGet(API_URL + "/daten/" + "suma")
       console.log(date)
-      setDateSuma(date[0]);
-      setID(date[0]._id);
+      if (date.length > 0) {
+        setDateButton("Change")
+        setDateMessage("Daten Suma: ")
+        console.log(date)
+        setDateSuma(date[0]);
+        setID(date[0]._id);
+      }
+      else {
+        setDateMessage("Gib bitte sofort dDate i: ")
+        setDateButton("Confirm");
+      }
     }
-    else {
-      setDateMessage("Gib bitte sofort dDate i: ")
-      setDateButton("Confirm");
+    catch (err) {
+      console.log("applicants", err)
     }
+
   }
 
   const changeDate = async (_changedDate) => {
@@ -61,9 +67,14 @@ const SumaHome = () => {
     }
     console.log(newObject)
 
+    try {
+      await doApiMethod(url, method, newObject)
+      getDates();
+    }
+    catch (err) {
+      console.log("applicants", err)
+    }
 
-    await doApiMethod(url, method, newObject)
-    getDates();
   }
 
   return (

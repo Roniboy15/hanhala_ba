@@ -3,7 +3,7 @@ const path = require("path");
 const http = require("http");
 const cors = require("cors");
 
-const {routesInit} = require("./routes/configRoutes");
+const { routesInit } = require("./routes/configRoutes");
 const fileUpload = require("express-fileupload");
 require("./db/mongoConnect")
 
@@ -11,22 +11,25 @@ const app = express();
 // מאפשר גם לדומיין שלא קשור לשרת לבצע בקשה 
 app.use(cors());
 app.use(fileUpload({
-    limits: {fileSize: 1024 * 1024 * 5}
+    limits: { fileSize: 1024 * 1024 * 5 }
 }))
 // מגדיר לשרת שהוא יכול לקבל מידע מסוג ג'ייסון בבאדי בבקשות שהם לא גט
 app.use(express.json());
 
 // Serve static files from the build folder
-app.use(express.static(path.join(__dirname,"public/build")));
+app.use(express.static(path.join(__dirname, "public/build")));
 
 // Catch-all route to serve the index.html file
+routesInit(app);
+
 app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'build', 'index.html'));
+  const filePath = path.join(__dirname, 'public','build', 'index.html');
+  res.sendFile(filePath);
 });
+
 
 // פונקציה שמגדירה את כל הראוטים הזמנים באפליקציית
 // צד שרת שלנו
-routesInit(app);
 
 // הגדרת שרת עם יכולות אפ שמייצג את האקספרס
 const server = http.createServer(app);

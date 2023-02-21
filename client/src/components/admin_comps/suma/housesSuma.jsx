@@ -29,7 +29,7 @@ export default function HousesSuma() {
     let perPage = getQuery.get("perPage") || 5;
     let page = getQuery.get("page") || 1;
 
-    let url = `${API_URL}/houses/all?page=${page}&perPage=${perPage}&machane=suma`;
+    let url = API_URL + `/houses/all?page=${page}&perPage=${perPage}&machane=suma`;
 
     try {
       let data = await doApiGet(url);
@@ -38,8 +38,7 @@ export default function HousesSuma() {
       setLoading(false)
     }
     catch (err) {
-      console.log(err)
-      alert("There problem , come back late")
+      console.log("houses", err)
     }
   }
 
@@ -65,8 +64,8 @@ export default function HousesSuma() {
   return (
     <div className='col-11 col-md-10 p-2 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
       <h3>Suma Hüser</h3>
-      {/* apiPages-> בקשה כדי שיחזיר כמות ומספר עמודים */}
-      <PagesComp apiPages={API_URL + "/houses/count?perPage=5"} linkTo={"/admin/sommermachane?page="} linkCss={"btn btn-warning me-2"} />
+      {/* apiPages-> בקשה כדי שיחזיר כמות ומספר עמודים 
+      <PagesComp apiPages={API_URL + "/houses/count?perPage=5"} linkTo={"/admin/sommermachane?page="} linkCss={"btn btn-warning me-2"} />*/}
       {loading && <h3>Loading...</h3>}
       <div className='HouseList'>
 
