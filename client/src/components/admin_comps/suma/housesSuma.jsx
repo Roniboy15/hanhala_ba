@@ -33,12 +33,12 @@ export default function HousesSuma() {
     
     try {
       let data = await doApiGet(url);
-      console.log(data);
-      setArr(data);
+      console.log("data", data);
+      setArr(data)
       setLoading(false)
     }
     catch (err) {
-      console.log(err)
+      console.log("err",err)
       alert("There problem , come back late")
     }
   }
