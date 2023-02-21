@@ -18,8 +18,10 @@ const SumaHome = () => {
   const inputdate = useRef();
 
   useEffect(() => {
-    getDates();
-  }, []);
+    if (admin) {
+      getDates();
+    }
+  }, [admin]);
 
   const getDates = async () => {
     let date = await doApiGet(API_URL + "/daten/" + "suma")
@@ -79,11 +81,10 @@ const SumaHome = () => {
           </div>
           <SumaSheet />
           <ApplicantsSuma />
-          <HousesSuma/>
+          <HousesSuma />
         </div>
-        : 
+        :
         <div className='container justify-content-center'>
-          {async () => alert("Gang dich go ilogge du Globi")}
           <AdminLogin />
         </div>}
     </div>

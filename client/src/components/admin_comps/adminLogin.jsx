@@ -35,7 +35,7 @@ const AdminLogin = () => {
       
     }
     return (
-        <div className='container'>
+        <div className='container p-3'>
             <h1 className='text-center'>Login to admin</h1>
             <form onSubmit={handleSubmit(onSub)} className='col-md-6 mx-auto p-2'>
                 <label>Email:</label>
