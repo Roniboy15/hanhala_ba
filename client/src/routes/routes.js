@@ -4,6 +4,7 @@ import Home from "../components/client_comps/home"
 import React from "react"
 import { Route } from "react-router-dom"
 import SumaHome from "../components/admin_comps/suma/sumaHome"
+import Forms from "../components/admin_comps/forms"
 
 export const clientRoutes = () => {
   return (
@@ -21,7 +22,7 @@ export const adminRoutes = () => {
       <Route path="/admin/wintermachane" element={<AdminHome />} />
       <Route path="/admin/il-reise" element={<AdminHome />} />
       <Route path="/admin/sayarim" element={<AdminHome />} />
-      <Route path="/admin/forms" element={<AdminHome />} />
+      <Route path="/admin/forms" element={<Forms />} />
     </React.Fragment>
   )
 }
