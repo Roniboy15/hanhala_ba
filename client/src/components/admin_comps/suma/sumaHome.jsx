@@ -67,7 +67,7 @@ const SumaHome = () => {
   }
 
   return (
-    <div className='container'>
+    <div className='container p-1'>
       {admin ?
         <div className='row justify-content-center'>
           <div className='col-11 col-md-12 mt-3'>

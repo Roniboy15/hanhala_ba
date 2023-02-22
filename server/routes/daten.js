@@ -1,4 +1,5 @@
 const express = require("express");
+const { auth } = require("../middlewares/auth");
 const { validateDaten, DatenModel } = require("../models/machanaDaten");
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.get("/:machane", async (req, res) => {
     }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
     let validBody = validateDaten(req.body);
     console.log(validBody)
     if (validBody.error) {
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     let validBody = validateDaten(req.body);
     console.log(validBody)
     if (validBody.error) {

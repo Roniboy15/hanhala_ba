@@ -57,34 +57,38 @@ const AdminHeader = () => {
                         }} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div
-                            className={collapse ? 'navbar-collapse' : 'collapse'} id='navbarNav'>
-                            <ul className="navbar-nav p-3">
-                                <li className="nav-item active">
-                                    <Link className='nav-link sr-only' to="/admin/sommermachane">Suma</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className='nav-link' to="/admin/wintermachane">Wima</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className='nav-link' to="/admin/il-reise">IL Reise</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className='nav-link' to="/admin/sayarim">Sayarim</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className='nav-link' to="/admin/forms">Update Forms</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <button className='btn btn-outline-warning align' onClick={home}>Home</button>
-                                </li>
-                            </ul>
-                            {admin ?
+                        {admin ?
+                            <div
+                                className={collapse ? 'navbar-collapse' : 'collapse'} id='navbarNav'>
+
+                                <ul className="navbar-nav p-3">
+                                    <li className="nav-item">
+                                        <Link className='nav-link' to="/admin/sommermachane">Suma</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className='nav-link' to="/admin/wintermachane">Wima</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className='nav-link' to="/admin/il-reise">IL Reise</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className='nav-link' to="/admin/sayarim">Sayarim</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className='nav-link' to="/admin/forms">Update Forms</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <button className='btn btn-outline-warning align' onClick={home}>Home</button>
+                                    </li>
+                                </ul>
+
                                 <button onClick={onLogOut} className='btn btn-outline-dark float-end' >Log out</button>
-                                : <div></div>}
 
 
-                        </div>
+                            </div>
+                            :
+                            <button className='btn btn-outline-warning align' onClick={home}>Home</button>
+                        }
                     </nav>
 
                 </div>

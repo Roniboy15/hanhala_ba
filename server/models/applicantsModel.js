@@ -7,12 +7,13 @@ const applicantSchema = new mongoose.Schema({
     name: String,
     phone: Number,
     email: String,
+    machane: String,
     date_created: {
         type: Date, default: Date.now()
     }
 })
 
-exports.ApplicantModel = mongoose.model("sumaApplicannts", applicantSchema);
+exports.ApplicantModel = mongoose.model("Applicants", applicantSchema);
 
 exports.validateApplicant = (reqBody) => {
     let joiSchema = Joi.object({
@@ -20,6 +21,7 @@ exports.validateApplicant = (reqBody) => {
         name: Joi.string().min(2).max(40).required(),
         phone: Joi.number().required(),
         email: Joi.string().email().allow(null, ""),
+        machane: Joi.string().required()
     })
     return joiSchema.validate(reqBody);
 }

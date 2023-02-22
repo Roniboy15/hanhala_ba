@@ -5,7 +5,8 @@ const AddApplicantModal = ({ onSave, onClose }) => {
     name: '',
     age: '',
     phone: '',
-    email: ''
+    email: '',
+    machane: 'suma'
   });
 
   const handleChange = (event) => {
@@ -68,6 +69,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
           onChange={handleChange}
         />
       </div>
+      
       <div className='p-2'>
         <button className='btn btn-success m-2' onClick={handleSave}>Save</button>
         <button className='btn btn-dark m-2' onClick={onClose}>Close</button>

@@ -12,7 +12,7 @@ const ApplicantsSuma = () => {
 
 
     const fetchApplicants = async () => {
-        const data = await doApiGet(API_URL + '/applicants/allApplicants');
+        const data = await doApiGet(API_URL + '/applicants/allApplicants/?camp=suma');
         console.log(data)
         setApplicants(data);
     };
@@ -62,9 +62,9 @@ const ApplicantsSuma = () => {
     };
 
     return (
-        <div className='col-11 col-md-10 p-2 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+        <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
 
-            <h3>Konkrete Kandidaten</h3>
+            <h3 className="p-2">Konkrete Kandidaten</h3>
             <table>
                 <thead>
                     <tr>

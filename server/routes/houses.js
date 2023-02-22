@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     res.json({ msg: "Api Work 200 09:20" });
 })
 
-router.get("/count", async(req,res) => {
+router.get("/count", auth, async(req,res) => {
     let perPage = Number(req.query.perPage) || 5;
     let _machane = req.query.machane;
     try{
@@ -29,7 +29,7 @@ router.get("/count", async(req,res) => {
     }
   })
 
-router.get("/all", async (req, res) => {
+router.get("/all", auth, async (req, res) => {
 
     let perPage = Math.min(req.query.perPage, 20) || 5;
     let page = Number(req.query.page) || 1

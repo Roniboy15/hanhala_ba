@@ -1,4 +1,5 @@
 const express = require("express");
+const { auth } = require("../middlewares/auth");
 const router = express.Router();
 const { validateApplicant, Applicantmodel, ApplicantModel, validateApplicantsList } = require("../models/applicantsModel")
 
@@ -6,15 +7,16 @@ router.get("/", async (req, res) => {
   res.json({ msg: "Applicants work" });
 })
 
-router.get("/allApplicants", async (req, res) => {
+router.get("/allApplicants", auth, async (req, res) => {
   let perPage = Number(req.query.perPage) || 20;
   let page = Number(req.query.page) || 1
   let sort = req.query.sort || "_id";
   let reverse = req.query.reverse == "yes" ? 1 : -1;
+  let camp = req.query.camp.toLowerCase();
 
   try {
     let data = await ApplicantModel
-      .find({})
+      .find({machane: {$regex: camp, $options: "i" }})
       .limit(perPage)
       .skip((page - 1) * perPage)
       .sort({ [sort]: reverse })
@@ -26,7 +28,7 @@ router.get("/allApplicants", async (req, res) => {
   }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   let validBody = validateApplicant(req.body);
   console.log(validBody)
   if (validBody.error) {
@@ -46,7 +48,7 @@ router.post("/", async (req, res) => {
   }
 })
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   try {
     let id = req.params.id;
     let validBody = validateApplicant(req.body);
@@ -65,7 +67,7 @@ router.put("/:id", async (req, res) => {
 });
 
 
-router.put("/updateOrder/:id", async (req, res) => {
+router.put("/updateOrder/:id", auth,  async (req, res) => {
   const { id } = req.params;
   const { priority } = req.body;
 
@@ -94,7 +96,7 @@ router.put("/updateOrder/:id", async (req, res) => {
   }
 });
 
-router.delete("/:idDel", async (req, res) => {
+router.delete("/:idDel", auth,  async (req, res) => {
   try {
     let idDel = req.params.idDel;
     let data = await ApplicantModel.deleteOne({ _id: idDel });
