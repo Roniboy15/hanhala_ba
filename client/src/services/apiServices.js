@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const API_URL = "http://localhost:3005";
+export const API_URL = "http://localhost:3006";
 // export const API_URL = "http://blalba.cyclic.com";
 
 export const TOKEN_KEY = "ba_tok";
@@ -28,7 +28,7 @@ export const doApiGet = async(_url) => {
 
 // For Delete , put , post , patch
 export const doApiMethod = async(_url,_method,_body = {}) => {
-  console.log(_body)
+  //console.log(_body)
   try{
     let resp = await axios({
       url:_url,

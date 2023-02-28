@@ -34,7 +34,7 @@ router.get("/all", auth, async (req, res) => {
     let perPage = Math.min(req.query.perPage, 20) || 5;
     let page = Number(req.query.page) || 1
     let sort = req.query.sort || "_id";
-    let reverse = req.query.reverse == "yes" ? 1 : -1;
+    let reverse = req.query.reverse == "yes" ? -1 : 1;
     let _machane = req.query.machane;
 
     try {
@@ -94,6 +94,37 @@ router.put("/edit/:id", auth, async (req, res) => {
         res.status(500).json(err)
     }
 })
+
+router.patch("/position/", auth, async(req,res) => {
+
+  try{
+    const id = req.query._id;
+    const key = req.query.key; // the key to update
+    const position = req.query.position; // the new value for the key
+   
+    const data = await HousesModel.updateOne({_id:id}, {[key]: position});
+    res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
+  router.patch("/interest/", auth, async(req,res) => {
+  
+    try{
+      let id = req.query._id;
+      let interest = req.query.interest;
+     
+      let data = await HousesModel.updateOne({_id:id},{interest})
+      res.json(data);
+    }
+    catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  })
 
 
 router.delete("/delete/:id", auth, async (req, res) => {

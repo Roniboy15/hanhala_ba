@@ -7,11 +7,26 @@ const applicantSchema = new mongoose.Schema({
     name: String,
     phone: Number,
     email: String,
-    machane: String,
+    machane: [String],
+    interest: {type: String, default: 'white'},
+    suma_position: { type: Number, default: 1 },
+    wima_position: { type: Number, default: 1 },
+    sayarim_position: { type: Number, default: 1 },
+    israel_position: { type: Number, default: 1 },
     date_created: {
         type: Date, default: Date.now()
     }
 })
+
+applicantSchema.pre('save', async function(next) {
+    if (this.isNew) {
+      const lastApplicant = await this.constructor.findOne({ machane: { $regex: new RegExp(this.machane, "i") } }, {}, { sort: { position: -1 } });
+      if (lastApplicant) {
+        this.position = lastApplicant.position + 1;
+      }
+    }
+    next();
+  });
 
 exports.ApplicantModel = mongoose.model("Applicants", applicantSchema);
 
@@ -21,7 +36,7 @@ exports.validateApplicant = (reqBody) => {
         name: Joi.string().min(2).max(40).required(),
         phone: Joi.number().required(),
         email: Joi.string().email().allow(null, ""),
-        machane: Joi.string().required()
+        machane: Joi.array().items(Joi.string())
     })
     return joiSchema.validate(reqBody);
 }

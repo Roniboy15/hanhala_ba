@@ -16,7 +16,7 @@ const Forms = () => {
     const getData = async () => {
         try {
             const dataSuma = await doApiGet(`${API_URL}/daten/Suma`);
-            console.log(dataSuma);
+           // console.log(dataSuma);
             setSumaID(dataSuma[0]._id);
 
             const filteredData = {
@@ -30,7 +30,7 @@ const Forms = () => {
             setSuma(filteredData);
 
             const dataWima = await doApiGet(`${API_URL}/daten/Wima`);
-            console.log(dataWima);
+            //console.log(dataWima);
             setWimaID(dataWima[0]._id);
 
             const filteredDataWima = {
@@ -44,7 +44,7 @@ const Forms = () => {
             setWima(filteredDataWima);
 
             const dataSayarim = await doApiGet(`${API_URL}/daten/Sayarim`);
-            console.log(dataSayarim)
+            //console.log(dataSayarim)
             setSayarimID(dataSayarim[0]._id);
 
             const filteredDataSayarim = {
@@ -58,7 +58,7 @@ const Forms = () => {
             setSayarim(filteredDataSayarim);
 
             const dataIsrael = await doApiGet(`${API_URL}/daten/israel`);
-            console.log(dataIsrael);
+           // console.log(dataIsrael);
             setIsraelID(dataIsrael[0]._id);
 
             const filteredDataIsrael = {
@@ -99,7 +99,7 @@ const Forms = () => {
 
         try {
             const data = await doApiMethod(url, 'PUT', newObject);
-            console.log(data);
+           // console.log(data);
             getData();
         } catch (err) {
             console.log(err);

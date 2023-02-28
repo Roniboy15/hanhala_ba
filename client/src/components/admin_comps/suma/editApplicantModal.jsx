@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 
-const AddApplicantModal = ({ onSave, onClose }) => {
+const EditApplicantModal = ({ onSave, onClose, app }) => {
 
   const MACHANE_OPTIONS = ["suma", "wima", "israel", "sayarim"];
 
+
   const [applicant, setApplicant] = useState({
-    name: '',
-    age: '',
-    phone: '',
-    email: '',
-    machane: ['suma']
+    name: app.name,
+    age: app.age,
+    phone: app.phone,
+    email: app.email,
+    machane: app.machane
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let newApplicant = { ...applicant };
-  
+    const newApplicant = { ...applicant, [name]: value };
+
     if (name === "machane") {
       newApplicant.machane = value.split(",").map((s) => s.trim());
       let newErrors = {};
@@ -27,46 +28,40 @@ const AddApplicantModal = ({ onSave, onClose }) => {
     } else {
       newApplicant = { ...newApplicant, [name]: value };
     }
-  
+
     let newErrors = {};
-  
-    if (name === "name") {
+
+    if (name === 'name') {
       if (!value) {
-        newErrors.name = "Name is required";
+        newErrors.name = 'Name is required';
       }
-    } else if (name === "age") {
+    } else if (name === 'age') {
       if (!value) {
-        newErrors.age = "Age is required";
+        newErrors.age = 'Age is required';
       } else if (isNaN(value)) {
-        newErrors.age = "Age must be a number";
+        newErrors.age = 'Age must be a number';
       }
-    } else if (name === "phone") {
+    } else if (name === 'phone') {
       if (!value) {
-        newErrors.phone = "Phone is required";
+        newErrors.phone = 'Phone is required';
       } else if (!/^\d+$/.test(value)) {
-        newErrors.phone = "Phone must be a number";
+        newErrors.phone = 'Phone must be a number';
       }
-    } else if (name === "email") {
+    } else if (name === 'email') {
       if (!value) {
-        newErrors.email = "Email is required";
+        newErrors.email = 'Email is required';
       } else if (!/\S+@\S+\.\S+/.test(value)) {
-        newErrors.email = "Email is invalid";
-      }
-    } else if (name === "machane") {
-      if (!newApplicant.machane.every((s) => MACHANE_OPTIONS.includes(s))) {
-        newErrors.machane = "Please enter valid machane options";
+        newErrors.email = 'Email is invalid';
       }
     }
-  
+
     setApplicant(newApplicant);
     setErrors(newErrors);
   };
-  
-
 
   const handleSave = () => {
     const newErrors = {};
-  
+
     if (!applicant.name) {
       newErrors.name = 'Name is required';
     }
@@ -90,7 +85,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
         }
       }
     }
-  
+
     if (Object.keys(newErrors).length === 0) {
       onSave(applicant);
       onClose();
@@ -98,11 +93,10 @@ const AddApplicantModal = ({ onSave, onClose }) => {
       setErrors(newErrors);
     }
   };
-  
 
   return (
     <div className='mt-3 p-3'>
-      <h3>Add Applicant</h3>
+      <h3>Edit Applicant</h3>
       <div>
         <label className='w-100' htmlFor='name'>
           Name
@@ -159,7 +153,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
 
       </div>
       <div>
-        <label className='w-100' htmlFor="machane">Machane (mit Komma trennen)</label>
+        <label className='w-100' htmlFor="machane">Machane</label>
         <input
           className='rounded-2'
           type="text"
@@ -172,7 +166,6 @@ const AddApplicantModal = ({ onSave, onClose }) => {
 
       </div>
 
-
       <div className='p-2'>
         <button className='btn btn-success m-2' onClick={handleSave}>Save</button>
         <button className='btn btn-dark m-2' onClick={onClose}>Close</button>
@@ -181,4 +174,4 @@ const AddApplicantModal = ({ onSave, onClose }) => {
   );
 };
 
-export default AddApplicantModal;
+export default EditApplicantModal;

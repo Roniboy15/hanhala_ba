@@ -12,3 +12,14 @@ table {
   .HouseList {
     overflow-x: scroll;
   }
+  .applicantsList {
+    overflow-x: scroll;
+  }
+  
+  
+
+ select {
+    appearance: none;
+  }
+
+  

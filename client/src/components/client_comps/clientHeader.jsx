@@ -15,7 +15,6 @@ const ClientHeader = () => {
     useEffect(() => {
         if (width > 990) setCollapse(true);
         else if (width < 990 && !collapse) { setCollapse(false) }
-        console.log(collapse)
     }, [width])
 
 
@@ -26,8 +25,8 @@ const ClientHeader = () => {
                     <nav className="navbar navbar-expand-lg">
 
                         <a className="navbar-brand p-2">
-                            <img src={logo} alt="ba_logo" className='mx-1' style={{ height: "60px" }} />
-                            <h2 className='m-2'>Bne Akiwa Schweiz</h2>
+                            <img src={logo} alt="ba_logo" className='p-1 p-md-0' style={{ height: "60px" }} />
+                           <Link className='text-decoration-none text-dark' to={'/'}><h4 className='p-1 p-md-3'>Bne Akiwa Schweiz</h4></Link> 
                         </a>
                         <button onClick={() => {
                             if (counter == 0) {
@@ -45,8 +44,12 @@ const ClientHeader = () => {
                             className={collapse ? 'navbar-collapse' : 'collapse'} id='navbarNav'>
                             <ul className="navbar-nav p-3">
                                 <li className="nav-item">
+                                    <Link className='nav-link' to="/contact">Contact</Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className='nav-link' to="/admin/sommermachane">Admin</Link>
                                 </li>
+
 
                             </ul>
 

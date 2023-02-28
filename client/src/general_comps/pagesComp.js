@@ -14,7 +14,7 @@ export default function PagesComp(props) {
 
   const doApi = async() => {
     let resp = await doApiGet(props.apiPages);
-    console.log(resp);
+   // console.log(resp);
     setPages(resp.pages);
   }
 

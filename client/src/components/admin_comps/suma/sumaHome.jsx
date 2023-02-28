@@ -25,11 +25,11 @@ const SumaHome = () => {
 
   const getDates = async () => {
     let date = await doApiGet(API_URL + "/daten/" + "suma")
-    console.log(date)
+    //console.log(date)
     if (date.length > 0) {
       setDateButton("Change")
       setDateMessage("Daten Suma: ")
-      console.log(date)
+      //console.log(date)
       setDateSuma(date[0]);
       setID(date[0]._id);
     }

@@ -8,7 +8,7 @@ const SumaSheet = () => {
   const getData = async () => {
     try {
       const data = await doApiGet(`${API_URL}/daten/Suma`);
-      console.log(data);
+     // console.log(data);
 
       const filteredData = {
         spreadLink: data[0].spreadLink,

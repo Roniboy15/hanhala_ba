@@ -13,7 +13,7 @@ const AdminLogin = () => {
     const {admin, setAdmin} = useContext(AuthContext)
   
     const onSub = (bodyData) => {
-      console.log(bodyData)
+     // console.log(bodyData)
       doApi(bodyData);
     }
   
@@ -21,7 +21,7 @@ const AdminLogin = () => {
       try{
         let url = API_URL+"/users/login";
         let data = await doApiMethod(url,"POST",bodyData);
-        console.log(data);
+       // console.log(data);
         // save local of token
         localStorage.setItem(TOKEN_KEY, data.token);
         setAdmin(true);

@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
 router.get("/allApplicants", auth, async (req, res) => {
   let perPage = Number(req.query.perPage) || 20;
   let page = Number(req.query.page) || 1
-  let sort = req.query.sort || "_id";
-  let reverse = req.query.reverse == "yes" ? 1 : -1;
+  let sort = req.query.sort || "suma_position";
+  let reverse = req.query.reverse == "yes" ? -1 : 1;
   let camp = req.query.camp.toLowerCase();
 
   try {
@@ -67,34 +67,36 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 
-router.put("/updateOrder/:id", auth,  async (req, res) => {
-  const { id } = req.params;
-  const { priority } = req.body;
+router.patch("/position/", auth, async(req,res) => {
 
-  try {
-    const applicantToUpdate = await ApplicantModel.findById(id);
-    const oldPriority = applicantToUpdate.priority;
-
-    // Update the priority of the applicant being moved
-    applicantToUpdate.priority = priority;
-    await applicantToUpdate.save();
-
-    // Update the priorities of the other applicants in the list
-    const otherApplicants = await ApplicantModel.find({
-      priority: { $gt: oldPriority },
-    });
-    for (const applicant of otherApplicants) {
-      applicant.priority += 1;
-      await applicant.save();
-    }
-
-    const updatedApplicant = await ApplicantModel.findById(id);
-    res.json(updatedApplicant);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error updating applicant priority" });
+  try{
+    const id = req.query._id;
+    const key = req.query.key; // the key to update
+    const position = req.query.position; // the new value for the key
+   
+    const data = await ApplicantModel.updateOne({_id:id}, {[key]: position});
+    res.json(data);
   }
-});
+  catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
+router.patch("/interest/", auth, async(req,res) => {
+
+  try{
+    let id = req.query._id;
+    let interest = req.query.interest;
+   
+    let data = await ApplicantModel.updateOne({_id:id},{interest})
+    res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 router.delete("/:idDel", auth,  async (req, res) => {
   try {

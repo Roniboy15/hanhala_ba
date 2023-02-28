@@ -5,6 +5,7 @@ import React from "react"
 import { Route } from "react-router-dom"
 import SumaHome from "../components/admin_comps/suma/sumaHome"
 import Forms from "../components/admin_comps/forms"
+import AboutUs from "../components/client_comps/contact"
 
 export const clientRoutes = () => {
   return (
@@ -23,6 +24,7 @@ export const adminRoutes = () => {
       <Route path="/admin/il-reise" element={<AdminHome />} />
       <Route path="/admin/sayarim" element={<AdminHome />} />
       <Route path="/admin/forms" element={<Forms />} />
+      <Route path="/contact" element={<AboutUs/>} />
     </React.Fragment>
   )
 }
