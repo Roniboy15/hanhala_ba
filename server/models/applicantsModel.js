@@ -8,7 +8,7 @@ const applicantSchema = new mongoose.Schema({
     phone: Number,
     email: String,
     machane: [String],
-    interest: {type: String, default: 'white'},
+    interest: {type: String, default: 'green'},
     suma_position: { type: Number, default: 1 },
     wima_position: { type: Number, default: 1 },
     sayarim_position: { type: Number, default: 1 },

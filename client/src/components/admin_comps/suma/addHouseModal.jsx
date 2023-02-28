@@ -34,10 +34,13 @@ const AddHouseModal = ({ onSave, onClose }) => {
         newErrors.name = 'Name is required';
       }
 
-    } else if (!/^\d+$/.test(value)) {
-      newErrors.phone = 'Phone must be a number';
-
     } else if (name === 'email') {
+      if (!/^\d+$/.test(value)) {
+        newErrors.phone = 'Phone must be a number';
+
+      }
+    }
+    else if (name === 'email') {
       if (!value) {
         newErrors.email = 'Email is required';
       } else if (!/\S+@\S+\.\S+/.test(value)) {
@@ -61,7 +64,7 @@ const AddHouseModal = ({ onSave, onClose }) => {
       newErrors.name = 'Name is required';
     }
 
-    
+
     if (!house.machane.length) {
       newErrors.machane = 'Machane required';
     } else {

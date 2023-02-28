@@ -44,7 +44,7 @@ const ClientHeader = () => {
                             className={collapse ? 'navbar-collapse' : 'collapse'} id='navbarNav'>
                             <ul className="navbar-nav p-3">
                                 <li className="nav-item">
-                                    <Link className='nav-link' to="/contact">Contact</Link>
+                                    <Link className='nav-link' to="/contact">About Us</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className='nav-link' to="/admin/sommermachane">Admin</Link>

@@ -6,8 +6,15 @@ import AdminLogin from '../adminLogin';
 import ApplicantsSuma from './applicantsSuma'
 import HousesSuma from './housesSuma';
 import SumaSheet from './sumaSheet'
+import Websites from './websites';
 
 const SumaHome = () => {
+
+  {/*
+  TODO:
+  - List of  website to search Houses
+  -
+*/}
 
   const { admin, setAdmin } = useContext(AuthContext);
   const nav = useNavigate();
@@ -81,6 +88,9 @@ const SumaHome = () => {
           </div>
           <SumaSheet />
           <ApplicantsSuma />
+          <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+            <Websites />
+          </div>
           <HousesSuma />
         </div>
         :

@@ -10,10 +10,7 @@ import './sumaCSS/sumaHome.css'
 export default function HousesSuma() {
 
   {/*TODO: 
-  -Save the order of the applicants! until now its just locally.
-  -Add buttons to change color of applicants ( status )
-  -Add button to edit applicant and houses
-  -Add option for adding House! like applicant.
+  -Add edit houses
 */}
   const [addHouseModalOpen, setAddHouseModalOpen] = useState(false);
   const [addHouseModalEditOpen, setAddHouseModalEditOpen] = useState(false);
@@ -24,7 +21,7 @@ export default function HousesSuma() {
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(false);
   let width = useWindowWidth();
-  
+
   const doApi = async () => {
 
     let url = `${API_URL}/houses/all/?machane=suma&sort=suma_position`;
@@ -40,7 +37,7 @@ export default function HousesSuma() {
       alert("There problem , come back late")
     }
   }
-  
+
   const renumber = async () => {
     const promises = houses.map((house, i) => {
       return doApiMethod(`${API_URL}/houses/position/?_id=${house._id}&position=${i + 1}&key=suma_position`, "PATCH", {});
@@ -143,20 +140,22 @@ export default function HousesSuma() {
   return (
     <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
       <h3 className='p-2'>Suma Hüser</h3>
-      <div className='HouseList'>
-
+      <h5><option className='bg-success btn p-0'>⇧</option> promising</h5>
+      <h5><option className='bg-warning btn p-0'>⇨</option> pending</h5>
+      <h5><option className='bg-danger btn p-0'>⇩</option> negative</h5>
+      <div className='houseList'>
         <table style={{ borderSpacing: "10px" }}>
           <thead>
             <tr>
               <th>Name</th>
-              <th>Place</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Website</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Info</th>
-              <th>Website</th>
-              <th>Status</th>
               <th>Actions</th>
-              <th>Priority</th>
+              <th>Place</th>
             </tr>
           </thead>
           <tbody>
@@ -165,14 +164,12 @@ export default function HousesSuma() {
 
               return (
                 <tr key={item._id}>
-                  <td>{item.suma_position + item.name}</td>
-                  <td>{item.place}</td>
-                  <td><a className='unstyled' target={'_blank'} href={`mailto:${item.email}`}>{item.email}</a></td>
-                  <td><a className='unstyled' target={'_blank'} href={`tel:${item.phone}`}>{item.phone}</a></td>
-                  {width < 600 ? <td title={item.info}>{item.info.substring(0, 10)}...</td> : <td> {item.info}</td>
-                  }
-                  <td>{item.url}</td>
+                  <td>{item.name}</td>
+                  <td>
+                    <button className="btn" onClick={() => changeHousePriority(item._id, item.suma_position, "up")}>&uarr;</button>
+                    <button className="btn" onClick={() => changeHousePriority(item._id, item.suma_position, "down")}>&darr;</button>
 
+                  </td>
                   <td>
                     <select value={item.interest} className="btn m-2" style={{ backgroundColor: `${item.interest}` }} onChange={(event) => {
                       changeStatus(item._id, event.target.value);
@@ -184,6 +181,17 @@ export default function HousesSuma() {
                     </select>
 
                   </td>
+                  <td style={{ maxWidth: "30vw", overflowX: "scroll" }}>
+                    <a href={item.url} target='_blank'>{item.url.slice(0, 20)}</a>
+                  </td>
+                  <td><a className='unstyled' target={'_blank'} href={`mailto:${item.email}`}>{item.email}</a></td>
+                  <td><a className='unstyled' target={'_blank'} href={`tel:${item.phone}`}>{item.phone}</a></td>
+                  {width < 600 ? <td title={item.info}>{item.info.substring(0, 10)}...</td> : <td> {item.info}</td>
+                  }
+                 
+
+
+
                   <td>
                     <button className="btn btn-danger m-2" onClick={() => {
                       if (window.confirm("Überleg nomal!")) {
@@ -197,28 +205,27 @@ export default function HousesSuma() {
                     }}>Edit</button>
 
                   </td>
-                  <td>
-                    <button className="btn" onClick={() => changeHousePriority(item._id, item.suma_position, "up")}>&uarr;</button>
-                    <button className="btn" onClick={() => changeHousePriority(item._id, item.suma_position, "down")}>&darr;</button>
+                  <td>{item.place}</td>
 
-                  </td>
                 </tr>
               )
             })}
           </tbody>
         </table>
-        <button className="btn btn-warning m-2" onClick={() => {
-          setTimeout(() => {
-            window.scrollTo(0, 1800);
-          }, 100);
-          setAddHouseModalOpen(true);
-
-        }}>Add House</button>
-        {addHouseModalOpen && (
-
-          <AddHouseModal onSave={handleAddHouse} onClose={() => setAddHouseModalOpen(false)} />
-        )}
       </div>
+      <button className="btn btn-warning m-2" onClick={() => {
+        setTimeout(() => {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        }, 300)
+        setAddHouseModalOpen(true);
+      }}>Add House</button>
+
+      {addHouseModalOpen && (
+
+        <AddHouseModal onSave={handleAddHouse} onClose={() => setAddHouseModalOpen(false)} />
+      )}
     </div>
+
   )
 }

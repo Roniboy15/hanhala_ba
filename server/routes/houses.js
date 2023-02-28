@@ -31,9 +31,8 @@ router.get("/count", auth, async(req,res) => {
 
 router.get("/all", auth, async (req, res) => {
 
-    let perPage = Math.min(req.query.perPage, 20) || 5;
-    let page = Number(req.query.page) || 1
-    let sort = req.query.sort || "_id";
+    
+    let sort = req.query.sort || "suma_position";
     let reverse = req.query.reverse == "yes" ? -1 : 1;
     let _machane = req.query.machane;
 
@@ -45,8 +44,6 @@ router.get("/all", auth, async (req, res) => {
 
         let data = await HousesModel
             .find(findQuery)
-            .limit(perPage)
-            .skip((page - 1) * perPage)
             .sort({ [sort]: reverse })
         res.json(data);
     }

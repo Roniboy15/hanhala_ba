@@ -47,9 +47,8 @@ const AddApplicantModal = ({ onSave, onClose }) => {
         newErrors.phone = "Phone must be a number";
       }
     } else if (name === "email") {
-      if (!value) {
-        newErrors.email = "Email is required";
-      } else if (!/\S+@\S+\.\S+/.test(value)) {
+      
+       if (!/\S+@\S+\.\S+/.test(value)) {
         newErrors.email = "Email is invalid";
       }
     } else if (name === "machane") {
@@ -75,9 +74,7 @@ const AddApplicantModal = ({ onSave, onClose }) => {
     } else if (isNaN(applicant.age)) {
       newErrors.age = 'Age must be a number';
     }
-    if (!applicant.phone) {
-      newErrors.phone = 'Phone is required';
-    } else if (!/^\d+$/.test(applicant.phone)) {
+    else if (!/^\d+$/.test(applicant.phone)) {
       newErrors.phone = 'Phone must be a number';
     }
     if (!applicant.machane.length) {

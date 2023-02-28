@@ -16,8 +16,8 @@ const EditApplicantModal = ({ onSave, onClose, app }) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const newApplicant = { ...applicant, [name]: value };
-
+    let newApplicant = { ...applicant, [name]: value };
+  
     if (name === "machane") {
       newApplicant.machane = value.split(",").map((s) => s.trim());
       let newErrors = {};
@@ -25,10 +25,7 @@ const EditApplicantModal = ({ onSave, onClose, app }) => {
         newErrors.machane = "Please enter valid machane options";
       }
       setErrors(newErrors);
-    } else {
-      newApplicant = { ...newApplicant, [name]: value };
     }
-
     let newErrors = {};
 
     if (name === 'name') {
@@ -54,11 +51,11 @@ const EditApplicantModal = ({ onSave, onClose, app }) => {
         newErrors.email = 'Email is invalid';
       }
     }
-
+  
     setApplicant(newApplicant);
     setErrors(newErrors);
   };
-
+  
   const handleSave = () => {
     const newErrors = {};
 

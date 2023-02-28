@@ -21,9 +21,11 @@ const AboutUs = () => {
                     <p>
                         Die Hanhala Schweiz ist ein Arm des Bne Akiwa Schweiz und besteht aus einer kleinen Gruppe von freiwilligen, hochmotivierten jungen Leuten.
                     </p>
+                    <br />
                     <p>
                         Aufgabe und Ziel der Hanhala des Bne Akiwa Schweiz ist es, den Mitgliedern des Bne Akiwa Schweiz reibungslose Machanot (Jugendlager) zu organisieren. Dazu gehört die richtige Auswahl des Zevets (Staff) und das Ausfündigmachen von möglichst idealen Häusern.
                     </p>
+                    <br />
                     <p>
                         Schreib uns wenn du Fragen hast oder mithelfen willst. Wir profitierten als Jugendliche, jetzt ist es Zeit zurückzugeben!
                     </p>

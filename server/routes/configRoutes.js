@@ -3,6 +3,7 @@ const usersR = require("./users");
 const applicantsR = require("./applicants");
 const datenR = require("./daten");
 const housesR = require("./houses");
+const websitesR = require("./websites");
 
 
 exports.routesInit = (app) => {
@@ -11,6 +12,7 @@ exports.routesInit = (app) => {
   app.use("/applicants",applicantsR);
   app.use("/daten", datenR);
   app.use("/houses", housesR);
+  app.use("/websites", websitesR);
 
 
 // כל ראוט אחר שנגיע שלא קיים בתקיית פאליק או כראוט

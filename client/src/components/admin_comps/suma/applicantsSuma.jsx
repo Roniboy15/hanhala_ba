@@ -62,7 +62,7 @@ const ApplicantsSuma = () => {
             console.log("other ID:", otherApplicant);
             try {
                 await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos + '&key=suma_position', "PATCH", {})
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos+ '&key=suma_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos + '&key=suma_position', "PATCH", {})
             }
             catch (err) {
                 console.log("pos-err", err);
@@ -73,14 +73,14 @@ const ApplicantsSuma = () => {
             console.log("new pos:", newPos);
             console.log("other ID:", otherApplicant);
             try {
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos+ '&key=suma_position', "PATCH", {})
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos+ '&key=suma_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos + '&key=suma_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos + '&key=suma_position', "PATCH", {})
             }
             catch (err) {
                 console.log("pos-err", err);
             }
         }
-       fetchApplicants();
+        fetchApplicants();
     };
 
     const handleAddApplicant = async (newApplicant) => {
@@ -124,28 +124,33 @@ const ApplicantsSuma = () => {
 
             <h3 className="p-2">Konkrete Kandidaten</h3>
             <div className="applicantsList">
-                <table  style={{borderSpacing:"10px"}}>
+                <table style={{ borderSpacing: "10px" }}>
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Priority</th>
                             <th>Age</th>
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Status</th>
                             <th>Actions</th>
-                            <th>Priority</th>
                         </tr>
                     </thead>
                     <tbody>
                         {applicants.map((applicant) => (
                             <tr key={applicant._id}>
-                                <td>{applicant.suma_position + " " + applicant.name}</td>
+                                <td>{applicant.name}</td>
+                                <td>
+                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.suma_position, "up")}>&uarr;</button>
+                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.suma_position, "down")}>&darr;</button>
+
+                                </td>
                                 <td>{applicant.age}</td>
                                 <td>
                                     <a className='unstyled' target={'_blank'} href={`tel:${applicant.phone}`}>{applicant.phone}
                                     </a>
                                 </td>
-                                <td style={{maxWidth:"30px", overflowX:"scroll"}}>
+                                <td style={{ maxWidth: "30px", overflowX: "scroll" }}>
                                     <a className='unstyled' target={'_blank'} href={`mailto:${applicant.email}`}>{applicant.email}
                                     </a>
                                 </td>
@@ -168,16 +173,17 @@ const ApplicantsSuma = () => {
                                     }}>X</button>
 
                                     <button className="btn btn-warning m-2" onClick={() => {
+                                        setTimeout(() => {
+                                            window.scrollTo({ top: 1000, behavior: 'smooth' });
+                                           
+                                        }, 300)
                                         setApplicant(applicant);
                                         setAddApplicantModalEditOpen(true);
                                     }}>Edit</button>
 
-                                </td>
-                                <td>
-                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.suma_position, "up")}>&uarr;</button>
-                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.suma_position, "down")}>&darr;</button>
 
                                 </td>
+
                             </tr>
                         ))}
 
@@ -191,8 +197,8 @@ const ApplicantsSuma = () => {
             </div>
             <button className="btn btn-warning m-2" onClick={() => {
                 setTimeout(() => {
-                    window.scrollTo(0, 800);
-                }, 100);
+                    window.scrollTo({ top: 1000, behavior: 'smooth' });
+                }, 300)
                 setAddApplicantModalOpen(true);
 
             }}>Add Applicant</button>
