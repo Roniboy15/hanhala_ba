@@ -4,6 +4,9 @@ Client
 -Edit House
 -update Forms restricting for admin login
 -wima/sayarim/israel reise
+-drag and drop
+-fixing the screeen so not able to move around
 
 Server
+evtl: -drag and drop adjustments
 
