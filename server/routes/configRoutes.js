@@ -13,11 +13,4 @@ exports.routesInit = (app) => {
   app.use("/daten", datenR);
   app.use("/houses", housesR);
   app.use("/websites", websitesR);
-
-
-// // כל ראוט אחר שנגיע שלא קיים בתקיית פאליק או כראוט
-// // נקבל 404
-//   app.use("*",(req,res) => {
-//     res.status(404).json({msg:"endpoint not found , 404",error:404})
-//   })
-// }
+}
