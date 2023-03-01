@@ -108,7 +108,7 @@ const Home = () => {
 
                   <p className={width > 500 ? 'p-2 bg-light rounded-4 bg-opacity-75 w-75' : 'p-2 bg-light rounded-4 bg-opacity-75 w-100'}>Wie oft hat man die Chance, das Leben von dutzenden jungen aufstrebenden Jugendlichen positiv zu beeinflussen?<br /><br />1. Leitung des Madrichimteams<br />2. Lieferungen koordinieren <br />3. Finanzen überblicken</p>
                 </div>
-                <iframe className="w-100" src={suma.formsLink} style={{overflowX: 'hidden' }}>..Loading</iframe>
+                <iframe className="w-100" src={suma.formsLink} >..Loading</iframe>
               </div>
             </div>
             : ''}
