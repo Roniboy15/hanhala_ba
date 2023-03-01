@@ -8,6 +8,7 @@ const DatenSchema = new mongoose.Schema({
     active: Boolean,
     formsLink: String,
     spreadLink: String,
+    message: String,
     date_created: {
         type: Date, default: Date.now()
     }
@@ -21,7 +22,8 @@ exports.validateDaten = (reqBody) => {
         datum: Joi.string().required(),
         active: Joi.boolean().required(),
         formsLink: Joi.string().allow("", null),
-        spreadLink: Joi.string().allow("", null)
+        spreadLink: Joi.string().allow("", null),
+        message: Joi.string().allow("", null),
     })
     return joiSchema.validate(reqBody);
 }

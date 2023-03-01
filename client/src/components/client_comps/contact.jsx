@@ -14,7 +14,7 @@ const AboutUs = () => {
     };
 
     return (
-        <Container className="about-us">
+        <Container className="about-us p-3">
             <Row>
                 <Col md={6}>
                     <h2>About Us</h2>
@@ -38,7 +38,7 @@ const AboutUs = () => {
                     />
                 </Col>
             </Row>
-            <Row className="mt-5">
+            <Row className="mt-5 p-2">
                 <Col md={6}>
                     <h3>Contact Us</h3>
                     <Form onSubmit={handleSubmit}>

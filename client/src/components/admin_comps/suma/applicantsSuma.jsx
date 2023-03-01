@@ -15,6 +15,9 @@ const ApplicantsSuma = () => {
     const [applicant, setApplicant] = useState({});
     const [loading, setLoading] = useState(false);
 
+    const applicantsListRef = useRef(null);
+
+
     const fetchApplicants = async () => {
         try {
             const data = await doApiGet(API_URL + '/applicants/allApplicants/?camp=suma&sort=suma_position');
@@ -40,6 +43,7 @@ const ApplicantsSuma = () => {
         renumber();
     }, [applicants]);
 
+   
 
     const deleteApplicant = async (applicantId) => {
         try {
@@ -95,7 +99,9 @@ const ApplicantsSuma = () => {
             console.log("new applicant", err)
         }
         setAddApplicantModalOpen(false);
+       
     };
+
 
     const handleEditApplicant = async (newApplicant) => {
         try {
@@ -119,20 +125,24 @@ const ApplicantsSuma = () => {
         fetchApplicants();
     }
 
+    const scrollToBottom = () => {
+        applicantsListRef.current.scrollIntoView({ behavior: "smooth" });
+    };
+
     return (
         <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
 
             <h3 className="p-2">Konkrete Kandidaten</h3>
-            <div className="applicantsList">
+            <div className="applicantsList" >
                 <table style={{ borderSpacing: "10px" }}>
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Priority</th>
+                            <th>Status</th>
                             <th>Age</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -145,15 +155,6 @@ const ApplicantsSuma = () => {
                                     <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.suma_position, "down")}>&darr;</button>
 
                                 </td>
-                                <td>{applicant.age}</td>
-                                <td>
-                                    <a className='unstyled' target={'_blank'} href={`tel:${applicant.phone}`}>{applicant.phone}
-                                    </a>
-                                </td>
-                                <td style={{ maxWidth: "30px", overflowX: "scroll" }}>
-                                    <a className='unstyled' target={'_blank'} href={`mailto:${applicant.email}`}>{applicant.email}
-                                    </a>
-                                </td>
                                 <td>
                                     <select value={applicant.interest} className="btn m-2" style={{ backgroundColor: `${applicant.interest}` }} onChange={(event) => {
                                         changeStatus(applicant._id, event.target.value);
@@ -165,6 +166,16 @@ const ApplicantsSuma = () => {
                                     </select>
 
                                 </td>
+                                <td>{applicant.age}</td>
+                                <td>
+                                    <a className='unstyled' target={'_blank'} href={`tel:${applicant.phone}`}>{applicant.phone}
+                                    </a>
+                                </td>
+                                <td style={{ maxWidth: "30px", overflowX: "scroll" }}>
+                                    <a className='unstyled' target={'_blank'} href={`mailto:${applicant.email}`}>{applicant.email}
+                                    </a>
+                                </td>
+
                                 <td>
                                     <button className="btn btn-danger m-2" onClick={() => {
                                         if (window.confirm("Überleg nomal!")) {
@@ -175,7 +186,7 @@ const ApplicantsSuma = () => {
                                     <button className="btn btn-warning m-2" onClick={() => {
                                         setTimeout(() => {
                                             window.scrollTo({ top: 1000, behavior: 'smooth' });
-                                           
+
                                         }, 300)
                                         setApplicant(applicant);
                                         setAddApplicantModalEditOpen(true);
@@ -195,16 +206,17 @@ const ApplicantsSuma = () => {
                     <EditApplicantModal app={applicant} onSave={handleEditApplicant} onClose={() => setAddApplicantModalEditOpen(false)} />
                 )}
             </div>
-            <button className="btn btn-warning m-2" onClick={() => {
-                setTimeout(() => {
-                    window.scrollTo({ top: 1000, behavior: 'smooth' });
-                }, 300)
-                setAddApplicantModalOpen(true);
 
+            <button className="btn btn-warning btn-sm mb-2 ml-2" onClick={() => {
+                setAddApplicantModalOpen(true);
+                setTimeout(()=>{
+                    scrollToBottom();
+                },1000)
             }}>Add Applicant</button>
+
             {addApplicantModalOpen && (
 
-                <AddApplicantModal onSave={handleAddApplicant} onClose={() => setAddApplicantModalOpen(false)} />
+                <AddApplicantModal ref={applicantsListRef}  onSave={handleAddApplicant} onClose={() => setAddApplicantModalOpen(false)} />
             )}
         </div>
     );

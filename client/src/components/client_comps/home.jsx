@@ -150,7 +150,7 @@ const Home = () => {
             </div>
             : ''}
         </div>
-        : ''}
+        : <p>No registrations available</p>}
     </div >
 
 

@@ -5,6 +5,7 @@ import { adminRoutes, clientRoutes } from './routes/routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AdminAuth from './components/admin_comps/adminAuth';
+import Footer from './components/client_comps/footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             {clientRoutes()}
             {adminRoutes()}
           </Routes>
+          <Footer/>
           {/* The toast messages added here */}
           <ToastContainer position="top-left" theme="colored" />
         </AdminAuth>

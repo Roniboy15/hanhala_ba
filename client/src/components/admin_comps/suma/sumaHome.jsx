@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/Context';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices';
 import AdminLogin from '../adminLogin';
@@ -19,10 +19,13 @@ const SumaHome = () => {
   const { admin, setAdmin } = useContext(AuthContext);
   const nav = useNavigate();
   const [dateSuma, setDateSuma] = useState({});
+
+  const [newDate, setNewDate] = useState("");
   const [dateMessage, setDateMessage] = useState("");
+  const [newMessage, setNewMessage] = useState("");
   const [dateButton, setDateButton] = useState("");
+  const [messageButton, setMessageButton] = useState("");
   const [dateID, setID] = useState();
-  const inputdate = useRef();
 
   useEffect(() => {
     if (admin) {
@@ -30,23 +33,45 @@ const SumaHome = () => {
     }
   }, [admin]);
 
+  useEffect(() => {
+    if (dateSuma.datum) {
+      setNewMessage(dateSuma.message)
+      if (dateSuma.datum) {
+        setDateButton("Change")
+        setDateMessage("Daten Suma: ")
+        //console.log(date)
+
+      }
+      else {
+        setDateMessage("Gib bitte sofort dDate i: ")
+        setDateButton("Confirm");
+      }
+      if (dateSuma.message) {
+        setMessageButton("Change")
+
+      }
+      else {
+        setMessageButton("Confirm");
+
+      }
+    }
+  }, [dateSuma])
+
   const getDates = async () => {
-    let date = await doApiGet(API_URL + "/daten/" + "suma")
-    //console.log(date)
-    if (date.length > 0) {
-      setDateButton("Change")
-      setDateMessage("Daten Suma: ")
-      //console.log(date)
+    let date;
+    try {
+      date = await doApiGet(API_URL + "/daten/" + "suma")
       setDateSuma(date[0]);
       setID(date[0]._id);
     }
-    else {
-      setDateMessage("Gib bitte sofort dDate i: ")
-      setDateButton("Confirm");
+    catch (err) {
+      console.log("err sumaHmome", err)
     }
+    //console.log(date)
+
   }
 
-  const changeDate = async (_changedDate) => {
+  const changeDate = async () => {
     let url, method;
     let name, datum;
     let newObject = {};
@@ -55,23 +80,53 @@ const SumaHome = () => {
       method = "PUT";
 
       newObject.name = dateSuma.name;
-      newObject.datum = _changedDate;
+      newObject.datum = newDate || dateSuma.datum;
+      newObject.active = dateSuma.active;
+
     }
     else {
       url = API_URL + "/daten";
       method = "POST";
 
-      name = "Suma";
-      datum = _changedDate;
-      newObject.name = name;
-      newObject.datum = datum;
-    }
-    console.log(newObject)
+      datum = newDate || dateSuma.datum;
 
+      newObject.name = dateSuma.name;
+      newObject.datum = datum;
+      newObject.active = dateSuma.active;
+
+    }
 
     await doApiMethod(url, method, newObject)
     getDates();
   }
+
+  const changeMessage = async () => {
+    let url, method;
+    let newObject = {};
+    if (messageButton === "Change") {
+      url = API_URL + "/daten/" + dateID;
+      method = "PUT";
+
+      newObject.name = dateSuma.name;
+      newObject.datum = dateSuma.datum;
+      newObject.active = dateSuma.active;
+      newObject.message = newMessage || dateSuma.message;
+    }
+    else {
+      url = API_URL + "/daten";
+      method = "POST";
+
+      newObject.name = dateSuma.name;
+      newObject.datum = dateSuma.datum;
+      newObject.active = dateSuma.active;
+      newObject.message = newMessage;
+
+    }
+
+    await doApiMethod(url, method, newObject)
+    getDates();
+  }
+
 
   return (
     <div className='container p-1'>
@@ -82,14 +137,35 @@ const SumaHome = () => {
             <input
               className="rounded"
               type="text"
-              ref={inputdate}
+              value={newDate}
+              onChange={(e) => setNewDate(e.target.value)}
             />
-            <button className='btn btn-secondary m-2' onClick={() => changeDate(inputdate.current.value)}>{dateButton} Date</button>
+            <button className='btn btn-secondary m-2' onClick={changeDate}>{dateButton} Date</button>
+
           </div>
           <SumaSheet />
           <ApplicantsSuma />
           <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
             <Websites />
+          </div>
+          <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+            <div className='container p-2'>
+              <div className='row'>
+                <div className='col-12'>
+                  <h3 className='p-1'>Message fürd Hüser</h3>
+                 
+                  <input
+                    as="textarea"
+                    className="rounded w-100"
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                  />
+                  <button className='btn btn-secondary m-2' onClick={changeMessage}>{messageButton} text</button>
+
+                </div>
+              </div>
+            </div>
           </div>
           <HousesSuma />
         </div>

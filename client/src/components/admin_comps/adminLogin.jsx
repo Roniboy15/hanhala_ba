@@ -30,7 +30,7 @@ const AdminLogin = () => {
     }
     catch (err) {
       console.log(err);
-      alert("Email or passwrod worng!");
+      alert("Falsch!");
     }
 
   }
