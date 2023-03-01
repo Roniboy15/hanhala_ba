@@ -12,6 +12,3 @@ code {
     monospace;
 }
 
-html, body, #root {
-  touch-action: none;
-}
