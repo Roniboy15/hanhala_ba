@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4473532b.css",
-    "main.js": "/static/js/main.06fecdc2.js",
+    "main.css": "/static/css/main.52adb136.css",
+    "main.js": "/static/js/main.98acd6fc.js",
     "static/js/787.b376147e.chunk.js": "/static/js/787.b376147e.chunk.js",
     "static/media/suma.jpeg": "/static/media/suma.74956c9bd7e0e5e18d90.jpeg",
     "static/media/israel.jpeg": "/static/media/israel.b0907cb1c5989ba7944a.jpeg",
@@ -10,12 +10,12 @@
     "static/media/ba_logo.png": "/static/media/ba_logo.f3923015bab6301d4fa8.png",
     "static/media/sayarim.webp": "/static/media/sayarim.a24570c4f90bddeaacda.webp",
     "index.html": "/index.html",
-    "main.4473532b.css.map": "/static/css/main.4473532b.css.map",
-    "main.06fecdc2.js.map": "/static/js/main.06fecdc2.js.map",
+    "main.52adb136.css.map": "/static/css/main.52adb136.css.map",
+    "main.98acd6fc.js.map": "/static/js/main.98acd6fc.js.map",
     "787.b376147e.chunk.js.map": "/static/js/787.b376147e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4473532b.css",
-    "static/js/main.06fecdc2.js"
+    "static/css/main.52adb136.css",
+    "static/js/main.98acd6fc.js"
   ]
 }

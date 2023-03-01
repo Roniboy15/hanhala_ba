@@ -10,7 +10,7 @@ import Footer from './components/client_comps/footer';
 function App() {
   return (
 
-    <div className='m-1 rounded'>
+    <div className='rounded'>
       <BrowserRouter>
         <AdminAuth>
           {/* Routes of header what to show client or admin header. Works like switch case. */}

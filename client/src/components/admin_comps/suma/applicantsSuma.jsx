@@ -171,7 +171,7 @@ const ApplicantsSuma = () => {
                                     <a className='unstyled' target={'_blank'} href={`tel:${applicant.phone}`}>{applicant.phone}
                                     </a>
                                 </td>
-                                <td style={{ maxWidth: "30px", overflowX: "scroll" }}>
+                                <td style={{ overflowX: "scroll" }}>
                                     <a className='unstyled' target={'_blank'} href={`mailto:${applicant.email}`}>{applicant.email}
                                     </a>
                                 </td>
