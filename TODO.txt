@@ -1,15 +1,12 @@
 General
 
 Client
--Look that data is not loaded before login of admin!
--Add House, edit house
--Edit Applicant
--Fix the  order of applicants  on server
--User Interface
--Häuser: tel:
-
-
+-Edit House
+-update Forms restricting for admin login
+-wima/sayarim/israel reise
+-drag and drop
+-fixing the screeen so not able to move around
 
 Server
--Fix the  order of applicants  on server
+evtl: -drag and drop adjustments
 
