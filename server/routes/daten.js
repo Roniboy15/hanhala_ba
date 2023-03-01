@@ -39,7 +39,7 @@ router.post("/", auth, async (req, res) => {
 
 router.put("/:id", auth, async (req, res) => {
     let validBody = validateDaten(req.body);
-    console.log(validBody)
+    //console.log(validBody)
     if (validBody.error) {
         return res.status(400).json(validBody.error.details);
     }
