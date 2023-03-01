@@ -6,6 +6,7 @@ Client
 -wima/sayarim/israel reise
 -drag and drop
 -fixing the screeen so not able to move around
+-make things faster (change status color befroe api call etc)
 
 Server
 evtl: -drag and drop adjustments
