@@ -97,7 +97,7 @@ const Home = () => {
 
 
   return (
-    <div className="m-2 p-1 mt-0">
+    <div className="mt-0">
 
         <div className="row">
           {suma.active ?
