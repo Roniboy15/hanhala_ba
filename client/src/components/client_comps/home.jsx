@@ -98,7 +98,7 @@ const Home = () => {
 
   return (
     <div className="m-2 p-1 mt-0">
-      {loading ?
+
         <div className="row">
           {suma.active ?
             <div className={count > 1 ? 'col-12 col-md-6 rounded' : 'col-12 rounded'} style={{ backgroundImage: `url(${backgroundSuma})`, backgroundSize: "cover" }}>
@@ -150,7 +150,7 @@ const Home = () => {
             </div>
             : ''}
         </div>
-        : <p>No registrations available</p>}
+
     </div >
 
 
