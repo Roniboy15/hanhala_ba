@@ -26,7 +26,6 @@ routesInit(app);
 //   const filePath = path.join(__dirname, 'public','build', 'index.html');
 //   res.sendFile(filePath);
 // })
-efew
 
 
 // פונקציה שמגדירה את כל הראוטים הזמנים באפליקציית
