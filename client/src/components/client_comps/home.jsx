@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL, doApiGet } from '../../services/apiServices';
 import './client.css'
-import backgroundSuma from '../../images/suma.webP'
-import backgroundWima from '../../images/wima.webP'
-import backgroundSayarim from '../../images/sayarim.webP'
-import backgroundIsrael from '../../images/israel.webP'
+import backgroundSuma from '../../images/suma.png'
+import backgroundWima from '../../images/wima.png'
+import backgroundSayarim from '../../images/sayarim.png'
+import backgroundIsrael from '../../images/israel.png'
 import useWindowWidth from '../../general_comps/useWidth';
 
 const Home = () => {
