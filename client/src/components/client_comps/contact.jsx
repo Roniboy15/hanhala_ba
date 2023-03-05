@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap';
 import './contact.scss';
-import ba from '../../images/hanhala_schweiz.webp'
+import ba from '../../images/hanhala_schweiz.webP'
 
 const AboutUs = () => {
     const [name, setName] = useState('');

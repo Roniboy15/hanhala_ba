@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useWindowWidth from '../../general_comps/useWidth';
-import logo from '../../images/ba_logo.png';
+import logo from '../../images/ba_logo.webP';
 
 
 const ClientHeader = () => {

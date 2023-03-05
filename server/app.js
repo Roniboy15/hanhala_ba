@@ -35,7 +35,7 @@ app.get('*', function(req, res) {
 const server = http.createServer(app);
 // משתנה שיגדיר על איזה פורט אנחנו נעבוד
 // אנסה לבדוק אם אנחנו על שרת אמיתי ויאסוף את הפורט משם אם לא ואנחנו לוקאלי יעבוד על 3002
-let port = process.env.PORT || 3005;
+let port = process.env.PORT || 3006;
 // הפעלת השרת והאזנה לפורט המבוקש
 server.listen(port);
 console.log(`Server listens on port ${port}`);

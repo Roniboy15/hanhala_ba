@@ -6,6 +6,7 @@ Client
 -wima/sayarim/israel reise
 -drag and drop
 -fixing the screeen so not able to move around
+-make page home render softly
 
 Server
 evtl: -drag and drop adjustments
