@@ -6,8 +6,7 @@ import useScrollHeight from './useHeight';
 const WhatsAppIcon = ({ phoneNumber }) => {
     let height = useScrollHeight();
     const handleClick = () => {
-console.log(height)
-        //window.open(`https://wa.me/${phoneNumber}`);
+        window.open(`https://wa.me/${phoneNumber}`);
     };
 
     return (

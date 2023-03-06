@@ -10,6 +10,7 @@ import backgroundIsrael from '../../images/israel.png'
 import useWindowWidth from '../../general_comps/useWidth';
 import WhatsAppIcon from '../../general_comps/whatsapp';
 import useScrollHeight from '../../general_comps/useHeight';
+import LoadingIcon from '../../general_comps/loadingIcon';
 
 const Home = () => {
 
@@ -126,6 +127,7 @@ const Home = () => {
 
   return (
     <div className='container-fluid mt-1'>
+      {!loading? <LoadingIcon/> :''}
       <div style={{
           position: "fixed",
           bottom: isFixed ? '30px' : '115px',

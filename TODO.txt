@@ -2,10 +2,9 @@ General
 
 Client
 -Edit House
--update Forms restricting for admin login
 -wima/sayarim/israel reise
 -drag and drop
--fixing the screeen so not able to move around
+-fixing the screeen so not able to move around FORMS
 -make page home render softly
 
 Server
