@@ -102,7 +102,7 @@ const Home = () => {
 
   }, [loading])
 
-  
+
   const handleScroll = () => {
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     const currentPosition = window.scrollY;
@@ -127,12 +127,12 @@ const Home = () => {
 
   return (
     <div className='container-fluid mt-1'>
-      {!loading? <LoadingIcon/> :''}
+      {!loading ? <LoadingIcon /> : ''}
       <div style={{
-          position: "fixed",
-          bottom: isFixed ? '30px' : '115px',
-          right: '15px',
-        }}>
+        position: "fixed",
+        bottom: isFixed ? '30px' : '115px',
+        right: '15px',
+      }}>
         <WhatsAppIcon phoneNumber={'41786536543'} />
       </div>
       <div className="row">
@@ -174,7 +174,7 @@ const Home = () => {
           </div>
           : ''}
         {israel.active ?
-          <div className={count > 1 ? 'col-12 col-md-6 rounded' : 'col-12 rounded'} style={{ backgroundImage: `url(${backgroundIsrael})`, backgroundSize: "cover" }}>
+          <div className={count > 1 ? 'col-12 col-md-6 rounded' : 'col-12 rounded'} style={{ backgroundImage: `url(${backgroundIsrael})`, backgroundSize: "cover", overflowX:"hidden" }}>
             <div className="text-center justify-content-around mt-3 mt-md-4">
               <div className="d-flex justify-content-center">
 
@@ -182,8 +182,9 @@ const Home = () => {
                   <h1 className='p-2'>Israel Reise</h1>
                   Eine einmalige Gelegenheit um den eigenen Horizont zu erweitern, eine tolle Zeit mit tollen Menschen zu verbringen und etwas zu bewegen!<br /><br />-<br /><br />Begleitung der Kwutza nach Israel <br /><br />Koordination mit den Verantwortlichen in Israel </h5>
               </div>
-              <iframe className="w-100" src={israel.formsLink}>..Loading</iframe>
             </div>
+            <iframe style={{overflowX:"hidden"}} className="w-100" src={israel.formsLink}>..Loading</iframe>
+
           </div>
           : ''}
       </div>
