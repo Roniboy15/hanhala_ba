@@ -126,7 +126,7 @@ const Home = () => {
 
 
   return (
-    <div className='container-fluid mt-1'>
+    <div className='container-fluid'>
       {!loading ? <LoadingIcon /> : ''}
       <div style={{
         position: "fixed",
@@ -174,13 +174,14 @@ const Home = () => {
           </div>
           : ''}
         {israel.active ?
-          <div className={count > 1 ? 'col-12 col-md-6 rounded' : 'col-12 rounded'} style={{ backgroundImage: `url(${backgroundIsrael})`, backgroundSize: "cover", overflowX:"hidden" }}>
+          <div className={count > 1 ? 'col-12 col-md-6' : 'col-12'} style={{ backgroundImage: `url(${backgroundIsrael})`, backgroundSize: "cover", overflowX:"hidden" }}>
             <div className="text-center justify-content-around mt-3 mt-md-4">
               <div className="d-flex justify-content-center">
 
-                <h5 style={{ fontFamily: "sans-serif" }} className={width > 500 ? 'p-4 m-2 bg-light rounded-4 bg-opacity-75 w-75' : 'p-3 m-2 bg-light rounded-4 bg-opacity-75 w-100'}>
+                <h5 style={{ fontFamily: "" }} className={width > 500 ? 'p-4 m-2 bg-light rounded-4 bg-opacity-75 w-75' : 'p-3 m-2 bg-light rounded-4 bg-opacity-75 w-100'}>
                   <h1 className='p-2'>Israel Reise</h1>
-                  Eine einmalige Gelegenheit um den eigenen Horizont zu erweitern, eine tolle Zeit mit tollen Menschen zu verbringen und etwas zu bewegen!<br /><br />-<br /><br />Begleitung der Kwutza nach Israel <br /><br />Koordination mit den Verantwortlichen in Israel </h5>
+                  <br/>
+                  Eine einmalige Gelegenheit um den eigenen Horizont zu erweitern, eine tolle Zeit mit tollen Menschen zu verbringen und etwas zu bewegen!<br /><br /><br /><br />Begleitung der Kwutza nach Israel <br /><br />Koordination mit den Verantwortlichen in Israel </h5>
               </div>
             </div>
             <iframe style={{overflowX:"hidden"}} className="w-100" src={israel.formsLink}>..Loading</iframe>
