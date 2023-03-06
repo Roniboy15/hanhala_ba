@@ -15,6 +15,6 @@ exports.routesInit = (app) => {
   app.use("/websites", websitesR);
 }
 
-app.use("*",(req,res) => {
-  res.status(404).json({msg:"endpoint not found , 404",error:404})
-})
+// app.use("*",(req,res) => {
+//   res.status(404).json({msg:"endpoint not found , 404",error:404})
+// })
