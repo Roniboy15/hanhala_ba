@@ -19,7 +19,7 @@ const ClientHeader = () => {
 
 
     return (
-        <header className='container-fluid bg-secondary bg-opacity-25 rounded'>
+        <header className='container-fluid bg-secondary bg-opacity-25'>
             <div className="container">
                 <div className="row align-items-center">
                     <nav className="navbar navbar-expand-lg">

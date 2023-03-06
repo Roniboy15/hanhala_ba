@@ -7,10 +7,11 @@ import { ToastContainer } from 'react-toastify';
 import AdminAuth from './components/admin_comps/adminAuth';
 import Footer from './components/client_comps/footer';
 
+
 function App() {
   return (
 
-    <div className='rounded'>
+    <div>
       <BrowserRouter>
         <AdminAuth>
           {/* Routes of header what to show client or admin header. Works like switch case. */}
@@ -23,10 +24,11 @@ function App() {
             {clientRoutes()}
             {adminRoutes()}
           </Routes>
-          <Footer/>
+          <Footer />
           {/* The toast messages added here */}
           <ToastContainer position="top-left" theme="colored" />
         </AdminAuth>
+
       </BrowserRouter>
     </div>
   );
