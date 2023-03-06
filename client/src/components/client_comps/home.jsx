@@ -133,7 +133,7 @@ const Home = () => {
           bottom: isFixed ? '30px' : '115px',
           right: '15px',
         }}>
-        <WhatsAppIcon phoneNumber={'0041795939612'} />
+        <WhatsAppIcon phoneNumber={'41786536543'} />
       </div>
       <div className="row">
         {suma.active ?
