@@ -36,7 +36,7 @@ const AdminHeader = () => {
 
 
     return (
-        <header className='container-fluid bg-secondary bg-opacity-25'>
+        <header style={{backgroundColor:"#f7f7f7"}} className='container-fluid'>
             <div className="container">
                 <div className="row align-items-center">
                     <nav className="navbar navbar-expand-lg">
@@ -54,7 +54,7 @@ const AdminHeader = () => {
                                 setCounter(0)
                             }
                             console.log(collapse)
-                        }} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        }} className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         {admin ?
@@ -87,7 +87,7 @@ const AdminHeader = () => {
 
                             </div>
                             :
-                            <button className='btn btn-outline-warning align' onClick={home}>Home</button>
+                            <button style={{backgroundColor:"#f7f7f7"}} className='btn align border' onClick={home}>Home</button>
                         }
                     </nav>
 

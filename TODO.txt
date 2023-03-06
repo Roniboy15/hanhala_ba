@@ -9,4 +9,5 @@ Client
 
 Server
 evtl: -drag and drop adjustments
+-make schema for db with additinal info like: mail(footer), whatsapp connection(home), loading picture(loading), message for
 

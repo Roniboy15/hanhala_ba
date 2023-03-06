@@ -46,7 +46,7 @@ const AdminLogin = () => {
         {errors.password && <div className='text-danger'>* Enter valid password (min 3 chars)</div>}
         {errors.password && <div className='text-danger'>* Enter valid password (min 3 chars)</div>}
         <div className='mt-4'>
-          <button className='btn btn-info'>Log in</button>
+          <button style={{backgroundColor:"#f7f7f7"}} className='btn'>Log in</button>
         </div>
       </form>
     </div>)
