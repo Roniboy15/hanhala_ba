@@ -5,9 +5,12 @@ Client
 -wima/sayarim/israel reise
 -drag and drop
 -fixing the screeen so not able to move around FORMS
--make page home render softly
+-make page home render softly (call  only one option of  status! and  then according to  this call the etiree data)
+-Add overview of houses and  applicants
 
 Server
 evtl: -drag and drop adjustments
--make schema for db with additinal info like: mail(footer), whatsapp connection(home), loading picture(loading), message for
+-make schema for db with additinal info like: mail(footer), whatsapp connection(home), loading picture(loading), message for houses
+-make page home render softly (call  only one option of  status! and  then according to  this call the etiree data)
+
 
