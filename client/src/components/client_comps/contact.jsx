@@ -23,7 +23,7 @@ const AboutUs = () => {
                     </p>
                     <br />
                     <p>
-                        Aufgabe und Ziel der Hanhala des Bne Akiwa Schweiz ist es, den Mitgliedern des Bne Akiwa Schweiz reibungslose Machanot (Jugendlager) zu organisieren. Dazu gehört die richtige Auswahl des Zevets (Staff) und das Ausfündigmachen von möglichst idealen Häusern.
+                        Aufgabe und Ziel der Hanhala des Bne Akiwa Schweiz ist es, den Mitgliedern des Bne Akiwa Schweiz reibungslose Machanot (Jugendlager) zu organisieren. Dazu gehört die richtige Auswahl des Zevets (Staff) und das Ausfindigmachen von möglichst idealen Häusern.
                     </p>
                     <br />
                     <p>

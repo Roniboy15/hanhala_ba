@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/Context';
+import AdminLogin from './adminLogin';
 
 
 const AdminHome = () => {
@@ -8,27 +9,27 @@ const AdminHome = () => {
     const { admin, setAdmin } = useContext(AuthContext);
     const nav = useNavigate();
 
-    useEffect(() => {
-        if (!admin) {
-            const timeoutId = setTimeout(() => {
-                nav("/admin");
-            }, 2000);
-            return () => {
-                clearTimeout(timeoutId);
-            };
-        }
+    // useEffect(() => {
+    //     if (!admin) {
+    //         const timeoutId = setTimeout(() => {
+    //             nav("/admin");
+    //         }, 2000);
+    //         return () => {
+    //             clearTimeout(timeoutId);
+    //         };
+    //     }
 
-    }, []);
+    // }, []);
 
     return (
         <div>
             {admin ? (
                 <div className='container'>
-                   Home
+                    Home
 
                 </div>) : (
                 <div>
-                    <h3>Gang dich go ilogge Globi</h3>
+                    <AdminLogin />
                 </div>
             )}
         </div>

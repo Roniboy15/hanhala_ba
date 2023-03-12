@@ -11,6 +11,7 @@ export const clientRoutes = () => {
   return (
     <React.Fragment>
       <Route path="/" element={<Home />} />
+      <Route path="/contact" element={<AboutUs/>} />
     </React.Fragment>
   )
 }
@@ -18,13 +19,12 @@ export const clientRoutes = () => {
 export const adminRoutes = () => {
   return (
     <React.Fragment>
-      <Route path="/admin/home" element={<AdminHome />} />
+      <Route path="/admin" element={<AdminHome />} />
       <Route path="/admin/sommermachane" element={<SumaHome />} />
       <Route path="/admin/wintermachane" element={<AdminHome />} />
       <Route path="/admin/il-reise" element={<AdminHome />} />
       <Route path="/admin/sayarim" element={<AdminHome />} />
       <Route path="/admin/forms" element={<Forms />} />
-      <Route path="/contact" element={<AboutUs/>} />
     </React.Fragment>
   )
 }
