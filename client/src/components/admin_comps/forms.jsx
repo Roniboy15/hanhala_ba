@@ -98,7 +98,7 @@ const Forms = () => {
         }
 
         try {
-            const data = await doApiMethod(url, 'PUT', newObject);
+            await doApiMethod(url, 'PUT', newObject);
            // console.log(data);
             getData();
         } catch (err) {
@@ -125,7 +125,7 @@ const Forms = () => {
                             id="isActive"
                             value={suma.active ? 'active' : 'inactive'}
                             onChange={(e) => {
-                                if (suma.active == false) {
+                                if (suma.active === false) {
                                     suma.active = true;
                                 } else {
                                     suma.active = false;
@@ -185,7 +185,7 @@ const Forms = () => {
                             id="isActive"
                             value={wima.active ? 'active' : 'inactive'}
                             onChange={(e) => {
-                                if (wima.active == false) {
+                                if (wima.active === false) {
                                     wima.active = true;
                                 } else {
                                     wima.active = false;
@@ -245,7 +245,7 @@ const Forms = () => {
                             id="isActive"
                             value={sayarim.active ? 'active' : 'inactive'}
                             onChange={(e) => {
-                                if (sayarim.active == false) {
+                                if (sayarim.active === false) {
                                     sayarim.active = true;
                                 } else {
                                     sayarim.active = false;
@@ -305,7 +305,7 @@ const Forms = () => {
                             id="isActive"
                             value={israel.active ? 'active' : 'inactive'}
                             onChange={(e) => {
-                                if (israel.active == false) {
+                                if (israel.active === false) {
                                     israel.active = true;
                                 } else {
                                     israel.active = false;

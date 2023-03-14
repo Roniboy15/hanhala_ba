@@ -9,7 +9,6 @@ import backgroundSayarim from '../../images/sayarim.png'
 import backgroundIsrael from '../../images/israel.png'
 import useWindowWidth from '../../general_comps/useWidth';
 import WhatsAppIcon from '../../general_comps/whatsapp';
-import useScrollHeight from '../../general_comps/useHeight';
 import LoadingIcon from '../../general_comps/loadingIcon';
 
 const Home = () => {
@@ -26,6 +25,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
+
     try {
       const dataSuma = await doApiGet(`${API_URL}/daten/Suma`);
       const filteredData = {

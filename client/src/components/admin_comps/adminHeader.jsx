@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
 import useWindowWidth from '../../general_comps/useWidth';
 import { TOKEN_KEY } from '../../services/apiServices';
-import AdminAuth from './adminAuth';
 import logo from '../../images/ba_logo.png'
 import { AuthContext } from '../../context/Context';
 

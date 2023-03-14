@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a1176c5d.css",
+    "main.js": "/static/js/main.ad9ada3a.js",
+    "static/js/787.b376147e.chunk.js": "/static/js/787.b376147e.chunk.js",
+    "static/media/israel.png": "/static/media/israel.44aeebd2f6b2b4c934ea.png",
+    "static/media/sayarim.png": "/static/media/sayarim.0dac6d1504c96c0c5bf4.png",
+    "static/media/wima.png": "/static/media/wima.446d74f96aa372f38f78.png",
+    "static/media/suma.png": "/static/media/suma.1366389e3953d4532a35.png",
+    "static/media/hanhala_schweiz.png": "/static/media/hanhala_schweiz.78675eb04359744dcebb.png",
+    "static/media/loading.png": "/static/media/loading.a53b988e7269b6232408.png",
+    "static/media/ba_logo.png": "/static/media/ba_logo.f3923015bab6301d4fa8.png",
+    "index.html": "/index.html",
+    "main.a1176c5d.css.map": "/static/css/main.a1176c5d.css.map",
+    "main.ad9ada3a.js.map": "/static/js/main.ad9ada3a.js.map",
+    "787.b376147e.chunk.js.map": "/static/js/787.b376147e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a1176c5d.css",
+    "static/js/main.ad9ada3a.js"
+  ]
+}

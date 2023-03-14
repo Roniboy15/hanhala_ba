@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices';
-import { Container, Row, Col, ListGroup, ListGroupItem, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
 const Websites = () => {
 
     const [websites, setWebsites] = useState([]);

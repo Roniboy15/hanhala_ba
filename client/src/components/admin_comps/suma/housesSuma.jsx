@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom';
-import PagesComp from '../../../general_comps/pagesComp';
+import { useSearchParams } from 'react-router-dom';
 import useWindowWidth from '../../../general_comps/useWidth';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices'
-import AddApplicantModal from './addApplicantModal';
 import AddHouseModal from './addHouseModal';
 import './sumaCSS/sumaHome.css'
 
 export default function HousesSuma() {
 
-  {/*TODO: 
-  -Add edit houses
-*/}
+
   const [addHouseModalOpen, setAddHouseModalOpen] = useState(false);
   const [addHouseModalEditOpen, setAddHouseModalEditOpen] = useState(false);
   const [house, setHouse] = useState({});
 
-
-  const [getQuery] = useSearchParams();
   const [houses, setHouses] = useState([]);
   const [loading, setLoading] = useState(false);
   let width = useWindowWidth();

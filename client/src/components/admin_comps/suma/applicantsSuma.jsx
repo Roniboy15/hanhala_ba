@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { API_URL } from "../../../services/apiServices";
 import { doApiGet, doApiMethod } from "../../../services/apiServices";
@@ -13,7 +12,6 @@ const ApplicantsSuma = () => {
     const [addApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
     const [addApplicantModalEditOpen, setAddApplicantModalEditOpen] = useState(false);
     const [applicant, setApplicant] = useState({});
-    const [loading, setLoading] = useState(false);
 
     const applicantsListRef = useRef(null);
 
@@ -42,9 +40,7 @@ const ApplicantsSuma = () => {
     useEffect(() => {
         renumber();
     }, [applicants]);
-
-   
-
+    
     const deleteApplicant = async (applicantId) => {
         try {
             await doApiMethod(API_URL + "/applicants/" + applicantId, "DELETE");

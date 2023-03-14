@@ -8,8 +8,6 @@ const AdminAuth = ({children}) => {
 
     const [admin, setAdmin] = useState(false);
 
-    const nav = useNavigate();
-
     useEffect(() => {
         doApi();
     }, [admin])
@@ -18,7 +16,7 @@ const AdminAuth = ({children}) => {
         let url = API_URL + "/users/checkToken"
         try {
             let data = await doApiGet(url);
-            if (data.role != "admin") {
+            if (data.role !== "admin") {
                 setAdmin(false)
             }
             else setAdmin(true)

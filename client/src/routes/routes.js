@@ -1,4 +1,3 @@
-import AdminLogin from "../components/admin_comps/adminLogin"
 import AdminHome from "../components/admin_comps/home"
 import Home from "../components/client_comps/home"
 import React from "react"

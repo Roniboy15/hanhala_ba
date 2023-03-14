@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/Context';
 import AdminLogin from './adminLogin';
@@ -7,7 +7,6 @@ import AdminLogin from './adminLogin';
 const AdminHome = () => {
 
     const { admin, setAdmin } = useContext(AuthContext);
-    const nav = useNavigate();
 
     // useEffect(() => {
     //     if (!admin) {

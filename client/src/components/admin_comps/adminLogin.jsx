@@ -8,8 +8,6 @@ import { API_URL, doApiMethod, TOKEN_KEY } from '../../services/apiServices'
 const AdminLogin = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const nav = useNavigate();
-
   const { admin, setAdmin } = useContext(AuthContext)
 
   const onSub = (bodyData) => {

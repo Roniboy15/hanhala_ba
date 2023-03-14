@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Form, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/Context';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices';
 import AdminLogin from '../adminLogin';
@@ -10,14 +10,7 @@ import Websites from './websites';
 
 const SumaHome = () => {
 
-  {/*
-  TODO:
-  - List of  website to search Houses
-  -
-*/}
-
   const { admin, setAdmin } = useContext(AuthContext);
-  const nav = useNavigate();
   const [dateSuma, setDateSuma] = useState({});
 
   const [newDate, setNewDate] = useState("");
@@ -67,7 +60,6 @@ const SumaHome = () => {
     catch (err) {
       console.log("err sumaHmome", err)
     }
-    //console.log(date)
 
   }
 

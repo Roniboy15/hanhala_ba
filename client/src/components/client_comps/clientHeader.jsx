@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useWindowWidth from '../../general_comps/useWidth';
 import logo from '../../images/ba_logo.png';
@@ -9,7 +9,6 @@ const ClientHeader = () => {
     const [collapse, setCollapse] = useState(false);
     const [counter, setCounter] = useState(0);
     const width = useWindowWidth();
-    const nav = useNavigate();
 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ const ClientHeader = () => {
                                 setCollapse(false)
                                 setCounter(0)
                             }
-                        }} className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        }} className="navbar-toggler border-0s" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div
