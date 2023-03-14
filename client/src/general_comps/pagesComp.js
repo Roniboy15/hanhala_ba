@@ -8,8 +8,6 @@ export default function PagesComp(props) {
 
   useEffect(() => {
     doApi();
-    
-  
   },[])
 
   const doApi = async() => {
