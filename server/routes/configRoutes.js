@@ -1,4 +1,3 @@
-const indexR = require("./index");
 const usersR = require("./users");
 const applicantsR = require("./applicants");
 const datenR = require("./daten");
