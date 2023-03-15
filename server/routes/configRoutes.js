@@ -7,7 +7,6 @@ const websitesR = require("./websites");
 
 
 exports.routesInit = (app) => {
-  app.use("/",indexR);
   app.use("/users",usersR);
   app.use("/applicants",applicantsR);
   app.use("/daten", datenR);
