@@ -17,7 +17,7 @@ app.use(fileUpload({
 app.use(express.json());
 
 // Serve static files from the build folder
-app.use(express.static(path.join(__dirname, "public/build/static")));
+app.use(express.static(path.join(__dirname, "public/build")));
 
 // Catch-all route to serve the index.html file
 routesInit(app);
