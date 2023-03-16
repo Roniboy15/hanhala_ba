@@ -92,7 +92,6 @@ const Home = () => {
     if (sayarim.active == true) counter++;
     if (israel.active == true) counter++;
     setCount(counter);
-    console.log("sumaHouse", count)
 
   }
 
