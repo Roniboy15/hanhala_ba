@@ -182,6 +182,7 @@ const Home = () => {
               <div className="d-flex justify-content-center">
                 <h5 style={{ fontFamily: "" }} className={width > 500 ? 'p-4 m-2 bg-light rounded-4 bg-opacity-75 w-75 slide-in' : 'p-3 m-2 bg-light rounded-4 bg-opacity-75 w-100  slide-in'}>
                   <h1 className='p-2'>Israel Reise</h1>
+                  <h5>{israel.datum}</h5>
                   <br />
                   Eine einmalige Gelegenheit um den eigenen Horizont zu erweitern, eine tolle Zeit mit tollen Menschen zu verbringen und etwas zu bewegen!<br /><br />
                   <br />
