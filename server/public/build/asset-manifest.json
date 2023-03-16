@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a1176c5d.css",
-    "main.js": "/static/js/main.18c632c4.js",
+    "main.css": "/static/css/main.515f29d6.css",
+    "main.js": "/static/js/main.55882761.js",
     "static/js/787.b376147e.chunk.js": "/static/js/787.b376147e.chunk.js",
     "static/media/israel.png": "/static/media/israel.44aeebd2f6b2b4c934ea.png",
     "static/media/sayarim.png": "/static/media/sayarim.0dac6d1504c96c0c5bf4.png",
@@ -11,12 +11,12 @@
     "static/media/loading.png": "/static/media/loading.a53b988e7269b6232408.png",
     "static/media/ba_logo.png": "/static/media/ba_logo.f3923015bab6301d4fa8.png",
     "index.html": "/index.html",
-    "main.a1176c5d.css.map": "/static/css/main.a1176c5d.css.map",
-    "main.18c632c4.js.map": "/static/js/main.18c632c4.js.map",
+    "main.515f29d6.css.map": "/static/css/main.515f29d6.css.map",
+    "main.55882761.js.map": "/static/js/main.55882761.js.map",
     "787.b376147e.chunk.js.map": "/static/js/787.b376147e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1176c5d.css",
-    "static/js/main.18c632c4.js"
+    "static/css/main.515f29d6.css",
+    "static/js/main.55882761.js"
   ]
 }
