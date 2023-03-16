@@ -29,13 +29,13 @@ const AboutUs = () => {
                     <p>
                         Schreib uns wenn du Fragen hast oder mithelfen willst!
                     </p>
-                    <p style={{ fontFamily: "cursive" }}>
+                    <p style={{ fontStyle: "italic" }}>
                         <br />
                         Rabbi Tarfon pflegte zu sagen: Es ist nicht deine Pflicht das Werk zu vollenden, du bist aber auch nicht befugt nichts zu tun.
                         <br />
                         <br />
                         <p className='float-end'>
-                            - Mishna Avot 2:16
+                            Mishna Avot 2:16
                         </p>
 
 
