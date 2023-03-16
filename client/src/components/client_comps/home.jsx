@@ -187,7 +187,7 @@ const Home = () => {
                   <br />
                   Begleitung der Kwutza nach Israel <br /><br />Koordination mit den Verantwortlichen in Israel
                   <br /><br /><br />
-                  <h3>Werde Madrich auf der Israel Reise!</h3>
+                  <h3>Werde Madrich/a auf der Israel Reise!</h3>
                   <br />
                   <FontAwesomeIcon icon={faArrowDown} className='arrow-down'/>
                   <br /><br />

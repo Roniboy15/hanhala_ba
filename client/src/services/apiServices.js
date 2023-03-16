@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const API_URL = "";
-// export const API_URL = "http://blalba.cyclic.com";
+// https://hanhala-schweiz.onrender.com
 
 export const TOKEN_KEY = "ba_tok";
 export const GOOGLE_API_KEY = "AIzaSyD-iwThS1ZAiA1-y-vfFOZYFFSjh5SUb4M";

@@ -8,9 +8,10 @@ router.get("/", async (req, res) => {
 })
 
 
-router.get("/all", authAdmin, async (req, res) => {
+router.get("/all/:machane", authAdmin, async (req, res) => {
+let _machane = req.params.machane;
     try {
-        let data = await WebsiteModel.find({})
+        let data = await WebsiteModel.find({machane:_machane})
         res.json(data);
     }
     catch (err) {
