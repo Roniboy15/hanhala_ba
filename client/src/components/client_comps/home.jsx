@@ -189,8 +189,7 @@ const Home = () => {
                   <br /><br /><br />
                   <h3>Werde Madrich auf der Israel Reise!</h3>
                   <br />
-                  <FontAwesomeIcon icon={faArrowDown} className='arrow-down'
-                  />
+                  <FontAwesomeIcon icon={faArrowDown} className='arrow-down'/>
                   <br /><br />
                 </h5>
               </div>
