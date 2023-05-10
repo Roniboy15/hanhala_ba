@@ -137,6 +137,7 @@ const Home = () => {
         zIndex: 9999
       }}>
         <WhatsAppIcon phoneNumber={'41786536543'} />
+        
       </div>
       <div className="row">
         {suma.active ?

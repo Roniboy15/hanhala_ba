@@ -19,7 +19,7 @@ const AboutUs = () => {
                 <Col md={6}>
                     <h2>About Us</h2>
                     <p>
-                        Die Hanhala Schweiz ist ein Arm des Bne Akiwa Schweiz und besteht aus einer kleinen Gruppe von freiwilligen, hochmotivierten jungen Leuten.
+                        Die Hanhala ist ein Arm des Bne Akiwa Schweiz und besteht aus einer kleinen Gruppe von freiwilligen, hochmotivierten jungen Leuten.
                     </p>
                     <br />
                     <p>
