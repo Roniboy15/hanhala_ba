@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
 import useWindowWidth from '../../general_comps/useWidth';
 import { TOKEN_KEY } from '../../services/apiServices';
-import AdminAuth from './adminAuth';
 import logo from '../../images/ba_logo.png'
 import { AuthContext } from '../../context/Context';
 
@@ -30,13 +28,11 @@ const AdminHeader = () => {
     useEffect(() => {
         if (width > 990) setCollapse(true);
         else if (width < 990 && !collapse) { setCollapse(false) }
-
-
     }, [width])
 
 
     return (
-        <header className='container-fluid bg-secondary bg-opacity-25 rounded'>
+        <header style={{ backgroundColor: "#f7f7f7" }} className='container-fluid'>
             <div className="container">
                 <div className="row align-items-center">
                     <nav className="navbar navbar-expand-lg">
@@ -53,8 +49,7 @@ const AdminHeader = () => {
                                 setCollapse(false)
                                 setCounter(0)
                             }
-                            console.log(collapse)
-                        }} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        }} className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         {admin ?
@@ -87,7 +82,7 @@ const AdminHeader = () => {
 
                             </div>
                             :
-                            <button className='btn btn-outline-warning align' onClick={home}>Home</button>
+                            <button style={{ backgroundColor: "#f7f7f7" }} className='btn align border' onClick={home}>Home</button>
                         }
                     </nav>
 
