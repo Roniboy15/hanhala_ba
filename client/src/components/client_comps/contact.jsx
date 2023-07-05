@@ -10,7 +10,7 @@ const AboutUs = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        window.location.href = `mailto:jaron.111@hotmail.com?subject=Contact%20Form%20Submission%20from%20${name}%20(${email})&body=${message}`;
+        window.location.href = `mailto:jaron.111@hotmail.com?subject=Contact%20Hanhala%20Schweiz%20from%20${name}%20(${email})&body=${message}`;
     };
 
     return (
@@ -19,7 +19,7 @@ const AboutUs = () => {
                 <Col md={6}>
                     <h2>About Us</h2>
                     <p>
-                        Die Hanhala Schweiz ist ein Arm des Bne Akiwa Schweiz und besteht aus einer kleinen Gruppe von freiwilligen, hochmotivierten jungen Leuten.
+                        Die Hanhala ist ein Arm des Bne Akiwa Schweiz und besteht aus einer kleinen Gruppe von freiwilligen, hochmotivierten jungen Leuten.
                     </p>
                     <br />
                     <p>
@@ -27,7 +27,18 @@ const AboutUs = () => {
                     </p>
                     <br />
                     <p>
-                        Schreib uns wenn du Fragen hast oder mithelfen willst. Wir profitierten als Jugendliche, jetzt ist es Zeit zurückzugeben!
+                        Schreib uns wenn du Fragen hast oder mithelfen willst!
+                    </p>
+                    <p style={{ fontStyle: "italic" }}>
+                        <br />
+                        Rabbi Tarfon pflegte zu sagen: Es ist nicht deine Pflicht das Werk zu vollenden, du bist aber auch nicht befugt nichts zu tun.
+                        <br />
+                        <br />
+                        <p className='float-end'>
+                            Mishna Avot 2:16
+                        </p>
+
+
                     </p>
                 </Col>
                 <Col md={6}>
@@ -46,7 +57,7 @@ const AboutUs = () => {
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter your name"
+                                placeholder="Dein Name"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                             />
@@ -55,7 +66,7 @@ const AboutUs = () => {
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
                                 type="email"
-                                placeholder="Enter your email"
+                                placeholder="Deine email"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                             />

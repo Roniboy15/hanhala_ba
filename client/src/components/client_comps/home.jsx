@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL, doApiGet } from '../../services/apiServices';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+
 import './client.css'
 import '../../App.css';
 
@@ -89,7 +92,6 @@ const Home = () => {
     if (sayarim.active == true) counter++;
     if (israel.active == true) counter++;
     setCount(counter);
-    console.log("sumaHouse", count)
 
   }
 
@@ -132,8 +134,10 @@ const Home = () => {
         position: "fixed",
         bottom: isFixed ? '30px' : '115px',
         right: '15px',
+        zIndex: 9999
       }}>
         <WhatsAppIcon phoneNumber={'41786536543'} />
+        
       </div>
       <div className="row">
         {suma.active ?
@@ -174,17 +178,26 @@ const Home = () => {
           </div>
           : ''}
         {israel.active ?
-          <div className={count > 1 ? 'col-12 col-md-6' : 'col-12'} style={{ backgroundImage: `url(${backgroundIsrael})`, backgroundSize: "cover", overflowX:"hidden" }}>
+          <div className={count > 1 ? 'col-12 col-md-6 text' : 'col-12 text'} style={{ backgroundImage: `url(${backgroundIsrael})`, backgroundSize: "cover", overflowX: "hidden" }}>
             <div className="text-center justify-content-around mt-3 mt-md-4">
               <div className="d-flex justify-content-center">
-
-                <h5 style={{ fontFamily: "" }} className={width > 500 ? 'p-4 m-2 bg-light rounded-4 bg-opacity-75 w-75' : 'p-3 m-2 bg-light rounded-4 bg-opacity-75 w-100'}>
+                <h5 style={{ fontFamily: "" }} className={width > 500 ? 'p-4 m-2 bg-light rounded-4 bg-opacity-75 w-75 slide-in' : 'p-3 m-2 bg-light rounded-4 bg-opacity-75 w-100  slide-in'}>
                   <h1 className='p-2'>Israel Reise</h1>
-                  <br/>
-                  Eine einmalige Gelegenheit um den eigenen Horizont zu erweitern, eine tolle Zeit mit tollen Menschen zu verbringen und etwas zu bewegen!<br /><br /><br /><br />Begleitung der Kwutza nach Israel <br /><br />Koordination mit den Verantwortlichen in Israel </h5>
+                  <h5>{israel.datum}</h5>
+                  <br />
+                  Eine einmalige Gelegenheit um den eigenen Horizont zu erweitern, eine tolle Zeit mit tollen Menschen zu verbringen und etwas zu bewegen!<br /><br />
+                  <br />
+                  Begleitung der Kwutza nach Israel <br /><br />Koordination mit den Verantwortlichen in Israel
+                  <br /><br /><br />
+                  <h3>Werde Madrich/a auf der Israel Reise!</h3>
+                  <br />
+                  <FontAwesomeIcon icon={faArrowDown} className='arrow-down'/>
+                  <br /><br />
+                </h5>
               </div>
+
             </div>
-            <iframe style={{overflowX:"hidden"}} className="w-100" src={israel.formsLink}>..Loading</iframe>
+            <iframe style={{ overflowX: "hidden" }} className="w-100" src={israel.formsLink}>..Loading</iframe>
 
           </div>
           : ''}

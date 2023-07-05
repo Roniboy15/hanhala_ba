@@ -7,7 +7,7 @@ const Websites = () => {
 
     const fetchWebsites = async () => {
         try {
-            const data = await doApiGet(API_URL + '/websites/all');
+            const data = await doApiGet(API_URL + '/websites/all/suma');
             setWebsites(data);
         }
         catch (err) {
@@ -66,7 +66,7 @@ const Websites = () => {
                         <form onSubmit={handleAdd}>
                             <div className="form-group">
                                 <label htmlFor="url">URL</label>
-                                <input type="text" className="form-control p-1" id="url" onChange={(e) => setNewWebsite({ url: e.target.value })} placeholder="Enter the URL of the website" />
+                                <input type="text" className="form-control p-1" id="url" onChange={(e) => setNewWebsite({ url: e.target.value, machane: "suma" })} placeholder="Enter the URL of the website" />
                             </div>
                             <button className="btn btn-primary p-1 mt-2" type="submit">Add Website</button>
                         </form>

@@ -79,3 +79,84 @@ iframe {
 header{
   background-color: #f7f7f7;
 }
+.animated-text {
+  position: relative;
+  animation-name: fly-in-left, fly-in-right;
+  animation-duration: 2s, 2s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-delay: 0s, 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fly-in-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  70% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fly-in-right {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  70% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(0%);
+  } 
+}
+
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: fly-in-left 2s ease-in-out forwards;
+}
+.slide-in-title {
+  animation: fly-in-right 4s ease-in-out forwards;
+}
+
+.bounce {
+  animation: bounce 0.5s ease-in-out infinite;
+}
+
+.arrow-down{
+  font-size: 2.5rem;
+  color: #ffffff;
+  animation: bounce 0.8s ease-in-out infinite;
+
+}
