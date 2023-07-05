@@ -1,7 +1,6 @@
 import axios from "axios"
 
-export const API_URL = "";
-// https://hanhala-schweiz.onrender.com
+export const API_URL = "http://localhost:3006";
 
 export const TOKEN_KEY = "ba_tok";
 export const GOOGLE_API_KEY = "AIzaSyD-iwThS1ZAiA1-y-vfFOZYFFSjh5SUb4M";

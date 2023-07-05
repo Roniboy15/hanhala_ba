@@ -1,3 +1,4 @@
+const indexR = require("./index");
 const usersR = require("./users");
 const applicantsR = require("./applicants");
 const datenR = require("./daten");
@@ -6,6 +7,7 @@ const websitesR = require("./websites");
 
 
 exports.routesInit = (app) => {
+  app.use("/",indexR);
   app.use("/users",usersR);
   app.use("/applicants",applicantsR);
   app.use("/daten", datenR);

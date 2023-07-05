@@ -3,10 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import useWindowWidth from '../../../general_comps/useWidth';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices'
 import AddHouseModal from './addHouseModal';
-import './sumaCSS/sumaHome.css'
+import './wimaCSS/wimaHome.css'
 import EditHouseModal from '../editHouseModal';
 
-export default function HousesSuma() {
+export default function HousesWima() {
 
   const [addHouseModalOpen, setAddHouseModalOpen] = useState(false);
   const [addHouseModalEditOpen, setAddHouseModalEditOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function HousesSuma() {
   let width = useWindowWidth();
 
   const doApi = async () => {
-    let url = `${API_URL}/houses/all/?machane=suma&sort=suma_position`;
+    let url = `${API_URL}/houses/all/?machane=wima&sort=wima_position`;
 
     try {
       let data = await doApiGet(url);
@@ -41,7 +41,7 @@ export default function HousesSuma() {
 
   const renumber = async () => {
     const promises = houses.map((house, i) => {
-      return doApiMethod(`${API_URL}/houses/position/?_id=${house._id}&position=${i + 1}&key=suma_position`, "PATCH", {});
+      return doApiMethod(`${API_URL}/houses/position/?_id=${house._id}&position=${i + 1}&key=wima_position`, "PATCH", {});
     });
     await Promise.all(promises);
     console.log("success");
@@ -61,7 +61,7 @@ export default function HousesSuma() {
       setAllHouses(data);
     }
     catch (err) {
-      console.log("error fetching all houses in suma: ", err);
+      console.log("error fetching all houses in wima: ", err);
     }
   }
 
@@ -71,12 +71,12 @@ export default function HousesSuma() {
     try {
       await doApiMethod(url, "PATCH", {
         "add": true,
-        "item": "suma"
+        "item": "wima"
       });
       doApi();
     }
     catch (err) {
-      console.log("error patching machane array in suma: ", err);
+      console.log("error patching machane array in wima: ", err);
     }
   }
 
@@ -101,8 +101,8 @@ export default function HousesSuma() {
       console.log("new pos:", newPos);
       console.log("other ID:", otherHouse);
       try {
-        await doApiMethod(API_URL + '/houses/position/?_id=' + houseId + '&position=' + newPos + '&key=suma_position', "PATCH", {})
-        await doApiMethod(API_URL + '/houses/position/?_id=' + otherHouse + '&position=' + housePos + '&key=suma_position', "PATCH", {})
+        await doApiMethod(API_URL + '/houses/position/?_id=' + houseId + '&position=' + newPos + '&key=wima_position', "PATCH", {})
+        await doApiMethod(API_URL + '/houses/position/?_id=' + otherHouse + '&position=' + housePos + '&key=wima_position', "PATCH", {})
       }
       catch (err) {
         console.log("pos-err", err);
@@ -113,8 +113,8 @@ export default function HousesSuma() {
       console.log("new pos:", newPos);
       console.log("other ID:", otherHouse);
       try {
-        await doApiMethod(API_URL + '/houses/position/?_id=' + houseId + '&position=' + newPos + '&key=suma_position', "PATCH", {})
-        await doApiMethod(API_URL + '/houses/position/?_id=' + otherHouse + '&position=' + housePos + '&key=suma_position', "PATCH", {})
+        await doApiMethod(API_URL + '/houses/position/?_id=' + houseId + '&position=' + newPos + '&key=wima_position', "PATCH", {})
+        await doApiMethod(API_URL + '/houses/position/?_id=' + otherHouse + '&position=' + housePos + '&key=wima_position', "PATCH", {})
       }
       catch (err) {
         console.log("pos-err, houses", err);
@@ -165,19 +165,19 @@ export default function HousesSuma() {
     try {
       await doApiMethod(url, "PATCH", {
         "add": false,
-        "item": "suma"
+        "item": "wima"
       });
       doApi();
     }
     catch (err) {
-      console.log("error patching machane array in suma: ", err);
+      console.log("error patching machane array in wima: ", err);
     }
 
   }
 
   return (
     <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
-      <h3 className='p-2'>Suma Hüser</h3>
+      <h3 className='p-2'>Wima Hüser</h3>
       <h5><option className='bg-success btn p-0'>⇧</option> promising</h5>
       <h5><option className='bg-warning btn p-0'>⇨</option> pending</h5>
       <h5><option className='bg-danger btn p-0'>⇩</option> negative</h5>
@@ -204,13 +204,13 @@ export default function HousesSuma() {
                 <tr key={item._id}>
                   <td>{item.name}</td>
                   <td>
-                    <button className="btn" onClick={() => changeHousePriority(item._id, item.suma_position, "up")}>&uarr;</button>
-                    <button className="btn" onClick={() => changeHousePriority(item._id, item.suma_position, "down")}>&darr;</button>
+                    <button className="btn" onClick={() => changeHousePriority(item._id, item.wima_position, "up")}>&uarr;</button>
+                    <button className="btn" onClick={() => changeHousePriority(item._id, item.wima_position, "down")}>&darr;</button>
 
                   </td>
                   <td>
-                    <select value={item.interestSuma} className="btn m-2" style={{ backgroundColor: `${item.interestSuma}` }} onChange={(event) => {
-                      changeStatus(item._id, event.target.value, 'interestSuma');
+                    <select value={item.interestWima} className="btn m-2" style={{ backgroundColor: `${item.interestWima}` }} onChange={(event) => {
+                      changeStatus(item._id, event.target.value, 'interestWima');
 
                     }}>
                       <option value="green">⇧</option>

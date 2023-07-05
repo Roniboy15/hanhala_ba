@@ -28,11 +28,13 @@ const AdminHeader = () => {
     useEffect(() => {
         if (width > 990) setCollapse(true);
         else if (width < 990 && !collapse) { setCollapse(false) }
+
+
     }, [width])
 
 
     return (
-        <header style={{ backgroundColor: "#f7f7f7" }} className='container-fluid'>
+        <header style={{backgroundColor:"#f7f7f7"}} className='container-fluid'>
             <div className="container">
                 <div className="row align-items-center">
                     <nav className="navbar navbar-expand-lg">
@@ -49,6 +51,7 @@ const AdminHeader = () => {
                                 setCollapse(false)
                                 setCounter(0)
                             }
+                            console.log(collapse)
                         }} className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -82,7 +85,7 @@ const AdminHeader = () => {
 
                             </div>
                             :
-                            <button style={{ backgroundColor: "#f7f7f7" }} className='btn align border' onClick={home}>Home</button>
+                            <button style={{backgroundColor:"#f7f7f7"}} className='btn align border' onClick={home}>Home</button>
                         }
                     </nav>
 

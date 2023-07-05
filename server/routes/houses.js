@@ -66,7 +66,7 @@ router.post("/newHouse", auth, async (req, res) => {
     }
     catch (err) {
         if (err.code == 11000) {
-            return res.status(401).json({ msg: "Email already in system, try log in", code: 11000 })
+            return res.status(401).json({ msg: "Somethinng already in system", code: 11000 })
         }
         console.log(err);
         res.status(500).json(err);
@@ -92,6 +92,22 @@ router.put("/edit/:id", auth, async (req, res) => {
     }
 })
 
+router.patch('/machane/:id', async (req, res) => {
+  try {
+    const { add, item } = req.body;
+    let update;
+    if (add) {
+      update = { $addToSet: { machane: item } };
+    } else {
+      update = { $pull: { machane: item } };
+    }
+    const house = await HousesModel.findByIdAndUpdate(req.params.id, update, { new: true });
+    res.json(house);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
 router.patch("/position/", auth, async(req,res) => {
 
   try{
@@ -108,20 +124,28 @@ router.patch("/position/", auth, async(req,res) => {
   }
 })
 
-  router.patch("/interest/", auth, async(req,res) => {
-  
-    try{
-      let id = req.query._id;
-      let interest = req.query.interest;
-     
-      let data = await HousesModel.updateOne({_id:id},{interest})
-      res.json(data);
+router.patch("/interest/", auth, async(req,res) => {
+  try{
+    let id = req.query._id;
+    let field = req.query.field;
+    let interest = req.query.interest;
+   
+    if (!['interestWima', 'interestSuma'].includes(field)) {
+      return res.status(400).json({ error: 'Invalid field name' });
     }
-    catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-    }
-  })
+
+    let update = {};
+    update[field] = interest;
+    
+    let data = await HousesModel.updateOne({_id:id}, {$set: update})
+    res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
 
 
 router.delete("/delete/:id", auth, async (req, res) => {

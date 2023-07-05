@@ -3,11 +3,11 @@ import { API_URL } from "../../../services/apiServices";
 import { doApiGet, doApiMethod } from "../../../services/apiServices";
 import AddApplicantModal from "./addApplicantModal";
 import EditApplicantModal from "./editApplicantModal";
-import './israelCSS/israelCSS.css'
+import './wimaCSS/wimaHome.css'
 
 
 
-const ApplicantsIsrael = () => {
+const ApplicantsWima = () => {
     const [applicants, setApplicants] = useState([]);
     const [addApplicantModalOpen, setAddApplicantModalOpen] = useState(false);
     const [addApplicantModalEditOpen, setAddApplicantModalEditOpen] = useState(false);
@@ -18,7 +18,7 @@ const ApplicantsIsrael = () => {
 
     const fetchApplicants = async () => {
         try {
-            const data = await doApiGet(API_URL + '/applicants/allApplicants/?camp=israel&sort=israel_position');
+            const data = await doApiGet(API_URL + '/applicants/allApplicants/?camp=wima&sort=wima_position');
             setApplicants(data);
         } catch (err) {
             console.log("applicants", err);
@@ -28,7 +28,7 @@ const ApplicantsIsrael = () => {
 
     const renumber = async () => {
         const promises = applicants.map((applicant, i) => {
-            return doApiMethod(`${API_URL}/applicants/position/?_id=${applicant._id}&position=${i + 1}&key=israel_position`, "PATCH", {});
+            return doApiMethod(`${API_URL}/applicants/position/?_id=${applicant._id}&position=${i + 1}&key=wima_position`, "PATCH", {});
         });
         await Promise.all(promises);
         console.log("success");
@@ -61,8 +61,8 @@ const ApplicantsIsrael = () => {
             console.log("new pos:", newPos);
             console.log("other ID:", otherApplicant);
             try {
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos + '&key=israel_position', "PATCH", {})
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos + '&key=israel_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos + '&key=wima_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos + '&key=wima_position', "PATCH", {})
             }
             catch (err) {
                 console.log("pos-err", err);
@@ -73,8 +73,8 @@ const ApplicantsIsrael = () => {
             console.log("new pos:", newPos);
             console.log("other ID:", otherApplicant);
             try {
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos + '&key=israel_position', "PATCH", {})
-                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos + '&key=israel_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + applicantId + '&position=' + newPos + '&key=wima_position', "PATCH", {})
+                await doApiMethod(API_URL + '/applicants/position/?_id=' + otherApplicant + '&position=' + applicantPos + '&key=wima_position', "PATCH", {})
             }
             catch (err) {
                 console.log("pos-err", err);
@@ -147,8 +147,8 @@ const ApplicantsIsrael = () => {
                             <tr key={applicant._id}>
                                 <td>{applicant.name}</td>
                                 <td>
-                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.israel_position, "up")}>&uarr;</button>
-                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.israel_position, "down")}>&darr;</button>
+                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.wima_position, "up")}>&uarr;</button>
+                                    <button className="btn" onClick={() => changeApplicantPriority(applicant._id, applicant.wima_position, "down")}>&darr;</button>
 
                                 </td>
                                 <td>
@@ -218,4 +218,4 @@ const ApplicantsIsrael = () => {
     );
 };
 
-export default ApplicantsIsrael;
+export default ApplicantsWima;
