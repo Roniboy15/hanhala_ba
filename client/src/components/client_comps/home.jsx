@@ -149,7 +149,7 @@ const Home = () => {
           </div>
           : ''}
         {wima.active ?
-          <div className={count > 1 ? 'col-12 col-md-6 rounded' : 'col-12 rounded'} style={{ backgroundImage: `url(${backgroundWima})`, backgroundSize: "cover" }}>
+          <div className={count > 1 ? 'col-12 col-md-6 rounded' : 'col-12 rounded'} style={{  backgroundSize: "cover" }}>
             <div className="text-center justify-content-around mt-3 mt-md-4">
               <h1 className='p-2'>Wintermachane</h1>
               <div className="d-flex justify-content-center">
