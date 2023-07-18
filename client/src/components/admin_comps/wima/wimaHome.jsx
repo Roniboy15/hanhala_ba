@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/Context';
+import { AuthContext, LoadHouses, LoadHousesContext } from '../../../context/Context';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices';
 import AdminLogin from '../adminLogin';
 import ApplicantsWima from './applicantsWima'
@@ -20,11 +20,29 @@ const WimaHome = () => {
   const [messageButton, setMessageButton] = useState("");
   const [dateID, setID] = useState();
 
+  const [fetchedHouses, setFetchedHouses] = useState([]);
+  const [selectedHouseIds, setSelectedHouseIds] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+
+  const { loadHouses, setLoadHouses } = useContext(LoadHousesContext);
+
   useEffect(() => {
     if (admin) {
       getDates();
     }
   }, [admin]);
+
+  // In your useEffect or other function where you want to fetch the data
+
+  useEffect(() => {
+    fetchHouses();
+  }, []);
+
+  useEffect(() => {
+    fetchHouses();
+  }, [loadHouses]);
+
+
 
   useEffect(() => {
     if (dateWima.datum) {
@@ -49,6 +67,11 @@ const WimaHome = () => {
       }
     }
   }, [dateWima])
+
+  const fetchHouses = async () => {
+    const response = await doApiGet(API_URL + '/houses/email/wima');  // machane would either be 'suma' or 'wima'
+    setFetchedHouses(response);
+  };
 
   const getDates = async () => {
     let date;
@@ -92,13 +115,32 @@ const WimaHome = () => {
     getDates();
   }
 
+  const addDateToMessage = () => {
+    let currentMessage = newMessage || dateWima.message;
+
+    // Check if the word 'date' exists in the message
+    if (currentMessage.includes("date")) {
+      // Replace 'date' with the actual date
+      currentMessage = currentMessage.replace("date", dateWima.datum);
+    } else {
+      // If 'date' is not in the message, replace any date (in 'DD.MM.YY-DD.MM.YY' format) with the actual date
+      let dateRegex = /\d{2}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}/g;
+      currentMessage = currentMessage.replace(dateRegex, dateWima.datum);
+    }
+
+    console.log(currentMessage);
+    setNewMessage(currentMessage);
+  };
+
+
+
+
   const changeMessage = async () => {
     let url, method;
     let newObject = {};
     if (messageButton === "Change") {
       url = API_URL + "/daten/" + dateID;
       method = "PUT";
-
       newObject.name = dateWima.name;
       newObject.datum = dateWima.datum;
       newObject.active = dateWima.active;
@@ -114,10 +156,46 @@ const WimaHome = () => {
       newObject.message = newMessage;
 
     }
-
     await doApiMethod(url, method, newObject)
     getDates();
   }
+
+  const handleCheck = (id) => {
+    if (selectedHouseIds.includes(id)) {
+      setSelectedHouseIds(selectedHouseIds.filter(houseId => houseId !== id));
+    } else {
+      setSelectedHouseIds([...selectedHouseIds, id]);
+    }
+  };
+
+  const handleSelectAllCheck = () => {
+    if (!selectAll) {
+      setSelectedHouseIds(fetchedHouses.map(house => house._id));
+      setSelectAll(true);
+    } else {
+      setSelectedHouseIds([]);
+      setSelectAll(false);
+    }
+  };
+
+
+  const sendEmails = async () => {
+    try {
+      const response = await doApiMethod(API_URL + '/email/sendEmail', "POST", {
+        houseIds: selectedHouseIds,
+        message: (newMessage || dateWima.message).replace(/\n/g, '<br/>')
+      });
+      fetchHouses();
+      setSelectedHouseIds([]); // Clear the selected houses after sending the emails
+      setLoadHouses(!loadHouses)
+      console.log('Emails sent successfully!');
+    } catch (error) {
+      console.error('Failed to send emails:', error.message);
+    }
+  };
+
+
+
 
 
   return (
@@ -144,17 +222,48 @@ const WimaHome = () => {
             <div className='container p-2'>
               <div className='row'>
                 <div className='col-12'>
+
                   <h3 className='p-1'>Message fürd Hüser</h3>
-                 
-                  <input
-                    as="textarea"
+                  <textarea
                     className="rounded w-100"
-                    type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
+                    rows="10"
                   />
-                  <button className='btn btn-secondary m-2' onClick={changeMessage}>{messageButton} text</button>
 
+                  <button className='btn btn-secondary m-2' onClick={changeMessage}>{messageButton} text</button>
+                  <button className='btn btn-secondary m-2' onClick={addDateToMessage}>Add Date to Message</button>
+                  <br></br><br></br>
+                  {/* Map over the houses and add a checkbox to each */}
+                  {fetchedHouses.length < 1 ? "You contacted all houses! Add Houses or activate Wima at existing houses" :
+                    <div>
+                      <input
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={handleSelectAllCheck}
+                        style={{ marginRight: '10px' }}
+                      />
+                      Select All
+                    </div>
+                  }
+                  {fetchedHouses.map(house => (
+                    <div key={house._id}>
+                      <input
+                        type="checkbox"
+                        checked={selectedHouseIds.includes(house._id)}
+                        onChange={() => handleCheck(house._id)}
+                        style={{ marginRight: '10px' }}
+
+                      />
+                      {house.name}
+                    </div>
+                  ))}
+
+                  <br></br>
+                  {fetchedHouses.length < 1 ? "" :
+
+                    <button className='btn btn-secondary m-2' onClick={sendEmails}>Send Emails</button>
+                  }
                 </div>
               </div>
             </div>

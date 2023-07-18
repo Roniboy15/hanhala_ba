@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AdminAuth from './components/admin_comps/adminAuth';
 import Footer from './components/client_comps/footer';
+import LoadHouseContext from './general_comps/loadHouseContext';
 
 
 function App() {
@@ -14,19 +15,21 @@ function App() {
     <div>
       <BrowserRouter>
         <AdminAuth>
-          {/* Routes of header what to show client or admin header. Works like switch case. */}
-          <Routes>
-            <Route path="/admin/*" element={<AdminHeader />} />
-            <Route path="/*" element={<ClientHeader />} />
-          </Routes>
-          <Routes>
-            {/* client */}
-            {clientRoutes()}
-            {adminRoutes()}
-          </Routes>
-          <Footer />
-          {/* The toast messages added here */}
-          <ToastContainer position="top-left" theme="colored" />
+          <LoadHouseContext>
+            {/* Routes of header what to show client or admin header. Works like switch case. */}
+            <Routes>
+              <Route path="/admin/*" element={<AdminHeader />} />
+              <Route path="/*" element={<ClientHeader />} />
+            </Routes>
+            <Routes>
+              {/* client */}
+              {clientRoutes()}
+              {adminRoutes()}
+            </Routes>
+            <Footer />
+            {/* The toast messages added here */}
+            <ToastContainer position="top-left" theme="colored" />
+          </LoadHouseContext>
         </AdminAuth>
 
       </BrowserRouter>

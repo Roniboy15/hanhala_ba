@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import useWindowWidth from '../../../general_comps/useWidth';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices'
 import AddHouseModal from './addHouseModal';
 import './wimaCSS/wimaHome.css'
 import EditHouseModal from '../editHouseModal';
+import { LoadHouses, LoadHousesContext } from '../../../context/Context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function HousesWima() {
 
@@ -20,9 +23,11 @@ export default function HousesWima() {
   const [loading, setLoading] = useState(false);
   let width = useWindowWidth();
 
+  const { loadHouses, setLoadHouses } = useContext(LoadHousesContext);
+
+
   const doApi = async () => {
     let url = `${API_URL}/houses/all/?machane=wima&sort=wima_position`;
-
     try {
       let data = await doApiGet(url);
       console.log("data", data);
@@ -31,6 +36,7 @@ export default function HousesWima() {
         getAllHouses();
       })
       setLoading(false)
+      setLoadHouses(!loadHouses)
     }
     catch (err) {
       console.log("err Houses", err)
@@ -84,13 +90,25 @@ export default function HousesWima() {
     doApi();
   }, []);
 
-  useEffect(() => {
-    getAllHouses();
-  }, [houses]); // dependency array ensures this runs only when 'houses' state changes
+  const [callCount, setCallCount] = useState(0);
+
+useEffect(() => {
+  if(callCount > 0){
+    setCallCount(0)
+    return;
+  }
+  else{
+  doApi();
+  setCallCount(callCount + 1);
+  }
+}, [loadHouses]);
 
   useEffect(() => {
+    getAllHouses();
     renumber();
-  }, [houses]);
+  }, [houses]); // dependency array ensures this runs only when 'houses' state changes
+
+
 
 
   const changeHousePriority = async (houseId, housePos, direction) => {
@@ -178,9 +196,10 @@ export default function HousesWima() {
   return (
     <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
       <h3 className='p-2'>Wima Hüser</h3>
-      <h5><option className='bg-success btn p-0'>⇧</option> promising</h5>
-      <h5><option className='bg-warning btn p-0'>⇨</option> pending</h5>
-      <h5><option className='bg-danger btn p-0'>⇩</option> negative</h5>
+      <h5><option className='bg-success btn p-0 me-2'>⇧</option> Promising</h5>
+      <h5><option className='bg-warning btn p-0 me-2'>⇨</option> Pending</h5>
+      <h5><option className='bg-danger btn p-0 me-2'>⇩</option> Negative</h5>
+      <h5><FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#23d138", transition: 'background-color 3s' }} />Contacted</h5>
       <div className='houseList'>
         <table style={{ borderSpacing: "10px" }}>
           <thead>
@@ -202,7 +221,7 @@ export default function HousesWima() {
 
               return (
                 <tr key={item._id}>
-                  <td>{item.name}</td>
+                  <td>{item.emailSent?<FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#23d138", transition: 'background-color 3s' }} />:""}{item.name}</td>
                   <td>
                     <button className="btn" onClick={() => changeHousePriority(item._id, item.wima_position, "up")}>&uarr;</button>
                     <button className="btn" onClick={() => changeHousePriority(item._id, item.wima_position, "down")}>&darr;</button>
