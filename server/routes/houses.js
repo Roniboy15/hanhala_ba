@@ -4,9 +4,28 @@ const { validateHouses, HousesModel } = require("../models/housesModel");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  addEmailSentField()
   res.json({ msg: "Api Work 200 09:20" });
 })
+
+const addEmailSentFields = async () => {
+  try {
+    await HousesModel.updateMany(
+      {}, // Match all documents in the collection
+      {
+        $set: {
+          emailSent2: false,
+          emailSent3: false,
+          emailSent4: false,
+        }
+      },
+      { upsert: true, new: true }
+    );
+    console.log('HousesModel updated successfully with new fields.');
+  } catch (error) {
+    console.error('Failed to update HousesModel:', error.message);
+  }
+};
+
 
 const addEmailSentField = async () => {
   try {
@@ -61,11 +80,20 @@ router.get("/count", auth, async (req, res) => {
   }
 })
 
-router.get("/email/:machane", auth, async (req, res) => {
-  const { machane } = req.params;
-  const houses = await HousesModel.find({ machane: { $in: [machane] }, emailSent: false });
-  res.json(houses);
+router.get("/email/:machane/:year", auth, async (req, res) => {
+  const { machane, year } = req.params;
+  let email = 'emailSent' + year;
+  if(year == 1)email = 'emailSent';
+
+  try {
+    const houses = await HousesModel.find({ machane: machane, [email]: false });
+    res.json(houses);
+  } catch (error) {
+    console.error("Failed to fetch houses:", error.message);
+    res.status(500).json({ message: "Internal server error." });
+  }
 });
+
 
 router.get("/all", auth, async (req, res) => {
 
@@ -109,6 +137,40 @@ router.post("/newHouse", auth, async (req, res) => {
     res.status(500).json(err);
   }
 })
+
+router.patch("/emailStatus", auth, async (req, res) => {
+  const { _id, field, value } = req.query;
+
+  // Validate the field
+  if (!['emailSent', 'emailSent2', 'emailSent3', 'emailSent4'].includes(field)) {
+    return res.status(400).json({ error: 'Invalid field name' });
+  }
+
+  // Validate the value
+  if (!(value === 'true' || value === 'false')) {
+    return res.status(400).json({ error: 'Invalid field value' });
+  }
+
+  // Convert value to boolean
+  const boolValue = value === 'true';
+
+  try {
+    let update = await HousesModel.updateOne(
+      { _id: _id },
+      { $set: { [field]: boolValue } }
+    );
+
+    if (update.nModified == 0) {
+      return res.status(404).json({ msg: "Didn't find the house to update" });
+    }
+
+    res.json({ msg: "Email status updated" });
+  } catch (err) {
+    console.error("Error updating email status:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 router.put("/edit/:id", auth, async (req, res) => {
   let validBody = validateHouses(req.body);

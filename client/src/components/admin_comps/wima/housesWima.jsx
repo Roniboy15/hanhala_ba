@@ -92,22 +92,39 @@ export default function HousesWima() {
 
   const [callCount, setCallCount] = useState(0);
 
-useEffect(() => {
-  if(callCount > 0){
-    setCallCount(0)
-    return;
-  }
-  else{
-  doApi();
-  setCallCount(callCount + 1);
-  }
-}, [loadHouses]);
+  useEffect(() => {
+    if (callCount > 0) {
+      setCallCount(0)
+      return;
+    }
+    else {
+      doApi();
+      setCallCount(callCount + 1);
+    }
+  }, [loadHouses]);
 
   useEffect(() => {
     getAllHouses();
     renumber();
   }, [houses]); // dependency array ensures this runs only when 'houses' state changes
 
+
+
+  const getNextYears = (index = 0) => {
+    let currentYear = (new Date()).getFullYear();
+    let nextYear = currentYear + index;
+    let afterNextYear = currentYear + index + 1;
+
+    // Convert the years to strings
+    nextYear = nextYear.toString();
+    afterNextYear = afterNextYear.toString();
+
+    // Get the last two digits
+    nextYear = nextYear.slice(-2);
+    afterNextYear = afterNextYear.slice(-2);
+
+    return `${nextYear}/${afterNextYear}`;
+  }
 
 
 
@@ -193,6 +210,16 @@ useEffect(() => {
 
   }
 
+  const changeEmailStatus = async (_id, field, value) => {
+    try {
+      await doApiMethod(`${API_URL}/houses/emailStatus/?_id=${_id}&field=${field}&value=${value}`, "PATCH", {});
+    }
+    catch (err) {
+      console.log("patch email status:", err);
+    }
+    doApi();
+  }
+
   return (
     <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
       <h3 className='p-2'>Wima Hüser</h3>
@@ -205,6 +232,7 @@ useEffect(() => {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Contact</th>
               <th>Priority</th>
               <th>Status</th>
               <th>Website</th>
@@ -221,14 +249,32 @@ useEffect(() => {
 
               return (
                 <tr key={item._id}>
-                  <td>{item.emailSent?<FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#23d138", transition: 'background-color 3s' }} />:""}{item.name}</td>
+                  <td>{item.name}</td>
+                  <td style={{ minWidth: "20vw" }}>
+                    {["emailSent", "emailSent2", "emailSent3", "emailSent4"].map((field, index) => (
+                      <>
+                        {getNextYears(index)} {" "}
+                        {item[field]
+                          ? <FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#23d138", transition: 'background-color 3s' }} onClick={() => {
+                            if (window.confirm("Are you sure you want to set this to not contacted?")) {
+                              changeEmailStatus(item._id, field, false);
+                            }
+                          }} />
+                          : <FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#777777", transition: 'background-color 3s' }} onClick={() => {
+                            if (window.confirm("Are you sure you want to set this to contacted?")) {
+                              changeEmailStatus(item._id, field, true);
+                            }
+                          }} />}<br></br>
+                      </>
+                    ))}
+                  </td>
                   <td>
                     <button className="btn" onClick={() => changeHousePriority(item._id, item.wima_position, "up")}>&uarr;</button>
                     <button className="btn" onClick={() => changeHousePriority(item._id, item.wima_position, "down")}>&darr;</button>
 
                   </td>
                   <td>
-                    <select value={item.interestWima} className="btn m-2" style={{ backgroundColor: `${item.interestWima}` }} onChange={(event) => {
+                    <select value={item.interestWima} className="btn p-0 m-1" style={{ backgroundColor: `${item.interestWima}` }} onChange={(event) => {
                       changeStatus(item._id, event.target.value, 'interestWima');
 
                     }}>
@@ -289,14 +335,18 @@ useEffect(() => {
         setAddHouseModalOpen(true);
       }}>Add House</button>
 
-      {editHouseModalEditOpen && (
-        <EditHouseModal app={house} onSave={handleEditHouse} onClose={() => setEditHouseModalEditOpen(false)} />
-      )}
+      {
+        editHouseModalEditOpen && (
+          <EditHouseModal app={house} onSave={handleEditHouse} onClose={() => setEditHouseModalEditOpen(false)} />
+        )
+      }
 
-      {addHouseModalOpen && (
-        <AddHouseModal onSave={handleAddHouse} onClose={() => setAddHouseModalOpen(false)} />
-      )}
-    </div>
+      {
+        addHouseModalOpen && (
+          <AddHouseModal onSave={handleAddHouse} onClose={() => setAddHouseModalOpen(false)} />
+        )
+      }
+    </div >
 
   )
 }
