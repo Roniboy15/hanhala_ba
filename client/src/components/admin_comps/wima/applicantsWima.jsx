@@ -126,7 +126,7 @@ const ApplicantsWima = () => {
     };
 
     return (
-        <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+        <div className='col-11 col-md-12 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
 
             <h3 className="p-2">Konkrete Kandidaten</h3>
             <div className="applicantsList" >

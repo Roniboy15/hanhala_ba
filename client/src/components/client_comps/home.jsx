@@ -29,22 +29,22 @@ const Home = () => {
     try {
       const dataSuma = await doApiGet(`${API_URL}/daten/Suma`);
       const filteredData = {
-        name: dataSuma[0].name,
-        datum: dataSuma[0].datum,
-        formsLink: dataSuma[0].formsLink,
-        spreadLink: dataSuma[0].spreadLink,
-        active: dataSuma[0].active
+        name: dataSuma.name,
+        datum: dataSuma.datum,
+        formsLink: dataSuma.formsLink,
+        spreadLink: dataSuma.spreadLink,
+        active: dataSuma.active
       };
       setSuma(filteredData);
 
       const dataWima = await doApiGet(`${API_URL}/daten/Wima`);
 
       const filteredDataWima = {
-        name: dataWima[0].name,
-        datum: dataWima[0].datum,
-        formsLink: dataWima[0].formsLink,
-        spreadLink: dataWima[0].spreadLink,
-        active: dataWima[0].active
+        name: dataWima.name,
+        datum: dataWima.datum,
+        formsLink: dataWima.formsLink,
+        spreadLink: dataWima.spreadLink,
+        active: dataWima.active
       };
 
       setWima(filteredDataWima);
@@ -52,11 +52,11 @@ const Home = () => {
       const dataSayarim = await doApiGet(`${API_URL}/daten/Sayarim`);
 
       const filteredDataSayarim = {
-        name: dataSayarim[0].name,
-        datum: dataSayarim[0].datum,
-        formsLink: dataSayarim[0].formsLink,
-        spreadLink: dataSayarim[0].spreadLink,
-        active: dataSayarim[0].active
+        name: dataSayarim.name,
+        datum: dataSayarim.datum,
+        formsLink: dataSayarim.formsLink,
+        spreadLink: dataSayarim.spreadLink,
+        active: dataSayarim.active
       };
 
       setSayarim(filteredDataSayarim);
@@ -65,11 +65,11 @@ const Home = () => {
       const dataIsrael = await doApiGet(`${API_URL}/daten/israel`);
 
       const filteredDataIsrael = {
-        name: dataIsrael[0].name,
-        datum: dataIsrael[0].datum,
-        formsLink: dataIsrael[0].formsLink,
-        spreadLink: dataIsrael[0].spreadLink,
-        active: dataIsrael[0].active
+        name: dataIsrael.name,
+        datum: dataIsrael.datum,
+        formsLink: dataIsrael.formsLink,
+        spreadLink: dataIsrael.spreadLink,
+        active: dataIsrael.active
       };
 
       setIsrael(filteredDataIsrael);
