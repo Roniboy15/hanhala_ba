@@ -1,6 +1,4 @@
-// אמור לגרום לקובץ נקודה אי אן וי שהקוד
-// .env
-// של השרת יכיר את המשתנים בתוכו
+
 require("dotenv").config();
 
 exports.config = {
@@ -12,4 +10,3 @@ exports.config = {
   brevoAPI:process.env.BREVO_API_KEY
 }
 
-// console.log(process.env.USER_DB);
