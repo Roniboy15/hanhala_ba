@@ -251,16 +251,16 @@ export default function HousesSuma() {
                 <tr key={item._id}>
                   <td>{item.name}</td>
                   <td style={{ minWidth: "20vw" }}>
-                    {["emailSent", "emailSent2", "emailSent3", "emailSent4"].map((field, index) => (
+                    {["emailSentSuma", "emailSentSuma2", "emailSentSuma3", "emailSentSuma4"].map((field, index) => (
                       <>
                         {getNextYears(index)} {" "}
                         {item[field]
-                          ? <FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#23d138", transition: 'background-color 3s' }} onClick={() => {
+                          ? <FontAwesomeIcon className='me-2' icon={faCircleCheck} style={{ color: "#23d138", transition: 'background-color 3s' }} onClick={() => {
                             if (window.confirm("Are you sure you want to set this to not contacted?")) {
                               changeEmailStatus(item._id, field, false);
                             }
                           }} />
-                          : <FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#777777", transition: 'background-color 3s' }} onClick={() => {
+                          : <FontAwesomeIcon className='me-2' icon={faCircleCheck} style={{ color: "#777777", transition: 'background-color 3s' }} onClick={() => {
                             if (window.confirm("Are you sure you want to set this to contacted?")) {
                               changeEmailStatus(item._id, field, true);
                             }

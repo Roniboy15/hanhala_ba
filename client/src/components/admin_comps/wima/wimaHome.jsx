@@ -59,8 +59,11 @@ const WimaHome = () => {
   }, [datenWima])
 
   const fetchHouses = async () => {
+    console.log(selectedYear)
     if (selectedYear === undefined) return;
-    const response = await doApiGet(API_URL + '/houses/email/wima/' + selectedYear);
+    const response = await doApiGet(API_URL + '/houses/email/Wima/' + selectedYear);
+    console.log(response)
+
     setFetchedHouses(response);
   };
 

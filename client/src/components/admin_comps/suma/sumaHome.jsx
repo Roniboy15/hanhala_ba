@@ -60,7 +60,7 @@ const SumaHome = () => {
 
   const fetchHouses = async () => {
     if (selectedYear === undefined) return;
-    const response = await doApiGet(API_URL + '/houses/email/suma/' + selectedYear);
+    const response = await doApiGet(API_URL + '/houses/email/Suma/' + selectedYear);
     setFetchedHouses(response);
   };
 

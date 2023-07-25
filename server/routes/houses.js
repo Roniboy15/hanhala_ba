@@ -7,15 +7,43 @@ router.get("/", async (req, res) => {
   res.json({ msg: "Api Work 200 09:20" });
 })
 
+const removeEmailSentFields = async () => {
+  try {
+    await HousesModel.aggregate([
+      {
+        $project: {
+          emailSent: 0,
+           emailSent2: 0,
+           emailSent3: 0,
+           emailSent4: 0,
+        },
+      },
+      { $out: "houses" }, // Replace 'houses' with the actual name of your collection
+    ]);
+
+    console.log('HousesModel updated successfully with fields removed.');
+  } catch (error) {
+    console.error('Failed to update HousesModel:', error.message);
+  }
+};
+
+
+
+
 const addEmailSentFields = async () => {
   try {
     await HousesModel.updateMany(
       {}, // Match all documents in the collection
       {
         $set: {
-          emailSent2: false,
-          emailSent3: false,
-          emailSent4: false,
+          emailSentSuma: false,
+          emailSentSuma2: false,
+          emailSentSuma3: false,
+          emailSentSuma4: false,
+          emailSentWima: false,
+          emailSentWima2: false,
+          emailSentWima3: false,
+          emailSentWima4: false,
         }
       },
       { upsert: true, new: true }
@@ -81,12 +109,13 @@ router.get("/count", auth, async (req, res) => {
 })
 
 router.get("/email/:machane/:year", auth, async (req, res) => {
-  const { machane, year } = req.params;
-  let email = 'emailSent' + year;
-  if(year == 1)email = 'emailSent';
-
+  let { machane, year } = req.params;
+  let email = 'emailSent' + machane + year;
+  if(year == 1)email = 'emailSent' + machane;
+  machane = machane.toLowerCase();
   try {
     const houses = await HousesModel.find({ machane: machane, [email]: false });
+
     res.json(houses);
   } catch (error) {
     console.error("Failed to fetch houses:", error.message);
@@ -142,7 +171,7 @@ router.patch("/emailStatus", auth, async (req, res) => {
   const { _id, field, value } = req.query;
 
   // Validate the field
-  if (!['emailSent', 'emailSent2', 'emailSent3', 'emailSent4'].includes(field)) {
+  if (!['emailSentWima', 'emailSentWima2', 'emailSentWima3', 'emailSentWima4','emailSentSuma', 'emailSentSuma2', 'emailSentSuma3', 'emailSentSuma4'].includes(field)) {
     return res.status(400).json({ error: 'Invalid field name' });
   }
 

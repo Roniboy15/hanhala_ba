@@ -14,10 +14,14 @@ const HousesSchema = new mongoose.Schema({
     interestWima: { type: String, default: 'green' },
     suma_position: { type: Number, default: 1 },
     wima_position: { type: Number, default: 1 },
-    emailSent: {type: Boolean, default: false},
-    emailSent2: {type: Boolean, default: false},
-    emailSent3: {type: Boolean, default: false},
-    emailSent4: {type: Boolean, default: false},
+    emailSentSuma: {type: Boolean, default: false},
+    emailSentSuma2: {type: Boolean, default: false},
+    emailSentSuma3: {type: Boolean, default: false},
+    emailSentSuma4: {type: Boolean, default: false},
+    emailSentWima: {type: Boolean, default: false},
+    emailSentWima2: {type: Boolean, default: false},
+    emailSentWima3: {type: Boolean, default: false},
+    emailSentWima4: {type: Boolean, default: false},
     date_created: {
         type: Date, default: Date.now()
     }
@@ -34,10 +38,14 @@ exports.validateHouses = (reqBody) => {
         place: Joi.string().allow("", null),
         info: Joi.string().allow("", null),
         url: Joi.string().allow("", null),
-        emailSent: Joi.boolean(),
-        emailSent2: Joi.boolean(),
-        emailSent3: Joi.boolean(),
-        emailSent4: Joi.boolean()
+        emailSentSuma: Joi.boolean(),
+        emailSentSuma2: Joi.boolean(),
+        emailSentSuma3: Joi.boolean(),
+        emailSentSuma4: Joi.boolean(),
+        emailSentWima: Joi.boolean(),
+        emailSentWima2: Joi.boolean(),
+        emailSentWima3: Joi.boolean(),
+        emailSentWima4: Joi.boolean()
     })
     return joiSchema.validate(reqBody);
 }
