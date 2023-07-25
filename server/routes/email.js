@@ -8,7 +8,7 @@ const SibApiV3Sdk = require('sib-api-v3-sdk');
 let defaultClient = SibApiV3Sdk.ApiClient.instance;
 // Configure API key authorization: api-key
 let apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = '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';
+apiKey.apiKey = config.brevoAPI;
 
 var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
