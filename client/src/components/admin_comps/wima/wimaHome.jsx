@@ -174,12 +174,12 @@ const WimaHome = () => {
 
 
   const sendEmails = async () => {
-    if(window.confirm("Are you sure you want to send the email/s?")) {
+    if (window.confirm("Are you sure you want to send the email/s?")) {
       try {
         const response = await doApiMethod(API_URL + '/email/sendEmail', "POST", {
           houseIds: selectedHouseIds,
           message: (newMessage || datenWima.message).replace(/\n/g, '<br/>'),
-          emailSentField: selectedYear == 1 ? `emailSent` : `emailSent${selectedYear}`
+          emailSentField: selectedYear == 1 ? `emailSentWima` : `emailSentWima${selectedYear}`
         });
         setSelectedHouseIds([]); // Clear the selected houses after sending the emails
         setLoadHouses(!loadHouses)
@@ -191,7 +191,7 @@ const WimaHome = () => {
       console.log('Email sending canceled.');
     }
   };
-  
+
 
 
 
@@ -207,7 +207,7 @@ const WimaHome = () => {
             {
               ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
                 <div key={field}>
-                  <h3>{getNextYears(index)} : {datenWima[field]}</h3>
+                  <h3>{getNextYears(index)} : <p className='text-primary'>{datenWima[field]}</p></h3>
                   <input
                     className="rounded"
                     type="text"
@@ -231,10 +231,8 @@ const WimaHome = () => {
           </div>
           <WimaSheet />
           <ApplicantsWima />
-          <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
-            <Websites />
-          </div>
-          <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+          <Websites />
+          <div className='col-11 col-md-12 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
             <div className='container p-2'>
               <div className='row'>
                 <div className='col-12'>

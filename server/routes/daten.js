@@ -37,6 +37,24 @@ router.post("/", auth, async (req, res) => {
     }
 })
 
+router.put("/:id", auth, async (req, res) => {
+    const updateData = req.body; // This should be the entire updated object
+
+    try {
+        let id = req.params.id;
+        let daten = await DatenModel.findByIdAndUpdate(id, updateData, { new: true });
+        if (!daten) {
+            return res.status(404).json({ msg: "Machane not found" });
+        }
+        res.json(daten);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+
 router.put("/:id/:field", auth, async (req, res) => {
     const field = req.params.field;
     const { date } = req.body;

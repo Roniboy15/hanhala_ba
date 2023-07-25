@@ -221,12 +221,12 @@ export default function HousesSuma() {
   }
 
   return (
-    <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+    <div className='col-11 col-md-12 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
       <h3 className='p-2'>Suma Hüser</h3>
       <h5><option className='bg-success btn p-0 me-2'>⇧</option> Promising</h5>
       <h5><option className='bg-warning btn p-0 me-2'>⇨</option> Pending</h5>
       <h5><option className='bg-danger btn p-0 me-2'>⇩</option> Negative</h5>
-      <h5><FontAwesomeIcon className='me-2' icon={faCircleCheck} flip style={{ color: "#23d138", transition: 'background-color 3s' }} />Contacted</h5>
+      <h5><FontAwesomeIcon className='me-2' icon={faCircleCheck} style={{ color: "#23d138", transition: 'background-color 3s' }} />Contacted</h5>
       <div className='houseList'>
         <table style={{ borderSpacing: "10px" }}>
           <thead>

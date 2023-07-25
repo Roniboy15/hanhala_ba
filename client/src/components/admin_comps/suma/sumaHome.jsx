@@ -204,7 +204,7 @@ const SumaHome = () => {
             {
               ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
                 <div key={field}>
-                  <h3>{getNextYears(index)} : {datenSuma[field]}</h3>
+                  <h3>{getNextYears(index)} : <p className='text-primary'>{datenSuma[field]}</p></h3>
                   <input
                     className="rounded"
                     type="text"
@@ -228,10 +228,8 @@ const SumaHome = () => {
           </div>
           <SumaSheet />
           <ApplicantsSuma />
-          <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
             <Websites />
-          </div>
-          <div className='col-11 col-md-10 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
+          <div className='col-11 col-md-12 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
             <div className='container p-2'>
               <div className='row'>
                 <div className='col-12'>

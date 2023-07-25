@@ -11,7 +11,7 @@ const SumaSheet = () => {
      // console.log(data);
 
       const filteredData = {
-        spreadLink: data[0].spreadLink,
+        spreadLink: data.spreadLink,
       };
       setLink(filteredData.spreadLink);
     }
@@ -25,7 +25,7 @@ const SumaSheet = () => {
   }, [])
 
   return (
-    <div className='col-11 col-md-10 mt-3 bg-dark-subtle bg-opacity-25 rounded'>
+    <div className='col-11 col-md-12 mt-3 bg-dark-subtle bg-opacity-25 rounded'>
       <h3 className='p-2'>Antworten von Google Forms</h3>
       <iframe style={{ height: "40vh" }} className='w-100 p-2 border rounded shadow' src={link}></iframe>
     </div>
