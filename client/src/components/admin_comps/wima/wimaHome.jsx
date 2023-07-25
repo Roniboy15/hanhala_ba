@@ -179,7 +179,7 @@ const WimaHome = () => {
         const response = await doApiMethod(API_URL + '/email/sendEmail', "POST", {
           houseIds: selectedHouseIds,
           message: (newMessage || datenWima.message).replace(/\n/g, '<br/>'),
-          emailSentField: selectedYear == 1 ? `emailSent` : `emailSent${selectedYear}`
+          emailSentField: selectedYear == 1 ? `emailSentWima` : `emailSentWima${selectedYear}`
         });
         setSelectedHouseIds([]); // Clear the selected houses after sending the emails
         setLoadHouses(!loadHouses)
