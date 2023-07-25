@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../context/Context';
+import { AuthContext, LoadHouses, LoadHousesContext } from '../../../context/Context';
 import { API_URL, doApiGet, doApiMethod } from '../../../services/apiServices';
 import AdminLogin from '../adminLogin';
 import ApplicantsWima from './applicantsWima'
@@ -8,17 +8,31 @@ import HousesWima from './housesWima';
 import WimaSheet from './wimaSheet'
 import Websites from './websites';
 
+
+
 const WimaHome = () => {
 
   const { admin, setAdmin } = useContext(AuthContext);
-  const [dateWima, setDateWima] = useState({});
+  const [datenWima, setDatenWima] = useState({});
 
-  const [newDate, setNewDate] = useState("");
+  const [newDatum, setNewDatum] = useState("");
+  const [newDatum2, setNewDatum2] = useState("");
+  const [newDatum3, setNewDatum3] = useState("");
+  const [newDatum4, setNewDatum4] = useState("");
+
   const [dateMessage, setDateMessage] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [dateButton, setDateButton] = useState("");
-  const [messageButton, setMessageButton] = useState("");
   const [dateID, setID] = useState();
+
+  const [fetchedHouses, setFetchedHouses] = useState([]);
+  const [selectedHouseIds, setSelectedHouseIds] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+
+  const [selectedYear, setSelectedYear] = useState(undefined);
+
+
+  const { loadHouses, setLoadHouses } = useContext(LoadHousesContext);
 
   useEffect(() => {
     if (admin) {
@@ -27,35 +41,36 @@ const WimaHome = () => {
   }, [admin]);
 
   useEffect(() => {
-    if (dateWima.datum) {
-      setNewMessage(dateWima.message)
-      if (dateWima.datum) {
-        setDateButton("Change")
-        setDateMessage("Daten Wima: ")
-        //console.log(date)
+    fetchHouses();
+  }, [selectedYear]);
 
-      }
-      else {
-        setDateMessage("Gib bitte sofort dDate i: ")
-        setDateButton("Confirm");
-      }
-      if (dateWima.message) {
-        setMessageButton("Change")
+  useEffect(() => {
+    fetchHouses();
+  }, [loadHouses]);
 
-      }
-      else {
-        setMessageButton("Confirm");
-
-      }
+  useEffect(() => {
+    if (datenWima.datum) {
+      setNewDatum(datenWima.datum);
+      setNewDatum2(datenWima.datum2);
+      setNewDatum3(datenWima.datum3);
+      setNewDatum4(datenWima.datum4);
     }
-  }, [dateWima])
+    setNewMessage(datenWima.message)
+  }, [datenWima])
+
+  const fetchHouses = async () => {
+    if (selectedYear === undefined) return;
+    const response = await doApiGet(API_URL + '/houses/email/wima/' + selectedYear);
+    setFetchedHouses(response);
+  };
 
   const getDates = async () => {
     let date;
     try {
-      date = await doApiGet(API_URL + "/daten/" + "wima")
-      setDateWima(date[0]);
-      setID(date[0]._id);
+      date = await doApiGet(API_URL + "/daten/wima")
+      setDatenWima(date);
+      setID(date._id);
+
     }
     catch (err) {
       console.log("err wimaHmome", err)
@@ -63,61 +78,122 @@ const WimaHome = () => {
 
   }
 
-  const changeDate = async () => {
-    let url, method;
-    let name, datum;
-    let newObject = {};
-    if (dateButton === "Change") {
-      url = API_URL + "/daten/" + dateID;
-      method = "PUT";
 
-      newObject.name = dateWima.name;
-      newObject.datum = newDate || dateWima.datum;
-      newObject.active = dateWima.active;
 
-    }
-    else {
-      url = API_URL + "/daten";
-      method = "POST";
-
-      datum = newDate || dateWima.datum;
-
-      newObject.name = dateWima.name;
-      newObject.datum = datum;
-      newObject.active = dateWima.active;
-
-    }
-
-    await doApiMethod(url, method, newObject)
-    getDates();
+  const getNextYears = (index = 0) => {
+    const currentYear = (new Date()).getFullYear();
+    return `${currentYear + index}/${currentYear + index + 1}`;
   }
 
-  const changeMessage = async () => {
-    let url, method;
-    let newObject = {};
-    if (messageButton === "Change") {
-      url = API_URL + "/daten/" + dateID;
+
+  const changeDate = async (field) => {
+    try {
+      let url, method;
+      let newDatumObject;
+
+      const newDates = {
+        "datum": newDatum,
+        "datum2": newDatum2,
+        "datum3": newDatum3,
+        "datum4": newDatum4,
+      };
+
+      newDatumObject = { date: newDates[field] };
+
+      url = API_URL + "/daten/" + dateID + "/" + field;
       method = "PUT";
 
-      newObject.name = dateWima.name;
-      newObject.datum = dateWima.datum;
-      newObject.active = dateWima.active;
-      newObject.message = newMessage || dateWima.message;
+      await doApiMethod(url, method, newDatumObject)
+      getDates();
+    } catch (error) {
+      console.error("Error while changing date:", error.message);
     }
-    else {
-      url = API_URL + "/daten";
-      method = "POST";
-
-      newObject.name = dateWima.name;
-      newObject.datum = dateWima.datum;
-      newObject.active = dateWima.active;
-      newObject.message = newMessage;
-
-    }
-
-    await doApiMethod(url, method, newObject)
-    getDates();
   }
+
+
+
+
+  const addDateToMessage = () => {
+    let currentMessage = newMessage || datenWima.message;
+
+    // Check if the word 'date' exists in the message
+    if (currentMessage.includes("date")) {
+      // Replace 'date' with the actual date
+      currentMessage = currentMessage.replace("date", datenWima.datum);
+    } else {
+      // If 'date' is not in the message, replace any date (in 'DD.MM.YY-DD.MM.YY' format) with the actual date
+      let dateRegex = /\d{2}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}/g;
+      currentMessage = currentMessage.replace(dateRegex, datenWima.datum);
+    }
+
+    console.log(currentMessage);
+    setNewMessage(currentMessage);
+  };
+
+
+
+
+  const changeMessage = async (field) => {
+    try {
+      let url, method;
+      let newDatumObject;
+
+      newDatumObject = { date: newMessage };
+
+      url = API_URL + "/daten/" + dateID + "/" + field;
+      method = "PUT";
+
+      await doApiMethod(url, method, newDatumObject)
+      getDates();
+    } catch (error) {
+      console.error("Error while changing message:", error.message);
+    }
+  }
+
+
+  const handleCheck = (id) => {
+    if (selectedHouseIds.includes(id)) {
+      setSelectedHouseIds(selectedHouseIds.filter(houseId => houseId !== id));
+    } else {
+      setSelectedHouseIds([...selectedHouseIds, id]);
+    }
+  };
+
+  const handleSelectAllCheck = () => {
+    if (!selectAll) {
+      setSelectedHouseIds(fetchedHouses.map(house => house._id));
+      setSelectAll(true);
+    } else {
+      setSelectedHouseIds([]);
+      setSelectAll(false);
+    }
+  };
+
+
+  const sendEmails = async () => {
+    if(window.confirm("Are you sure you want to send the email/s?")) {
+      try {
+        const response = await doApiMethod(API_URL + '/email/sendEmail', "POST", {
+          houseIds: selectedHouseIds,
+          message: (newMessage || datenWima.message).replace(/\n/g, '<br/>'),
+          emailSentField: selectedYear == 1 ? `emailSent` : `emailSent${selectedYear}`
+        });
+        setSelectedHouseIds([]); // Clear the selected houses after sending the emails
+        setLoadHouses(!loadHouses)
+        console.log('Emails sent successfully!');
+      } catch (error) {
+        console.error('Failed to send emails:', error.message);
+      }
+    } else {
+      console.log('Email sending canceled.');
+    }
+  };
+  
+
+
+
+
+
 
 
   return (
@@ -125,15 +201,30 @@ const WimaHome = () => {
       {admin ?
         <div className='row justify-content-center'>
           <div className='col-11 col-md-12 mt-3'>
-            <h3>{dateMessage}<span>{dateWima.datum}</span> </h3>
-            <input
-              className="rounded"
-              type="text"
-              value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-            />
-            <button className='btn btn-secondary m-2' onClick={changeDate}>{dateButton} Date</button>
-
+            {
+              ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
+                <div key={field}>
+                  <h3>{getNextYears(index)} : {datenWima[field]}</h3>
+                  <input
+                    className="rounded"
+                    type="text"
+                    value={
+                      field === "datum" ? newDatum :
+                        field === "datum2" ? newDatum2 :
+                          field === "datum3" ? newDatum3 :
+                            newDatum4
+                    }
+                    onChange={(e) => {
+                      if (field === "datum") setNewDatum(e.target.value)
+                      else if (field === "datum2") setNewDatum2(e.target.value)
+                      else if (field === "datum3") setNewDatum3(e.target.value)
+                      else if (field === "datum4") setNewDatum4(e.target.value)
+                    }}
+                  />
+                  <button className='btn btn-secondary m-2' onClick={() => changeDate(field)}>{datenWima[field] ? "Change" : "Confirm"}</button>
+                </div>
+              ))
+            }
           </div>
           <WimaSheet />
           <ApplicantsWima />
@@ -144,17 +235,87 @@ const WimaHome = () => {
             <div className='container p-2'>
               <div className='row'>
                 <div className='col-12'>
+
                   <h3 className='p-1'>Message fürd Hüser</h3>
-                 
-                  <input
-                    as="textarea"
+
+                  {/* Year Selection */}
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'start',
+                    marginBottom: '10px'
+                  }}>
+                    <label
+                      htmlFor="yearSelection"
+                      style={{
+                        marginBottom: '5px',
+                        fontSize: '16px',
+                        color: '#333'
+                      }}
+                    >
+                      Select Year:
+                    </label>
+                    <select
+                      id="yearSelection"
+                      value={selectedYear}
+                      onChange={(e) => setSelectedYear(e.target.value)}
+                      style={{
+                        width: '200px',
+                        padding: '10px',
+                        fontSize: '16px',
+                        color: '#333',
+                        border: '1px solid #ccc',
+                        borderRadius: '5px'
+                      }}
+                    >
+                      <option value={undefined}>Select Year</option>
+                      <option value="1">{getNextYears()}</option>
+                      <option value="2">{getNextYears(1)}</option>
+                      <option value="3">{getNextYears(2)}</option>
+                      <option value="4">{getNextYears(3)}</option>
+                    </select>
+                  </div>
+
+                  <textarea
                     className="rounded w-100"
-                    type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
+                    rows="11"
                   />
-                  <button className='btn btn-secondary m-2' onClick={changeMessage}>{messageButton} text</button>
 
+                  <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Change text</button>
+                  <button className='btn btn-secondary m-2' onClick={addDateToMessage}>Add Date to Message</button>
+                  <br></br><br></br>
+                  {/* Map over the houses and add a checkbox to each */}
+                  {selectedYear === undefined ? "Choose a year!" : fetchedHouses.length < 1 ? "You contacted all houses! Add Houses or activate Wima at existing houses" :
+                    <div>
+                      <input
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={handleSelectAllCheck}
+                        style={{ marginRight: '10px' }}
+                      />
+                      Select All
+                    </div>
+                  }
+                  {fetchedHouses.map(house => (
+                    <div key={house._id}>
+                      <input
+                        type="checkbox"
+                        checked={selectedHouseIds.includes(house._id)}
+                        onChange={() => handleCheck(house._id)}
+                        style={{ marginRight: '10px' }}
+
+                      />
+                      {house.name}
+                    </div>
+                  ))}
+
+                  <br></br>
+                  {fetchedHouses.length < 1 ? "" :
+
+                    <button className='btn btn-secondary m-2' onClick={() => sendEmails()}>Send Emails</button>
+                  }
                 </div>
               </div>
             </div>

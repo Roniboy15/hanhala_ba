@@ -14,8 +14,10 @@ const HousesSchema = new mongoose.Schema({
     interestWima: { type: String, default: 'green' },
     suma_position: { type: Number, default: 1 },
     wima_position: { type: Number, default: 1 },
-    sayarim_position: { type: Number, default: 1 },
-    israel_position: { type: Number, default: 1 },
+    emailSent: {type: Boolean, default: false},
+    emailSent2: {type: Boolean, default: false},
+    emailSent3: {type: Boolean, default: false},
+    emailSent4: {type: Boolean, default: false},
     date_created: {
         type: Date, default: Date.now()
     }
@@ -31,7 +33,11 @@ exports.validateHouses = (reqBody) => {
         phone: Joi.string().allow("", null),
         place: Joi.string().allow("", null),
         info: Joi.string().allow("", null),
-        url: Joi.string().allow("", null)
+        url: Joi.string().allow("", null),
+        emailSent: Joi.boolean(),
+        emailSent2: Joi.boolean(),
+        emailSent3: Joi.boolean(),
+        emailSent4: Joi.boolean()
     })
     return joiSchema.validate(reqBody);
 }

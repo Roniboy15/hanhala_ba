@@ -4,6 +4,7 @@ const applicantsR = require("./applicants");
 const datenR = require("./daten");
 const housesR = require("./houses");
 const websitesR = require("./websites");
+const emailR = require("./email");
 
 
 exports.routesInit = (app) => {
@@ -13,6 +14,7 @@ exports.routesInit = (app) => {
   app.use("/daten", datenR);
   app.use("/houses", housesR);
   app.use("/websites", websitesR);
+  app.use("/email", emailR);
 }
 
 // app.use("*",(req,res) => {
