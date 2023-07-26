@@ -21,6 +21,7 @@ const AdminHeader = () => {
             "/admin/il-reise": "IL Reise",
             "/admin/sayarim": "Sayarim",
         };
+        if(!admin)return "";
         return machanePaths[location.pathname] || "";
     }
 
