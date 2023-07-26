@@ -1,6 +1,7 @@
 import axios from "axios"
 
-export const API_URL = "http://localhost:3006";
+export const API_URL = "https://hanhala-server.onrender.com"
+//export const API_URL = "http://localhost:3006";
 
 
 export const TOKEN_KEY = "ba_tok";
