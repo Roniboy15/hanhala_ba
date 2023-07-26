@@ -207,7 +207,7 @@ const WimaHome = () => {
             {
               ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
                 <div key={field}>
-                  <h3>{getNextYears(index)} : <p className='text-primary'>{datenWima[field]}</p></h3>
+                  <h3>{getNextYears(index)} : <p style={{color: 'rgb(59, 94, 168)'}}>{datenWima[field]}</p></h3>
                   <input
                     className="rounded"
                     type="text"

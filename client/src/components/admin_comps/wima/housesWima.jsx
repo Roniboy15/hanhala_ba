@@ -163,13 +163,17 @@ export default function HousesWima() {
     try {
       const data = await doApiMethod(API_URL + '/houses/newHouse', "POST", newHouse);
       setHouses([...houses, data]);
-
     }
     catch (err) {
       console.log("new house", err)
+      // check if error code is 11000
+      if (err.response && err.response.data.code === 11000) {
+        alert("The name of the house or the email is already in the system.");
+      }
     }
     setAddHouseModalOpen(false);
   };
+  
 
   const handleEditHouse = async (newHouse) => {
     try {

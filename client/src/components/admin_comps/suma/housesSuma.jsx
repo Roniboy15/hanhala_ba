@@ -113,17 +113,14 @@ export default function HousesSuma() {
   const getNextYears = (index = 0) => {
     let currentYear = (new Date()).getFullYear();
     let nextYear = currentYear + index;
-    let afterNextYear = currentYear + index + 1;
 
     // Convert the years to strings
     nextYear = nextYear.toString();
-    afterNextYear = afterNextYear.toString();
 
     // Get the last two digits
     nextYear = nextYear.slice(-2);
-    afterNextYear = afterNextYear.slice(-2);
 
-    return `${nextYear}/${afterNextYear}`;
+    return `${nextYear}`;
   }
 
 
@@ -166,6 +163,10 @@ export default function HousesSuma() {
     }
     catch (err) {
       console.log("new house", err)
+      // check if error code is 11000
+      if (err.response && err.response.data.code === 11000) {
+        alert("The name of the house or the email is already in the system.");
+      }
     }
     setAddHouseModalOpen(false);
   };

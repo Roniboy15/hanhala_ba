@@ -160,12 +160,13 @@ router.post("/newHouse", auth, async (req, res) => {
   }
   catch (err) {
     if (err.code == 11000) {
-      return res.status(401).json({ msg: "Somethinng already in system", code: 11000 })
+      return res.status(401).json({ msg: "Something is already in the system", code: 11000 });
     }
     console.log(err);
-    res.status(500).json(err);
+    res.status(500).json({ msg: err.message });
   }
-})
+});
+
 
 router.patch("/emailStatus", auth, async (req, res) => {
   const { _id, field, value } = req.query;

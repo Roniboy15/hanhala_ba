@@ -22,7 +22,7 @@ const IsraelHome = () => {
     if (admin) {
       getDates();
     }
-  }, [admin]);
+  }, []);
 
   useEffect(() => {
     if (dateIsrael.datum) {
@@ -52,8 +52,8 @@ const IsraelHome = () => {
     let date;
     try {
       date = await doApiGet(API_URL + "/daten/" + "israel")
-      setDateIsrael(date[0]);
-      setID(date[0]._id);
+      setDateIsrael(date);
+      setID(date._id);
     }
     catch (err) {
       console.log("err IsraelHome", err)

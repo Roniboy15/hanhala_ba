@@ -82,7 +82,7 @@ const SumaHome = () => {
 
   const getNextYears = (index = 0) => {
     const currentYear = (new Date()).getFullYear();
-    return `${currentYear + index}/${currentYear + index + 1}`;
+    return `${currentYear + index}`;
   }
 
 
@@ -193,9 +193,6 @@ const SumaHome = () => {
 
 
 
-
-
-
   return (
     <div className='container p-1'>
       {admin ?
@@ -204,7 +201,7 @@ const SumaHome = () => {
             {
               ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
                 <div key={field}>
-                  <h3>{getNextYears(index)} : <p className='text-primary'>{datenSuma[field]}</p></h3>
+                  <h3>{getNextYears(index)} : <p style={{color: 'rgb(59, 94, 168)'}}>{datenSuma[field]}</p></h3>
                   <input
                     className="rounded"
                     type="text"

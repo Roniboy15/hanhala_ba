@@ -1,59 +1,47 @@
 import React, { useState } from 'react';
 
 const AddHouseModal = ({ onSave, onClose }) => {
-  const MACHANE_OPTIONS = ["suma", "wima"];
 
   const [house, setHouse] = useState({
     name: '',
     place: '',
     phone: '',
     email: '',
-    machane: ['wima'],
+    machane: [],
     url: '',
     info: ''
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
-
     const { name, value } = event.target;
     const newHouse = { ...house, [name]: value };
-    if (name === "machane") {
-      newHouse.machane = value.split(",").map((s) => s.trim());
-      let newErrors = {};
-      if (!newHouse.machane.every((s) => MACHANE_OPTIONS.includes(s))) {
-        newErrors.machane = "Please enter valid machane options";
-      }
-      setErrors(newErrors);
-    }
+    setHouse(newHouse);
 
     let newErrors = {};
-
-    if (name === 'name') {
-      if (!value) {
-        newErrors.name = 'Name is required';
-      }
-
-    } else if (name === 'email') {
-
-      if (!value) {
-        newErrors.phone = 'Phone cannot be empty';
+    if (name === 'name' && !value) {
+      newErrors.name = 'Name is required';
+    } else if (name === 'phone' && !value) {
+      newErrors.phone = 'Phone cannot be empty';
+    } else if (name === 'email' && (!value || !/\S+@\S+\.\S+/.test(value))) {
+      newErrors.email = 'Email is invalid';
     }
-    
-    }
-    else if (name === 'email') {
-      if (!value) {
-        newErrors.email = 'Email is required';
-      } else if (!/\S+@\S+\.\S+/.test(value)) {
-        newErrors.email = 'Email is invalid';
-      }
-    } else if (name === "machane") {
-      if (!newHouse.machane.every((s) => MACHANE_OPTIONS.includes(s))) {
-        newErrors.machane = "Please enter valid machane options";
-      }
-    }
-    setHouse(newHouse);
+
     setErrors(newErrors);
+  };
+
+  const handleMachane = (machaneOption) => {
+    if (house.machane.includes(machaneOption)) {
+      setHouse({
+        ...house,
+        machane: house.machane.filter(machane => machane !== machaneOption),
+      });
+    } else {
+      setHouse({
+        ...house,
+        machane: [...house.machane, machaneOption],
+      });
+    }
   };
 
   const handleSave = () => {
@@ -62,21 +50,12 @@ const AddHouseModal = ({ onSave, onClose }) => {
     if (!house.name) {
       newErrors.name = 'Name is required';
     }
-
-
-    if (!house.machane.length) {
-      newErrors.machane = 'Machane required';
-    } else {
-      for (let i = 0; i < house.machane.length; i++) {
-        const machane = house.machane[i];
-        if (machane !== "suma" && machane !== "wima") {
-          newErrors.machane = 'Machane must be suma or wima';
-        }
-      }
+    if (!house.email && !house.phone) {
+      newErrors.contact = 'At least one contact method must be provided';
     }
-
-
-
+    if (!house.machane.length) {
+      newErrors.machane = 'At least one Machane must be selected';
+    }
 
     if (Object.keys(newErrors).length === 0) {
       onSave(house);
@@ -141,18 +120,22 @@ const AddHouseModal = ({ onSave, onClose }) => {
 
       </div>
       <div>
-        <label className='w-100' htmlFor="machane">Machane</label>
-        <input
-          className='rounded-2'
-          type="text"
-          name="machane"
-          id="machane"
-          value={house.machane.join(", ")}
-          onChange={handleChange}
-        />
+        <label className='w-100' htmlFor="machane">Machanot</label>
+        <button
+          className={house.machane.includes('suma') ? 'btn btn-success me-3' : 'btn btn-outline-success me-3'}
+          onClick={() => handleMachane('suma')}
+        >
+          Suma
+        </button>
+        <button
+          className={house.machane.includes('wima') ? 'btn btn-success' : 'btn btn-outline-success'}
+          onClick={() => handleMachane('wima')}
+        >
+          Wima
+        </button>
         {errors.machane && <div className='text-danger'>{errors.machane}</div>}
+        {errors.contact && <div className='text-danger'>{errors.contact}</div>}
       </div>
-
       <div>
         <label className='w-100' htmlFor="url">URL</label>
         <input
