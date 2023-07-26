@@ -10,7 +10,6 @@ import backgroundIsrael from '../../images/israel.png'
 import useWindowWidth from '../../general_comps/useWidth';
 import WhatsAppIcon from '../../general_comps/whatsapp';
 import LoadingIcon from '../../general_comps/loadingIcon';
-import { url } from 'inspector';
 
 const Home = () => {
 
