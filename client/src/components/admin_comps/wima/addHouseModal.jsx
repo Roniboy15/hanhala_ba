@@ -52,8 +52,6 @@ const AddHouseModal = ({ onSave, onClose }) => {
         newErrors.machane = "Please enter valid machane options";
       }
     }
-
-
     setHouse(newHouse);
     setErrors(newErrors);
   };

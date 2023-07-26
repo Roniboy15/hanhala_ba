@@ -159,7 +159,6 @@ export default function HousesSuma() {
   };
 
   const handleAddHouse = async (newHouse) => {
-    console.log("add House", newHouse)
     try {
       const data = await doApiMethod(API_URL + '/houses/newHouse', "POST", newHouse);
       setHouses([...houses, data]);
