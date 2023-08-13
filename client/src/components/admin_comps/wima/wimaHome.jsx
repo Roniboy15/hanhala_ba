@@ -7,6 +7,7 @@ import ApplicantsWima from './applicantsWima'
 import HousesWima from './housesWima';
 import WimaSheet from './wimaSheet'
 import Websites from './websites';
+import useWindowWidth from '../../../general_comps/useWidth';
 
 
 
@@ -31,8 +32,11 @@ const WimaHome = () => {
 
   const [selectedYear, setSelectedYear] = useState(undefined);
 
+  const [selectedEmail, setSelectedEmail] = useState("");
 
   const { loadHouses, setLoadHouses } = useContext(LoadHousesContext);
+
+  let  width = useWindowWidth();
 
   useEffect(() => {
     if (admin) {
@@ -172,14 +176,25 @@ const WimaHome = () => {
     }
   };
 
+  const isValidEmail = (email) => {
+    // Regular expression pattern for basic email validation
+    let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+}
 
   const sendEmails = async () => {
+  if (!isValidEmail(selectedEmail)) {
+      alert("Please enter a valid email address from which the mail/s should be sent!");
+      return;
+  }
+  
     if (window.confirm("Are you sure you want to send the email/s?")) {
       try {
         const response = await doApiMethod(API_URL + '/email/sendEmail', "POST", {
           houseIds: selectedHouseIds,
           message: (newMessage || datenWima.message).replace(/\n/g, '<br/>'),
-          emailSentField: selectedYear == 1 ? `emailSentWima` : `emailSentWima${selectedYear}`
+          emailSentField: selectedYear == 1 ? `emailSentWima` : `emailSentWima${selectedYear}`,
+          email: selectedEmail
         });
         setSelectedHouseIds([]); // Clear the selected houses after sending the emails
         setLoadHouses(!loadHouses)
@@ -207,7 +222,7 @@ const WimaHome = () => {
             {
               ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
                 <div key={field}>
-                  <h3>{getNextYears(index)} : <p style={{color: 'rgb(59, 94, 168)'}}>{datenWima[field]}</p></h3>
+                  <h3>{getNextYears(index)} : <p style={{ color: 'rgb(59, 94, 168)' }}>{datenWima[field]}</p></h3>
                   <input
                     className="rounded"
                     type="text"
@@ -237,7 +252,7 @@ const WimaHome = () => {
               <div className='row'>
                 <div className='col-12'>
 
-                  <h3 className='p-1'>Message fürd Hüser</h3>
+                  <h3 className='p-1'>Häuser Kontaktieren</h3>
 
                   {/* Year Selection */}
                   <div style={{
@@ -281,7 +296,7 @@ const WimaHome = () => {
                     className="rounded w-100"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    rows="11"
+                    rows={width<500? "15" : "10"}
                   />
 
                   <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Change text</button>
@@ -314,9 +329,18 @@ const WimaHome = () => {
 
                   <br></br>
                   {fetchedHouses.length < 1 ? "" :
-
-                    <button className='btn btn-secondary m-2' onClick={() => sendEmails()}>Send Emails</button>
+                    <>
+                      <h5>Enter your email</h5>
+                      <input onInput={(e) => setSelectedEmail(e.target.value)}></input>
+                    </>
                   }
+
+                  <br></br>
+                  {fetchedHouses.length < 1 ? "" :
+
+                    <button className='btn btn-secondary mt-3' onClick={() => sendEmails()}>Send Emails from "{selectedEmail}"</button>
+                  }
+
                 </div>
               </div>
             </div>
