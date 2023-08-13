@@ -80,6 +80,7 @@ export default function HousesWima() {
         "item": "wima"
       });
       doApi();
+      alert("Added to Wima successfully!")
     }
     catch (err) {
       console.log("error patching machane array in wima: ", err);
@@ -173,7 +174,7 @@ export default function HousesWima() {
     }
     setAddHouseModalOpen(false);
   };
-  
+
 
   const handleEditHouse = async (newHouse) => {
     try {
@@ -199,20 +200,37 @@ export default function HousesWima() {
 
 
   const deleteHouse = async (_id) => {
-
-    let url = API_URL + '/houses/machane/' + _id;
-    try {
-      await doApiMethod(url, "PATCH", {
-        "add": false,
-        "item": "wima"
-      });
-      doApi();
+    let removeMachane = window.confirm("Do you want to remove the machane from WIMA?");
+    if (removeMachane) {
+      let urlPatch = API_URL + '/houses/machane/' + _id;
+      try {
+        await doApiMethod(urlPatch, "PATCH", {
+          "add": false,
+          "item": "wima"
+        });
+        doApi();
+      }
+      catch (err) {
+        console.log("error patching machane array in wima: ", err);
+      }
     }
-    catch (err) {
-      console.log("error patching machane array in wima: ", err);
+    else {
+      let deleteEntireHouse = window.confirm("Careful: Do you want to delete the house entirely?");
+      if (deleteEntireHouse) {
+        let urlDelete = API_URL + '/houses/delete/' + _id;
+        try {
+          await doApiMethod(urlDelete, "DELETE");
+          console.log("House deleted successfully");
+          doApi();
+        }
+        catch (err) {
+          console.log("Error deleting the entire house:", err);
+        }
+        return;
+      }
     }
-
   }
+
 
   const changeEmailStatus = async (_id, field, value) => {
     try {
@@ -254,7 +272,7 @@ export default function HousesWima() {
               return (
                 <tr key={item._id}>
                   <td>{item.name}</td>
-                  <td style={{minWidth:"80px"}}>
+                  <td style={{ minWidth: "80px" }}>
                     {["emailSentWima", "emailSentWima2", "emailSentWima3", "emailSentWima4"].map((field, index) => (
                       <>
                         {getNextYears(index)} {" "}
@@ -301,9 +319,8 @@ export default function HousesWima() {
 
                   <td>
                     <button className="btn btn-danger m-2" onClick={() => {
-                      if (window.confirm("Überleg nomal!")) {
-                        deleteHouse(item._id)
-                      }
+                      deleteHouse(item._id)
+
                     }}>X</button>
 
                     <button className="btn btn-warning m-2" onClick={() => {
@@ -320,16 +337,22 @@ export default function HousesWima() {
           </tbody>
         </table>
       </div>
-      <select value={machanePatchValue} className="btn btn-warning m-2" onChange={(e) => {
-        setMachanePatchValue(e.target.value)
-        changeMachaneArray(e.target.value)
-      }}
-      ><label>Add existing House</label>
-        <option value="" disabled hidden>Add existing House</option>
+      <select
+        value="default"
+        className="btn btn-warning m-2"
+        onChange={(e) => {
+          setMachanePatchValue(e.target.value);
+          if (e.target.value !== "default") {
+            changeMachaneArray(e.target.value);
+          }
+        }}
+      >
+        <option value="default" disabled>Add existing House</option>
         {allHouses.map((item, i) => {
-          return <option value={item._id}>{item.name}</option>
+          return <option key={i} value={item._id}>{item.name}</option>
         })}
       </select>
+
 
       <button className="btn btn-warning m-2" onClick={() => {
         setTimeout(() => {

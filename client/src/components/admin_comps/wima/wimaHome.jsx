@@ -7,6 +7,7 @@ import ApplicantsWima from './applicantsWima'
 import HousesWima from './housesWima';
 import WimaSheet from './wimaSheet'
 import Websites from './websites';
+import useWindowWidth from '../../../general_comps/useWidth';
 
 
 
@@ -33,8 +34,9 @@ const WimaHome = () => {
 
   const [selectedEmail, setSelectedEmail] = useState("");
 
-
   const { loadHouses, setLoadHouses } = useContext(LoadHousesContext);
+
+  let  width = useWindowWidth();
 
   useEffect(() => {
     if (admin) {
@@ -294,7 +296,7 @@ const WimaHome = () => {
                     className="rounded w-100"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    rows="11"
+                    rows={width<500? "15" : "10"}
                   />
 
                   <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Change text</button>
