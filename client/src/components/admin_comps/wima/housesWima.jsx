@@ -254,7 +254,7 @@ export default function HousesWima() {
               return (
                 <tr key={item._id}>
                   <td>{item.name}</td>
-                  <td style={{ minWidth: "20vw" }}>
+                  <td style={{minWidth:"80px"}}>
                     {["emailSentWima", "emailSentWima2", "emailSentWima3", "emailSentWima4"].map((field, index) => (
                       <>
                         {getNextYears(index)} {" "}
@@ -344,7 +344,6 @@ export default function HousesWima() {
           <EditHouseModal app={house} onSave={handleEditHouse} onClose={() => setEditHouseModalEditOpen(false)} />
         )
       }
-
       {
         addHouseModalOpen && (
           <AddHouseModal onSave={handleAddHouse} onClose={() => setAddHouseModalOpen(false)} />

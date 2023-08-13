@@ -14,7 +14,7 @@ var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 router.post('/sendEmail', auth, async (req, res) => {
     try {
-      const { houseIds, message, emailSentField } = req.body;
+      const { houseIds, message, emailSentField, email } = req.body;
   
       const houses = await HousesModel.find({
         _id: { $in: houseIds },
@@ -27,7 +27,7 @@ router.post('/sendEmail', auth, async (req, res) => {
         sendSmtpEmail.to = [{ email:house.email}];
         sendSmtpEmail.subject = 'Anfrage Hausvermietung';
         sendSmtpEmail.htmlContent = message;
-        sendSmtpEmail.sender = { name: 'Jaron Treyer', email: 'jaron.111@hotmail.com' };
+        sendSmtpEmail.sender = { name: "BA Schweiz", email: email };
   
         await apiInstance.sendTransacEmail(sendSmtpEmail).then(async function(data) {
           console.log('API called successfully. Returned data: ' + data);
