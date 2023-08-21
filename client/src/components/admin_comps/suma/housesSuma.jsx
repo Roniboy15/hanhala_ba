@@ -80,6 +80,7 @@ export default function HousesSuma() {
         "item": "suma"
       });
       doApi();
+      alert("Added to Suma successfully!")
     }
     catch (err) {
       console.log("error patching machane array in suma: ", err);
@@ -113,14 +114,17 @@ export default function HousesSuma() {
   const getNextYears = (index = 0) => {
     let currentYear = (new Date()).getFullYear();
     let nextYear = currentYear + index;
+    let afterNextYear = currentYear + index + 1;
 
     // Convert the years to strings
     nextYear = nextYear.toString();
+    afterNextYear = afterNextYear.toString();
 
     // Get the last two digits
     nextYear = nextYear.slice(-2);
+    afterNextYear = afterNextYear.slice(-2);
 
-    return `${nextYear}`;
+    return `${nextYear}/${afterNextYear}`;
   }
 
 
@@ -156,10 +160,10 @@ export default function HousesSuma() {
   };
 
   const handleAddHouse = async (newHouse) => {
+    console.log("add House", newHouse)
     try {
       const data = await doApiMethod(API_URL + '/houses/newHouse', "POST", newHouse);
       setHouses([...houses, data]);
-
     }
     catch (err) {
       console.log("new house", err)
@@ -170,6 +174,7 @@ export default function HousesSuma() {
     }
     setAddHouseModalOpen(false);
   };
+
 
   const handleEditHouse = async (newHouse) => {
     try {
@@ -195,20 +200,37 @@ export default function HousesSuma() {
 
 
   const deleteHouse = async (_id) => {
-
-    let url = API_URL + '/houses/machane/' + _id;
-    try {
-      await doApiMethod(url, "PATCH", {
-        "add": false,
-        "item": "suma"
-      });
-      doApi();
+    let removeMachane = window.confirm("Do you want to remove the machane from SUMA?");
+    if (removeMachane) {
+      let urlPatch = API_URL + '/houses/machane/' + _id;
+      try {
+        await doApiMethod(urlPatch, "PATCH", {
+          "add": false,
+          "item": "suma"
+        });
+        doApi();
+      }
+      catch (err) {
+        console.log("error patching machane array in suma: ", err);
+      }
     }
-    catch (err) {
-      console.log("error patching machane array in suma: ", err);
+    else {
+      let deleteEntireHouse = window.confirm("Careful: Do you want to delete the house entirely?");
+      if (deleteEntireHouse) {
+        let urlDelete = API_URL + '/houses/delete/' + _id;
+        try {
+          await doApiMethod(urlDelete, "DELETE");
+          console.log("House deleted successfully");
+          doApi();
+        }
+        catch (err) {
+          console.log("Error deleting the entire house:", err);
+        }
+        return;
+      }
     }
-
   }
+
 
   const changeEmailStatus = async (_id, field, value) => {
     try {
@@ -250,7 +272,7 @@ export default function HousesSuma() {
               return (
                 <tr key={item._id}>
                   <td>{item.name}</td>
-                  <td style={{ minWidth: "20vw" }}>
+                  <td style={{ minWidth: "80px" }}>
                     {["emailSentSuma", "emailSentSuma2", "emailSentSuma3", "emailSentSuma4"].map((field, index) => (
                       <>
                         {getNextYears(index)} {" "}
@@ -297,9 +319,8 @@ export default function HousesSuma() {
 
                   <td>
                     <button className="btn btn-danger m-2" onClick={() => {
-                      if (window.confirm("Überleg nomal!")) {
-                        deleteHouse(item._id)
-                      }
+                      deleteHouse(item._id)
+
                     }}>X</button>
 
                     <button className="btn btn-warning m-2" onClick={() => {
@@ -316,16 +337,22 @@ export default function HousesSuma() {
           </tbody>
         </table>
       </div>
-      <select value={machanePatchValue} className="btn btn-warning m-2" onChange={(e) => {
-        setMachanePatchValue(e.target.value)
-        changeMachaneArray(e.target.value)
-      }}
-      ><label>Add existing House</label>
-        <option value="" disabled hidden>Add existing House</option>
+      <select
+        value="default"
+        className="btn btn-warning m-2"
+        onChange={(e) => {
+          setMachanePatchValue(e.target.value);
+          if (e.target.value !== "default") {
+            changeMachaneArray(e.target.value);
+          }
+        }}
+      >
+        <option value="default" disabled>Add existing House</option>
         {allHouses.map((item, i) => {
-          return <option value={item._id}>{item.name}</option>
+          return <option key={i} value={item._id}>{item.name}</option>
         })}
       </select>
+
 
       <button className="btn btn-warning m-2" onClick={() => {
         setTimeout(() => {
@@ -340,7 +367,6 @@ export default function HousesSuma() {
           <EditHouseModal app={house} onSave={handleEditHouse} onClose={() => setEditHouseModalEditOpen(false)} />
         )
       }
-
       {
         addHouseModalOpen && (
           <AddHouseModal onSave={handleAddHouse} onClose={() => setAddHouseModalOpen(false)} />

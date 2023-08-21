@@ -14,7 +14,7 @@ const updateDataYearly = cron.schedule('0 0 1 1 *', async () => {
             date.datum = date.datum2;
             date.datum2 = date.datum3;
             date.datum3 = date.datum4;
-            date.datum4 = undefined;
+            date.datum4 = "";
 
             // Save the updated date document
             await date.save();

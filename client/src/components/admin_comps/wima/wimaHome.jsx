@@ -49,6 +49,11 @@ const WimaHome = () => {
   }, [selectedYear]);
 
   useEffect(() => {
+    addDateToMessageAutomatically();
+}, [selectedYear]);
+
+
+  useEffect(() => {
     fetchHouses();
   }, [loadHouses]);
 
@@ -61,6 +66,47 @@ const WimaHome = () => {
     }
     setNewMessage(datenWima.message)
   }, [datenWima])
+
+  const addDateToMessageAutomatically = () => {
+    let currentMessage = newMessage || datenWima.message;
+
+    // Based on the selected year, decide which date to use:
+    let selectedDate;
+    switch (selectedYear) {
+        case "1":
+            selectedDate = datenWima.datum;
+            break;
+        case "2":
+            selectedDate = datenWima.datum2;
+            break;
+        case "3":
+            selectedDate = datenWima.datum3;
+            break;
+        case "4":
+            selectedDate = datenWima.datum4;
+            break;
+        default:
+            return; // exit the function if no valid year is selected
+    }
+
+    if(selectedDate == ""){
+      selectedDate = "DATE"
+    }
+
+    if (currentMessage.includes("DATE")) {
+        currentMessage = currentMessage.replace("DATE", selectedDate);
+    } else {
+        let dateRegex = /\d{2}\.\d{2}\.\d{4}-\d{2}\.\d{2}\.\d{4}/g;
+        if(dateRegex.test(currentMessage)) {
+            currentMessage = currentMessage.replace(dateRegex, selectedDate);
+        } 
+    }
+
+    setNewMessage(currentMessage);
+};
+
+
+
 
   const fetchHouses = async () => {
     console.log(selectedYear)
@@ -116,29 +162,6 @@ const WimaHome = () => {
       console.error("Error while changing date:", error.message);
     }
   }
-
-
-
-
-  const addDateToMessage = () => {
-    let currentMessage = newMessage || datenWima.message;
-
-    // Check if the word 'date' exists in the message
-    if (currentMessage.includes("date")) {
-      // Replace 'date' with the actual date
-      currentMessage = currentMessage.replace("date", datenWima.datum);
-    } else {
-      // If 'date' is not in the message, replace any date (in 'DD.MM.YY-DD.MM.YY' format) with the actual date
-      let dateRegex = /\d{2}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}/g;
-      currentMessage = currentMessage.replace(dateRegex, datenWima.datum);
-    }
-
-    console.log(currentMessage);
-    setNewMessage(currentMessage);
-  };
-
-
-
 
   const changeMessage = async (field) => {
     try {
@@ -299,8 +322,8 @@ const WimaHome = () => {
                     rows={width<500? "15" : "10"}
                   />
 
-                  <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Change text</button>
-                  <button className='btn btn-secondary m-2' onClick={addDateToMessage}>Add Date to Message</button>
+                  <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Save text</button>
+                  
                   <br></br><br></br>
                   {/* Map over the houses and add a checkbox to each */}
                   {selectedYear === undefined ? "Choose a year!" : fetchedHouses.length < 1 ? "You contacted all houses! Add Houses or activate Wima at existing houses" :
