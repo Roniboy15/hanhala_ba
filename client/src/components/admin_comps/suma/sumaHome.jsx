@@ -7,6 +7,7 @@ import ApplicantsSuma from './applicantsSuma'
 import HousesSuma from './housesSuma';
 import SumaSheet from './sumaSheet'
 import Websites from './websites';
+import useWindowWidth from '../../../general_comps/useWidth';
 
 
 
@@ -31,8 +32,11 @@ const SumaHome = () => {
 
   const [selectedYear, setSelectedYear] = useState(undefined);
 
+  const [selectedEmail, setSelectedEmail] = useState("");
 
   const { loadHouses, setLoadHouses } = useContext(LoadHousesContext);
+
+  let  width = useWindowWidth();
 
   useEffect(() => {
     if (admin) {
@@ -43,6 +47,11 @@ const SumaHome = () => {
   useEffect(() => {
     fetchHouses();
   }, [selectedYear]);
+
+  useEffect(() => {
+    addDateToMessageAutomatically();
+}, [selectedYear]);
+
 
   useEffect(() => {
     fetchHouses();
@@ -58,9 +67,53 @@ const SumaHome = () => {
     setNewMessage(datenSuma.message)
   }, [datenSuma])
 
+  const addDateToMessageAutomatically = () => {
+    let currentMessage = newMessage || datenSuma.message;
+
+    // Based on the selected year, decide which date to use:
+    let selectedDate;
+    switch (selectedYear) {
+        case "1":
+            selectedDate = datenSuma.datum;
+            break;
+        case "2":
+            selectedDate = datenSuma.datum2;
+            break;
+        case "3":
+            selectedDate = datenSuma.datum3;
+            break;
+        case "4":
+            selectedDate = datenSuma.datum4;
+            break;
+        default:
+            return; // exit the function if no valid year is selected
+    }
+
+    if(selectedDate == ""){
+      selectedDate = "DATE"
+    }
+
+    if (currentMessage.includes("DATE")) {
+        currentMessage = currentMessage.replace("DATE", selectedDate);
+    } else {
+        let dateRegex = /\d{2}\.\d{2}\.\d{4}-\d{2}\.\d{2}\.\d{4}/g;
+        if(dateRegex.test(currentMessage)) {
+            currentMessage = currentMessage.replace(dateRegex, selectedDate);
+        } 
+    }
+
+    setNewMessage(currentMessage);
+};
+
+
+
+
   const fetchHouses = async () => {
+    console.log(selectedYear)
     if (selectedYear === undefined) return;
     const response = await doApiGet(API_URL + '/houses/email/Suma/' + selectedYear);
+    console.log(response)
+
     setFetchedHouses(response);
   };
 
@@ -82,7 +135,7 @@ const SumaHome = () => {
 
   const getNextYears = (index = 0) => {
     const currentYear = (new Date()).getFullYear();
-    return `${currentYear + index}`;
+    return `${currentYear + index}/${currentYear + index + 1}`;
   }
 
 
@@ -109,29 +162,6 @@ const SumaHome = () => {
       console.error("Error while changing date:", error.message);
     }
   }
-
-
-
-
-  const addDateToMessage = () => {
-    let currentMessage = newMessage || datenSuma.message;
-
-    // Check if the word 'date' exists in the message
-    if (currentMessage.includes("date")) {
-      // Replace 'date' with the actual date
-      currentMessage = currentMessage.replace("date", datenSuma.datum);
-    } else {
-      // If 'date' is not in the message, replace any date (in 'DD.MM.YY-DD.MM.YY' format) with the actual date
-      let dateRegex = /\d{2}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}/g;
-      currentMessage = currentMessage.replace(dateRegex, datenSuma.datum);
-    }
-
-    console.log(currentMessage);
-    setNewMessage(currentMessage);
-  };
-
-
-
 
   const changeMessage = async (field) => {
     try {
@@ -169,14 +199,25 @@ const SumaHome = () => {
     }
   };
 
+  const isValidEmail = (email) => {
+    // Regular expression pattern for basic email validation
+    let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+}
 
   const sendEmails = async () => {
-    if(window.confirm("Are you sure you want to send the email/s?")) {
+  if (!isValidEmail(selectedEmail)) {
+      alert("Please enter a valid email address from which the mail/s should be sent!");
+      return;
+  }
+  
+    if (window.confirm("Are you sure you want to send the email/s?")) {
       try {
         const response = await doApiMethod(API_URL + '/email/sendEmail', "POST", {
           houseIds: selectedHouseIds,
           message: (newMessage || datenSuma.message).replace(/\n/g, '<br/>'),
-          emailSentField: selectedYear == 1 ? `emailSent` : `emailSent${selectedYear}`
+          emailSentField: selectedYear == 1 ? `emailSentSuma` : `emailSentSuma${selectedYear}`,
+          email: selectedEmail
         });
         setSelectedHouseIds([]); // Clear the selected houses after sending the emails
         setLoadHouses(!loadHouses)
@@ -188,7 +229,10 @@ const SumaHome = () => {
       console.log('Email sending canceled.');
     }
   };
-  
+
+
+
+
 
 
 
@@ -201,7 +245,7 @@ const SumaHome = () => {
             {
               ["datum", "datum2", "datum3", "datum4"].map((field, index) => (
                 <div key={field}>
-                  <h3>{getNextYears(index)} : <p style={{color: 'rgb(59, 94, 168)'}}>{datenSuma[field]}</p></h3>
+                  <h3>{getNextYears(index)} : <p style={{ color: 'rgb(59, 94, 168)' }}>{datenSuma[field]}</p></h3>
                   <input
                     className="rounded"
                     type="text"
@@ -225,13 +269,13 @@ const SumaHome = () => {
           </div>
           <SumaSheet />
           <ApplicantsSuma />
-            <Websites />
+          <Websites />
           <div className='col-11 col-md-12 mt-2 bg-dark-subtle bg-opacity-25 rounded'>
             <div className='container p-2'>
               <div className='row'>
                 <div className='col-12'>
 
-                  <h3 className='p-1'>Message fürd Hüser</h3>
+                  <h3 className='p-1'>Häuser Kontaktieren</h3>
 
                   {/* Year Selection */}
                   <div style={{
@@ -275,11 +319,11 @@ const SumaHome = () => {
                     className="rounded w-100"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    rows="11"
+                    rows={width<500? "15" : "10"}
                   />
 
-                  <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Change text</button>
-                  <button className='btn btn-secondary m-2' onClick={addDateToMessage}>Add Date to Message</button>
+                  <button className='btn btn-secondary m-2' onClick={() => changeMessage("message")}>Save text</button>
+                  
                   <br></br><br></br>
                   {/* Map over the houses and add a checkbox to each */}
                   {selectedYear === undefined ? "Choose a year!" : fetchedHouses.length < 1 ? "You contacted all houses! Add Houses or activate Suma at existing houses" :
@@ -308,9 +352,18 @@ const SumaHome = () => {
 
                   <br></br>
                   {fetchedHouses.length < 1 ? "" :
-
-                    <button className='btn btn-secondary m-2' onClick={() => sendEmails()}>Send Emails</button>
+                    <>
+                      <h5>Enter your email</h5>
+                      <input onInput={(e) => setSelectedEmail(e.target.value)}></input>
+                    </>
                   }
+
+                  <br></br>
+                  {fetchedHouses.length < 1 ? "" :
+
+                    <button className='btn btn-secondary mt-3' onClick={() => sendEmails()}>Send Emails from "{selectedEmail}"</button>
+                  }
+
                 </div>
               </div>
             </div>
